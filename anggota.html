@@ -354,6 +354,39 @@
       margin-bottom: 12px;
     }
 
+    .music-progress {
+      margin-bottom: 12px;
+      padding: 0 6px;
+    }
+
+    .time-row {
+      display: flex;
+      justify-content: space-between;
+      color: rgba(36, 49, 40, 0.68);
+      font-size: 0.64rem;
+      font-weight: 700;
+      letter-spacing: 0.04em;
+      margin-bottom: 7px;
+    }
+
+    .progress-track {
+      position: relative;
+      height: 7px;
+      width: 100%;
+      border-radius: 999px;
+      overflow: hidden;
+      background: rgba(36, 49, 40, 0.08);
+    }
+
+    .progress-fill {
+      position: absolute;
+      inset: 0 auto 0 0;
+      width: 0%;
+      border-radius: inherit;
+      background: linear-gradient(90deg, var(--clay), #d18d6a, #f0c492);
+      box-shadow: 0 0 12px rgba(191, 93, 67, 0.26);
+    }
+
     .album-art {
       width: 52px;
       height: 52px;
@@ -732,6 +765,16 @@
       </div>
     </div>
 
+    <div class="music-progress" aria-label="Progress lagu">
+      <div class="time-row">
+        <span id="currentTimeLabel">0:00</span>
+        <span id="durationLabel">0:00</span>
+      </div>
+      <div class="progress-track">
+        <div class="progress-fill" id="progressFill"></div>
+      </div>
+    </div>
+
     <div class="track-list">
       <button class="track-btn active" data-track="Shape of My Heart" data-src="assets/Backstreet Boys - Shape Of My Heart (Official HD Video).mp3">Shape of My Heart</button>
       <button class="track-btn" data-track="About You" data-src="assets/The 1975 - About You (Official).mp3">About You</button>
@@ -748,7 +791,17 @@
     const musicPanel = document.querySelector('.music-panel');
     const currentTrackName = document.getElementById('currentTrackName');
     const statusPill = document.getElementById('statusPill');
+    const currentTimeLabel = document.getElementById('currentTimeLabel');
+    const durationLabel = document.getElementById('durationLabel');
+    const progressFill = document.getElementById('progressFill');
     const STORAGE_KEY = 'mabim_music_state';
+
+    function formatTime(totalSeconds) {
+      if (!Number.isFinite(totalSeconds) || totalSeconds < 0) return '0:00';
+      const minutes = Math.floor(totalSeconds / 60);
+      const seconds = Math.floor(totalSeconds % 60).toString().padStart(2, '0');
+      return `${minutes}:${seconds}`;
+    }
 
     function syncTrackLabel() {
       const activeTrack = document.querySelector('.track-btn.active');
@@ -807,12 +860,27 @@
       });
     });
 
+    function updateProgressBar() {
+      if (!Number.isFinite(audio.duration) || audio.duration <= 0) {
+        durationLabel.textContent = '0:00';
+        currentTimeLabel.textContent = '0:00';
+        progressFill.style.width = '0%';
+        return;
+      }
+
+      const progress = (audio.currentTime / audio.duration) * 100;
+      progressFill.style.width = `${progress}%`;
+      currentTimeLabel.textContent = formatTime(audio.currentTime);
+      durationLabel.textContent = formatTime(audio.duration);
+    }
+
     function updateMusicState(isPlaying) {
       playToggle.textContent = isPlaying ? 'Pause' : 'Play';
       playToggle.classList.toggle('is-playing', isPlaying);
       musicPanel.classList.toggle('playing', isPlaying);
       statusPill.textContent = isPlaying ? 'Playing' : 'Paused';
       syncTrackLabel();
+      updateProgressBar();
     }
 
     function playAudio() {
@@ -875,7 +943,11 @@
       }, { once: true });
     }
 
-    audio.addEventListener('timeupdate', saveMusicState);
+    audio.addEventListener('timeupdate', () => {
+      updateProgressBar();
+      saveMusicState();
+    });
+    audio.addEventListener('loadedmetadata', updateProgressBar);
     window.addEventListener('beforeunload', saveMusicState);
   </script>
 </body>
