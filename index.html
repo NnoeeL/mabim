@@ -380,6 +380,7 @@
       border-radius: 999px;
       overflow: hidden;
       background: rgba(36, 49, 40, 0.08);
+      cursor: pointer;
     }
 
     .progress-fill {
@@ -389,6 +390,33 @@
       border-radius: inherit;
       background: linear-gradient(90deg, var(--clay), #d18d6a, #f0c492);
       box-shadow: 0 0 12px rgba(191, 93, 67, 0.26);
+    }
+
+    .player-controls {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+      margin: 10px 0 12px;
+    }
+
+    .nav-btn {
+      width: 32px;
+      height: 32px;
+      border: 1px solid rgba(36, 49, 40, 0.08);
+      border-radius: 50%;
+      background: rgba(255,255,255,0.5);
+      color: var(--ink);
+      font-size: 1.05rem;
+      font-weight: 800;
+      cursor: pointer;
+      transition: all 180ms ease;
+    }
+
+    .nav-btn:hover {
+      transform: translateY(-1px);
+      border-color: rgba(191, 93, 67, 0.2);
+      background: rgba(191, 93, 67, 0.08);
     }
 
     .album-art {
@@ -727,19 +755,27 @@
       </div>
     </div>
 
+    <div class="player-controls">
+      <button class="nav-btn" id="prevTrackBtn" aria-label="Lagu sebelumnya">‹</button>
+      <button class="play-toggle" id="playToggle" aria-label="Putar musik">Play</button>
+      <button class="nav-btn" id="nextTrackBtn" aria-label="Lagu berikutnya">›</button>
+    </div>
+
     <div class="track-list">
       <button class="track-btn active" data-track="Shape of My Heart" data-src="assets/Backstreet Boys - Shape Of My Heart (Official HD Video).mp3">Shape of My Heart</button>
       <button class="track-btn" data-track="About You" data-src="assets/The 1975 - About You (Official).mp3">About You</button>
       <button class="track-btn" data-track="Merry Christmas I Miss You" data-src="assets/Merry Christmas, i miss you - Alex Crichton  Lirik Terjemahan Indonesia.mp3">Merry Christmas I Miss You</button>
     </div>
-    <button class="play-toggle" id="playToggle" aria-label="Putar musik">Play</button>
     <audio id="bgAudio" loop preload="auto"></audio>
   </aside>
 
   <script>
     const audio = document.getElementById('bgAudio');
-    const buttons = document.querySelectorAll('.track-btn');
+    const buttons = [...document.querySelectorAll('.track-btn')];
     const playToggle = document.getElementById('playToggle');
+    const prevTrackBtn = document.getElementById('prevTrackBtn');
+    const nextTrackBtn = document.getElementById('nextTrackBtn');
+    const progressTrack = document.querySelector('.progress-track');
     const musicPanel = document.querySelector('.music-panel');
     const currentTrackName = document.getElementById('currentTrackName');
     const statusPill = document.getElementById('statusPill');
@@ -755,6 +791,14 @@
       return `${minutes}:${seconds}`;
     }
 
+    function getSavedMusicState() {
+      try {
+        return JSON.parse(localStorage.getItem(STORAGE_KEY) || '{}');
+      } catch (error) {
+        return {};
+      }
+    }
+
     function syncTrackLabel() {
       const activeTrack = document.querySelector('.track-btn.active');
       if (currentTrackName && activeTrack) {
@@ -766,10 +810,15 @@
       const activeTrack = document.querySelector('.track-btn.active');
       const state = {
         src: activeTrack ? activeTrack.dataset.src : audio.src,
-        playing: !audio.paused,
+        playing: !audio.paused && Boolean(audio.src),
         currentTime: Number.isFinite(audio.currentTime) ? audio.currentTime : 0
       };
-      localStorage.setItem(STORAGE_KEY, JSON.stringify(state));
+
+      try {
+        localStorage.setItem(STORAGE_KEY, JSON.stringify(state));
+      } catch (error) {
+        console.warn('Music state could not be saved:', error);
+      }
     }
 
     function clamp(value, min, max) {
@@ -826,6 +875,27 @@
       durationLabel.textContent = formatTime(audio.duration);
     }
 
+    function setTrackByIndex(index) {
+      const targetButton = buttons[index];
+      if (!targetButton) return;
+      loadTrack(targetButton);
+    }
+
+    function moveTrack(step) {
+      const activeIndex = buttons.findIndex((button) => button.classList.contains('active'));
+      const nextIndex = (activeIndex + step + buttons.length) % buttons.length;
+      setTrackByIndex(nextIndex);
+    }
+
+    function seekTrack(event) {
+      if (!Number.isFinite(audio.duration) || audio.duration <= 0) return;
+      const rect = progressTrack.getBoundingClientRect();
+      const ratio = clamp((event.clientX - rect.left) / rect.width, 0, 1);
+      audio.currentTime = ratio * audio.duration;
+      updateProgressBar();
+      saveMusicState();
+    }
+
     function updateMusicState(isPlaying) {
       playToggle.textContent = isPlaying ? 'Pause' : 'Play';
       playToggle.classList.toggle('is-playing', isPlaying);
@@ -835,12 +905,20 @@
       updateProgressBar();
     }
 
+    function resumeMusicAfterInteraction() {
+      if (!audio.src || !audio.paused) return;
+      playAudio();
+    }
+
     function playAudio() {
+      if (!audio.src) return;
       audio.muted = false;
       audio.volume = 0.7;
       const playPromise = audio.play();
       if (playPromise && typeof playPromise.catch === 'function') {
         playPromise.catch(() => {
+          document.addEventListener('pointerdown', resumeMusicAfterInteraction, { once: true });
+          document.addEventListener('keydown', resumeMusicAfterInteraction, { once: true });
           updateMusicState(false);
         });
       }
@@ -872,22 +950,39 @@
       }
     });
 
-    const saved = JSON.parse(localStorage.getItem(STORAGE_KEY) || '{}');
-    const savedButton = saved.src
-      ? [...buttons].find((button) => button.dataset.src === saved.src)
-      : null;
+    prevTrackBtn.addEventListener('click', () => moveTrack(-1));
+    nextTrackBtn.addEventListener('click', () => moveTrack(1));
+    progressTrack.addEventListener('click', seekTrack);
 
-    const firstTrack = savedButton || document.querySelector('.track-btn.active');
-    if (firstTrack) {
+    function restoreSavedMusicState() {
+      const saved = getSavedMusicState();
+      const savedButton = saved.src
+        ? [...buttons].find((button) => button.dataset.src === saved.src)
+        : null;
+      const firstTrack = savedButton || document.querySelector('.track-btn.active');
+
+      if (!firstTrack) return;
+
       buttons.forEach((btn) => btn.classList.toggle('active', btn === firstTrack));
       audio.src = encodeURI(firstTrack.dataset.src);
       syncTrackLabel();
       audio.load();
+
       audio.addEventListener('loadedmetadata', () => {
-        if (saved.currentTime) {
-          audio.currentTime = Math.min(saved.currentTime, audio.duration || saved.currentTime);
+        const savedTime = Number(saved.currentTime) || 0;
+        if (Number.isFinite(audio.duration) && audio.duration > 0) {
+          audio.currentTime = Math.min(savedTime, audio.duration - 0.1);
         }
+
         if (saved.playing) {
+          const resumePlayback = () => {
+            if (audio.paused) {
+              playAudio();
+            }
+          };
+
+          document.addEventListener('pointerdown', resumePlayback, { once: true });
+          document.addEventListener('keydown', resumePlayback, { once: true });
           playAudio();
         } else {
           updateMusicState(false);
@@ -895,11 +990,15 @@
       }, { once: true });
     }
 
+    restoreSavedMusicState();
+
     audio.addEventListener('timeupdate', () => {
       updateProgressBar();
       saveMusicState();
     });
     audio.addEventListener('loadedmetadata', updateProgressBar);
+    audio.addEventListener('play', () => saveMusicState());
+    audio.addEventListener('pause', () => saveMusicState());
     window.addEventListener('beforeunload', saveMusicState);
     const heroSlides = document.querySelectorAll('.hero-slide');
     let heroIndex = 0;
