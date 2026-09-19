@@ -1,0 +1,148 @@
+<!doctype html>
+<html lang="id"><head><script>window["__codeletBootstrap__"]=JSON.parse('{"A":"A","B":"20260918-05-13efa67","C":{"Abril Fatface":"YACgEZbkUVE,0","Alfa Slab One":"YACgEYS9sJU,0","Anton":"YACgEcYqQ-A,0","Archivo":"YACgEZulLoA,0","Arial Narrow":"YAGyDvJ_4Ts,0","Arial Rounded MT Bold":"YAFcfoaHu-s,0","Arial":"YAGyDvJ_4Ts,0","Avenir Next":"YAFcfmNq6UY,0","Baloo 2":"YADK30bC6HQ,0","Bebas Neue":"YACgESME5ew,0","Bricolage Grotesque":"YAFyMcdwzpc,0","Broken Glyph":"YADZ-exUkv0,0","Canva Sans":"YAFdJjTk5UU,1","Caveat":"YALBs2ploWQ,0","Comic Sans MS":"YAFcfvtOAUY,1","Cormorant Garamond":"YAFdJhX-538,0","Courier New":"YAGzXiGs0_8,0","Courier Prime":"YAD1aFjegN8,0","DM Sans":"YAD1aU3sLnI,0","DM Serif Display":"YAD1aYG82rc,0","Forum":"YACgEcnnqB4,0","Fraunces":"YAFdJpU7Kkk,0","Georgia":"YAGzXkO0pEM,0","Ghost Mono":"YAHQutsX00Q,0","Hanken Grotesk":"YAFcfhwp99E,0","Helvetica Neue":"YAFcf6CtJfI,0","Helvetica":"YAFcf6CtJfI,0","IBM Plex Mono":"YAFdJkmvhGI,0","Impact":"YAFcfnjI7Vk,0","Instrument Serif":"YAHFeOnZNEk,0","Inter":"YAFdJvSyp_k,3","Iowan Old Style":"YAGNIFa8j9o,0","Jacques Francois":"YADK3zbC6RM,0","JetBrains Mono":"YAFdJksXcAk,0","Josefin Sans":"YAFdJjvw9Ps,0","Lato":"YAFdJuFCnaw,0","Libre Baskerville":"YACgEUFdPdA,0","Lobster":"YAD8SnSjSFI,0","Lora":"YACgEXvxf8Q,0","Merriweather":"YACgEXvHxxs,0","Montserrat":"YAFdtQi73Xs,0","Nunito":"YAFdJoNRMmU,1","Oleo Script":"YACgEQQ14jI,0","Oswald":"YACgEQY10lw,0","Pacifico":"YADLjORQ1u4,0","Phantom Sans":"YAFdJvgJ5TU,0","Playfair Display":"YAFdJhem5V8,1","Plus Jakarta Sans":"YAGvf3_u0_Q,0","Poppins":"YAFdJjbTu24,1","Press Start 2P":"YAFyGr-8pmQ,0","Quicksand":"YAFdJpYtCxE,1","Raleway":"YAFdJhmxbVQ,1","Roboto Slab":"YAFdJswIKAg,0","Rockwell":"YAFcfyVZnN0,0","Rye":"YACgEdQP21k,0","Segoe UI":"YAHNdRD1Klw,0","Source Sans 3":"YAG4lO1Mj10,0","Source Serif 4":"YACgEfdj394,0","Space Grotesk":"YADZ-dYEmhg,0","Space Mono":"YADW1-vpsoc,0","Times New Roman":"YAGzXW3gftg,0","Times":"YAGzXW3gftg,0","Trebuchet MS":"YAFcfrglpVA,0","UV Display":"YAEdVfSSpYo,0","UV Sans":"YAFdJvgJ5TU,0","Ubuntu":"YACgERDU--Q,0","Verdana":"YAGzXTctYtQ,0","Work Sans":"YAGXhLOKv44,0","Yellowtail":"YACgEYG4kG4,0","ui-monospace":"YAD1aFjegN8,0","ui-sans-serif":"YACkoD1yZN0,0"}}');</script><script src="/_sdk/83d6dfdadcd4750a.telemetry_sdk.js" integrity="sha512-XS4Dvzp6vbagZS9vFErihvr8aO3S0tH78KWUefn06fmL4WYqryBtZj/IOLITYj7dFA4gPVvPg1W/JB1DK3uLNQ=="></script>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>STUDIO — Ruang Kami</title>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&amp;display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --ink: #243128;
+      --cream: #fbf7ef;
+      --clay: #bf5d43;
+      --clay-dark: #9f472f;
+      --sand: #eadbc8;
+    }
+
+    html { scroll-behavior: smooth; }
+    body {
+      margin: 0;
+      font-family: "DM Sans", sans-serif;
+      color: var(--ink);
+      overflow-x: hidden;
+    }
+
+    .page-shell { width: 100%; min-height: 100%; }
+    .nav-link {
+      position: relative;
+      transition: color 180ms ease;
+    }
+    .nav-link::after {
+      content: "";
+      position: absolute;
+      width: 0;
+      height: 1px;
+      left: 0;
+      bottom: -5px;
+      background: currentColor;
+      transition: width 180ms ease;
+    }
+    .nav-link:hover::after, .nav-link:focus-visible::after { width: 100%; }
+
+    .action-button {
+      transition: transform 180ms ease, box-shadow 180ms ease, background 180ms ease;
+    }
+    .action-button:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 12px 28px rgba(159, 71, 47, 0.22);
+    }
+    .action-button:focus-visible,
+    .nav-link:focus-visible {
+      outline: 3px solid rgba(191, 93, 67, 0.35);
+      outline-offset: 4px;
+    }
+
+    .hero-photo-frame {
+      aspect-ratio: 1 / 1;
+      overflow: hidden;
+      border-radius: 1.6rem;
+      box-shadow: 18px 18px 0 var(--sand);
+    }
+    .hero-photo-frame img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      object-position: center;
+    }
+
+    .reveal {
+      opacity: 0;
+      transform: translateY(18px);
+      animation: rise 650ms ease forwards;
+    }
+    .delay-1 { animation-delay: 100ms; }
+    .delay-2 { animation-delay: 200ms; }
+    .delay-3 { animation-delay: 300ms; }
+    .delay-4 { animation-delay: 360ms; }
+
+    @keyframes rise {
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      html { scroll-behavior: auto; }
+      .reveal { opacity: 1; transform: none; animation: none; }
+      .action-button { transition: none; }
+    }
+  </style>
+  <script src="https://cdn.tailwindcss.com/3.4.17" type="text/javascript"></script>
+  <script src="https://cdn.jsdelivr.net/npm/lucide@0.577.0/dist/umd/lucide.min.js" type="text/javascript"></script>
+  <script src="/_sdk/8de366929c5f3b48.data_sdk.js" type="text/javascript" integrity="sha512-TyQ8k8cZj66xe/aENmn6RyZpdOFZXbAo5+KBG3PeFM+Q4qMTHU8xAqmq4ADClNfPrstgQYV6OzZHwLTnElzB2g=="></script>
+  <script src="/_sdk/0ddbbee1c66b1212.editing_sdk.js" type="text/javascript" integrity="sha512-HQn5LM1yruQSbY78ATUril6QeOJ9xj7KqO64ltLtb4vBwI5Qv3/tloFFOndBPZTNZoeV5xKzuth5y6FTi9crsg=="></script>
+  <script src="/_sdk/765e1fea0cec97ce.resizing_sdk.js" type="text/javascript" integrity="sha512-IRTJnqww0+HQ5V/LlWEQrlD5SrYHaVvaeVoNe8HYQXoaguzUGheSd9+n9s6WOgaTcEH0g37DuINHZ9aqfzWjlw=="></script>
+ </head>
+ <body data-template-id="__page-root" style="background: rgb(251, 247, 239);">
+  <div class="page-shell">
+   <header id="top" class="w-full px-6 py-6 md:px-12 lg:px-20">
+    <nav aria-label="Navigasi utama" class="mx-auto flex max-w-7xl items-center justify-between gap-6"><a href="#home" data-template-id="brand-name" class="canva-link text-lg font-bold tracking-[0.16em]" style="color: rgb(36, 49, 40); font-weight: 700; font-style: normal; font-size: 18px; letter-spacing: 0.16rem;">STUDIO</a>
+     <div class="flex items-center gap-4 text-sm font-medium sm:gap-7"><a href="#home" data-template-id="nav-home" class="canva-link nav-link" style="color: rgb(36, 49, 40); font-weight: 500; font-style: normal; font-size: 14px;">Home</a> <a href="#about" data-template-id="nav-about" class="canva-link nav-link" style="color: rgb(36, 49, 40); font-weight: 500; font-style: normal; font-size: 14px;">About</a> <a href="#contact" data-template-id="nav-contact" class="canva-link nav-link" style="color: rgb(36, 49, 40); font-weight: 500; font-style: normal; font-size: 14px;">Contact</a>
+     </div>
+    </nav>
+   </header>
+   <main>
+    <section id="home" aria-labelledby="hero-title" class="w-full px-6 pb-20 pt-10 md:px-12 md:pb-28 md:pt-16 lg:px-20">
+     <div class="mx-auto grid max-w-7xl items-center gap-14 lg:grid-cols-2 lg:gap-20">
+      <div class="order-2 flex max-w-xl flex-col items-center text-center lg:order-1 lg:items-start lg:text-left">
+       <p data-template-id="hero-eyebrow" class="canva-text reveal delay-1 mb-5 text-xs font-bold uppercase tracking-[0.22em]" style="color: rgb(191, 93, 67); font-weight: 700; font-style: normal; font-size: 12px; letter-spacing: 0.18rem;">Tempat ide bertemu</p>
+       <h1 id="hero-title" data-template-id="hero-title" class="canva-text reveal delay-2 max-w-lg font-bold leading-[1.04] tracking-[-0.045em]" style="color: rgb(36, 49, 40); font-weight: 700; font-style: normal; font-size: 32px;">Selamat Datang di Ruang Kami</h1>
+       <p data-template-id="hero-subtitle" class="canva-text reveal delay-3 mt-6 max-w-md leading-relaxed" style="color: rgb(82, 96, 87); font-weight: 400; font-style: normal; font-size: 18px; line-height: 1.55;">Mari mengenal lebih jauh brand dan komunitas kami—ruang terbuka untuk berkreasi, berkolaborasi, dan tumbuh bersama.</p><button id="about-button" type="button" data-template-id="about-button" class="canva-button action-button reveal delay-4 mt-8 inline-flex items-center gap-3 rounded-full px-7 py-3.5 text-sm font-bold tracking-[0.11em]" style="background: rgb(191, 93, 67); color: rgb(255, 255, 255);"> <span data-template-id="about-button-text" class="canva-text" style="color: rgb(255, 255, 255); font-weight: 700; font-style: normal; font-size: 14px; letter-spacing: 0.1rem;">ABOUT US</span> <i data-lucide="arrow-down-right" aria-hidden="true" class="h-4 w-4"></i> </button>
+      </div>
+      <div class="order-1 reveal delay-2 mx-auto w-full max-w-[540px] lg:order-2">
+       <div class="hero-photo-frame"><img data-template-id="hero-image" class="canva-image" loading="lazy" src="https://images.pexels.com/photos/3184291/pexels-photo-3184291.jpeg?auto=compress&amp;cs=tinysrgb&amp;w=800" alt="Diverse team collaborating in a meeting, showcasing teamwork and cooperation in a modern workplace.">
+       </div>
+      </div>
+     </div>
+    </section>
+    <section id="about" aria-labelledby="about-title" data-template-id="about-section" class="canva-section w-full px-6 py-20 md:px-12 md:py-28 lg:px-20" style="background: rgb(241, 229, 214);">
+     <div class="mx-auto grid max-w-7xl gap-10 md:grid-cols-[0.8fr_1.2fr] md:items-start">
+      <div>
+       <p data-template-id="about-label" class="canva-text text-xs font-bold uppercase tracking-[0.22em]" style="color: rgb(191, 93, 67); font-weight: 700; font-style: normal; font-size: 12px; letter-spacing: 0.18rem;">Mengenal kami</p>
+       <h2 id="about-title" data-template-id="about-title" class="canva-text mt-4 font-bold leading-tight tracking-[-0.035em]" style="color: rgb(36, 49, 40); font-weight: 700; font-style: normal; font-size: 24px;">About Us</h2>
+      </div>
+      <div class="max-w-2xl">
+       <p data-template-id="about-copy" class="canva-text leading-relaxed" style="color: rgb(70, 82, 73); font-weight: 400; font-style: normal; font-size: 18px; line-height: 1.65;">Kami percaya bahwa karya terbaik lahir dari percakapan yang jujur, rasa ingin tahu, dan keberanian untuk mencoba. STUDIO adalah rumah bagi orang-orang yang ingin membangun gagasan bermakna bersama—dengan pendekatan yang hangat, terbuka, dan penuh perhatian pada detail.</p><button id="back-to-top" type="button" data-template-id="back-to-top" class="canva-button action-button mt-8 inline-flex items-center gap-2 rounded-full px-6 py-3 text-sm font-semibold" style="background: rgb(36, 49, 40); color: rgb(255, 255, 255);"> <i data-lucide="arrow-up" aria-hidden="true" class="h-4 w-4"></i> <span data-template-id="back-to-top-text" class="canva-text" style="color: rgb(255, 255, 255); font-weight: 600; font-style: normal; font-size: 14px;">Kembali ke atas</span> </button>
+      </div>
+     </div>
+    </section>
+   </main>
+   <footer id="contact" class="w-full px-6 py-8 md:px-12 lg:px-20">
+    <div class="mx-auto flex max-w-7xl flex-col justify-between gap-3 border-t border-[#243128]/15 pt-6 text-sm sm:flex-row">
+     <p data-template-id="footer-note" class="canva-text" style="color: rgb(82, 96, 87); font-weight: 400; font-style: normal; font-size: 14px;">STUDIO — ruang untuk ide yang bertumbuh.</p>
+     <p data-template-id="footer-contact" class="canva-text" style="color: rgb(82, 96, 87); font-weight: 400; font-style: normal; font-size: 14px;">Halo@studio.example</p>
+    </div>
+   </footer>
+  </div>
+  <script>
+    document.addEventListener("DOMContentLoaded", function () {
+      lucide.createIcons();
+
+      document.getElementById("about-button").addEventListener("click", function () {
+        document.getElementById("about").scrollIntoView({ behavior: "smooth", block: "start" });
+      });
+
+      document.getElementById("back-to-top").addEventListener("click", function () {
+        document.getElementById("top").scrollIntoView({ behavior: "smooth", block: "start" });
+      });
+    });
+  </script>
+ 
+</body></html>
