@@ -164,20 +164,30 @@
       right: 24px;
       top: 120px;
       width: 260px;
-      background: linear-gradient(180deg, rgba(255,255,255,0.88), rgba(249,244,238,0.82));
+      background: linear-gradient(180deg, rgba(255,255,255,0.72), rgba(246,238,230,0.74));
       backdrop-filter: blur(16px);
       border: 1px solid rgba(36, 49, 40, 0.08);
       box-shadow: 0 20px 40px rgba(36, 49, 40, 0.08);
       border-radius: 24px;
       padding: 16px 14px 14px;
       z-index: 10;
-      transition: transform 200ms ease, box-shadow 200ms ease, border-color 200ms ease;
+      filter: saturate(0.72) contrast(0.96);
+      transition: transform 200ms ease, box-shadow 200ms ease, border-color 200ms ease, filter 200ms ease;
+      cursor: grab;
+      user-select: none;
+      touch-action: none;
+    }
+
+    .music-panel.dragging {
+      cursor: grabbing;
+      transition: none;
     }
 
     .music-panel.playing {
-      border-color: rgba(191, 93, 67, 0.22);
-      box-shadow: 0 20px 42px rgba(191, 93, 67, 0.12);
+      border-color: rgba(191, 93, 67, 0.2);
+      box-shadow: 0 20px 42px rgba(191, 93, 67, 0.11);
       transform: translateY(-2px);
+      filter: saturate(0.8) contrast(0.97);
     }
 
     .music-head {
@@ -586,6 +596,46 @@
       };
       localStorage.setItem(STORAGE_KEY, JSON.stringify(state));
     }
+
+    function clamp(value, min, max) {
+      return Math.min(Math.max(value, min), max);
+    }
+
+    let dragState = null;
+
+    musicPanel.addEventListener('pointerdown', (event) => {
+      if (event.target.closest('.track-btn') || event.target.closest('.play-toggle')) {
+        return;
+      }
+
+      dragState = {
+        offsetX: event.clientX - musicPanel.getBoundingClientRect().left,
+        offsetY: event.clientY - musicPanel.getBoundingClientRect().top
+      };
+      musicPanel.classList.add('dragging');
+      musicPanel.setPointerCapture(event.pointerId);
+    });
+
+    musicPanel.addEventListener('pointermove', (event) => {
+      if (!dragState) return;
+
+      const maxX = window.innerWidth - musicPanel.offsetWidth - 12;
+      const maxY = window.innerHeight - musicPanel.offsetHeight - 12;
+      const nextLeft = clamp(event.clientX - dragState.offsetX, 12, Math.max(12, maxX));
+      const nextTop = clamp(event.clientY - dragState.offsetY, 12, Math.max(12, maxY));
+
+      musicPanel.style.left = `${nextLeft}px`;
+      musicPanel.style.top = `${nextTop}px`;
+      musicPanel.style.right = 'auto';
+    });
+
+    ['pointerup', 'pointercancel', 'pointerleave'].forEach((eventName) => {
+      musicPanel.addEventListener(eventName, () => {
+        if (!dragState) return;
+        dragState = null;
+        musicPanel.classList.remove('dragging');
+      });
+    });
 
     function updateMusicState(isPlaying) {
       playToggle.textContent = isPlaying ? 'Pause' : 'Play';
