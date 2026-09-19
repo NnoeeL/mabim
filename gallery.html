@@ -55,6 +55,133 @@
       padding: 80px 24px 80px;
     }
 
+    .folder-shell {
+      display: grid;
+      gap: 20px;
+      max-width: 1120px;
+      margin: 0 auto;
+    }
+
+    .folder-list {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 16px;
+    }
+
+    .folder-item {
+      position: relative;
+      flex: 1 1 240px;
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      padding: 18px 18px 18px 16px;
+      border-radius: 22px;
+      border: 1px solid rgba(36, 49, 40, 0.08);
+      background: rgba(255,255,255,0.62);
+      box-shadow: 0 14px 24px rgba(36, 49, 40, 0.06);
+      cursor: pointer;
+      text-align: left;
+      transition: transform 200ms ease, box-shadow 200ms ease, border-color 200ms ease, background 200ms ease;
+    }
+
+    .folder-item:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 18px 30px rgba(36, 49, 40, 0.09);
+    }
+
+    .folder-item.active {
+      background: linear-gradient(135deg, rgba(191, 93, 67, 0.12), rgba(255,255,255,0.7));
+      border-color: rgba(191, 93, 67, 0.28);
+      box-shadow: 0 18px 30px rgba(191, 93, 67, 0.12);
+    }
+
+    .folder-tab {
+      width: 52px;
+      height: 42px;
+      border-radius: 12px 12px 14px 14px;
+      background: linear-gradient(180deg, #f6d59f 0%, #e9b870 100%);
+      position: relative;
+      box-shadow: inset 0 -10px 16px rgba(0,0,0,0.06);
+      flex-shrink: 0;
+    }
+
+    .folder-tab::before {
+      content: "";
+      position: absolute;
+      left: 4px;
+      right: 4px;
+      top: -7px;
+      height: 12px;
+      border-radius: 10px 10px 0 0;
+      background: rgba(255,255,255,0.5);
+    }
+
+    .folder-copy {
+      display: flex;
+      flex-direction: column;
+      gap: 3px;
+      min-width: 0;
+    }
+
+    .folder-number {
+      font-size: 0.66rem;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: rgba(36, 49, 40, 0.65);
+      font-weight: 700;
+    }
+
+    .folder-name {
+      font-size: 1.12rem;
+      font-weight: 800;
+      letter-spacing: -0.03em;
+      color: var(--ink);
+    }
+
+    .folder-meta {
+      font-size: 0.72rem;
+      color: rgba(36, 49, 40, 0.7);
+      font-weight: 700;
+    }
+
+    .album-panel {
+      display: none;
+    }
+
+    .album-panel.active {
+      display: block;
+    }
+
+    .album-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 12px;
+      margin-bottom: 18px;
+      padding: 0 4px;
+    }
+
+    .album-title {
+      margin: 0;
+      font-size: clamp(1.6rem, 2vw, 2.3rem);
+      letter-spacing: -0.04em;
+      color: var(--ink);
+    }
+
+    .album-count {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      padding: 8px 12px;
+      border-radius: 999px;
+      background: rgba(36, 49, 40, 0.05);
+      color: rgba(36, 49, 40, 0.72);
+      font-size: 0.72rem;
+      font-weight: 800;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+    }
+
     .gallery-header {
       text-align: center;
       margin-bottom: 40px;
@@ -535,23 +662,32 @@
 
       <section class="folder-shell" aria-label="Folder galeri kegiatan">
         <div class="folder-list">
-          <button class="folder-item active" type="button" data-target="day1-album">
+          <button class="folder-item active" type="button" data-target="mabim-album">
             <span class="folder-tab" aria-hidden="true"></span>
             <span class="folder-copy">
               <span class="folder-number">Folder 1</span>
-              <span class="folder-name">DAY 1 MABIM</span>
-              <span class="folder-meta">4 foto</span>
+              <span class="folder-name">MABIM</span>
+              <span class="folder-meta">2 foto</span>
+            </span>
+          </button>
+
+          <button class="folder-item" type="button" data-target="mentoring-album">
+            <span class="folder-tab" aria-hidden="true" style="background: linear-gradient(180deg, #b9d9cb 0%, #7bb3a0 100%);"></span>
+            <span class="folder-copy">
+              <span class="folder-number">Folder 2</span>
+              <span class="folder-name">MENTORING</span>
+              <span class="folder-meta">2 foto</span>
             </span>
           </button>
         </div>
 
-        <div class="album-panel active" id="day1-album">
+        <div class="album-panel active" id="mabim-album">
           <div class="album-header">
-            <h2 class="album-title">DAY 1 MABIM</h2>
-            <span class="album-count">4 Foto</span>
+            <h2 class="album-title">MABIM</h2>
+            <span class="album-count">2 Foto</span>
           </div>
 
-          <div class="gallery-grid" aria-label="Foto di DAY 1 MABIM">
+          <div class="gallery-grid" aria-label="Foto di folder MABIM">
             <figure class="gallery-card large">
               <img src="assets/poto1.jpeg" alt="Kegiatan pertama kelompok 12">
               <figcaption class="gallery-overlay">
@@ -567,7 +703,16 @@
                 <span class="gallery-tag">02</span>
               </figcaption>
             </figure>
+          </div>
+        </div>
 
+        <div class="album-panel" id="mentoring-album">
+          <div class="album-header">
+            <h2 class="album-title">MENTORING</h2>
+            <span class="album-count">2 Foto</span>
+          </div>
+
+          <div class="gallery-grid" aria-label="Foto di folder MENTORING">
             <figure class="gallery-card small">
               <img src="assets/poto3.jpeg" alt="Kegiatan kerja sama kelompok 12">
               <figcaption class="gallery-overlay">
@@ -771,6 +916,18 @@
       updateProgressBar();
       saveMusicState();
     }
+
+    const folderButtons = document.querySelectorAll('.folder-item');
+    const albumPanels = document.querySelectorAll('.album-panel');
+
+    folderButtons.forEach((button) => {
+      button.addEventListener('click', () => {
+        const targetId = button.dataset.target;
+
+        folderButtons.forEach((item) => item.classList.toggle('active', item === button));
+        albumPanels.forEach((panel) => panel.classList.toggle('active', panel.id === targetId));
+      });
+    });
 
     function updateMusicState(isPlaying) {
       playToggle.textContent = isPlaying ? 'Pause' : 'Play';
