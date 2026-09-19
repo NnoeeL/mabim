@@ -260,6 +260,93 @@
       animation: none;
     }
 
+    .gallery-section {
+      position: relative;
+      padding: 92px 0 40px;
+    }
+
+    .gallery-grid {
+      display: grid;
+      grid-template-columns: repeat(12, minmax(0, 1fr));
+      gap: 18px;
+      margin-top: 32px;
+    }
+
+    .gallery-item {
+      position: relative;
+      overflow: hidden;
+      border-radius: 1.6rem;
+      border: 1px solid rgba(36, 49, 40, 0.08);
+      background: rgba(255,255,255,0.5);
+      box-shadow: 0 18px 34px rgba(36, 49, 40, 0.08);
+      transition: transform 240ms ease, box-shadow 240ms ease;
+      min-height: 250px;
+    }
+
+    .gallery-item:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 18px 32px rgba(36, 49, 40, 0.12);
+    }
+
+    .gallery-item.large {
+      grid-column: span 7;
+      min-height: 420px;
+    }
+
+    .gallery-item.medium {
+      grid-column: span 5;
+      min-height: 420px;
+    }
+
+    .gallery-item.small {
+      grid-column: span 4;
+      min-height: 300px;
+    }
+
+    .gallery-item img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+      transition: transform 300ms ease;
+    }
+
+    .gallery-item:hover img {
+      transform: scale(1.04);
+    }
+
+    .gallery-overlay {
+      position: absolute;
+      inset: auto 0 0 0;
+      display: flex;
+      align-items: flex-end;
+      justify-content: space-between;
+      gap: 12px;
+      padding: 18px 18px 16px;
+      background: linear-gradient(180deg, rgba(21, 27, 22, 0), rgba(21, 27, 22, 0.7));
+      color: white;
+    }
+
+    .gallery-title {
+      font-size: 1rem;
+      font-weight: 700;
+      letter-spacing: 0.01em;
+    }
+
+    .gallery-tag {
+      display: inline-flex;
+      align-items: center;
+      padding: 6px 10px;
+      border-radius: 999px;
+      background: rgba(255,255,255,0.14);
+      border: 1px solid rgba(255,255,255,0.28);
+      font-size: 0.68rem;
+      font-weight: 700;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      backdrop-filter: blur(6px);
+    }
+
     .music-meta {
       display: flex;
       align-items: center;
@@ -555,6 +642,45 @@
         <h3 class="mb-3 text-xl font-bold" style="color: rgb(36, 49, 40);">Maju Bersama</h3>
         <p class="leading-relaxed" style="color: rgb(82, 96, 87);">Kini kami siap melangkah lebih jauh dengan kerja keras, rasa solidaritas, dan semangat yang tak pernah padam.</p>
        </article>
+      </div>
+     </div>
+    </section>
+
+    <section id="gallery" class="gallery-section w-full px-6 md:px-12 lg:px-20">
+     <div class="mx-auto max-w-7xl">
+      <div class="text-center">
+       <p class="text-xs font-bold uppercase tracking-[0.22em]" style="color: rgb(191, 93, 67);">Gallery</p>
+       <h2 class="mt-4 font-bold leading-tight tracking-[-0.035em]" style="color: rgb(36, 49, 40); font-size: clamp(1.8rem, 3vw, 2.8rem);">Galeri Kegiatan Kelompok</h2>
+      </div>
+      <div class="gallery-grid">
+       <figure class="gallery-item large">
+        <img src="assets/poto1.jpeg" alt="Kegiatan pertama kelompok 12">
+        <figcaption class="gallery-overlay">
+         <span class="gallery-title">Diskusi Tim</span>
+         <span class="gallery-tag">01</span>
+        </figcaption>
+       </figure>
+       <figure class="gallery-item medium">
+        <img src="assets/poto2.jpeg" alt="Kegiatan belajar bersama kelompok 12">
+        <figcaption class="gallery-overlay">
+         <span class="gallery-title">Belajar Bareng</span>
+         <span class="gallery-tag">02</span>
+        </figcaption>
+       </figure>
+       <figure class="gallery-item small">
+        <img src="assets/poto3.jpeg" alt="Kegiatan bersama kelompok 12">
+        <figcaption class="gallery-overlay">
+         <span class="gallery-title">Kerja Sama</span>
+         <span class="gallery-tag">03</span>
+        </figcaption>
+       </figure>
+       <figure class="gallery-item small">
+        <img src="assets/poto4.jpeg" alt="Foto bersama kelompok 12">
+        <figcaption class="gallery-overlay">
+         <span class="gallery-title">Bersama</span>
+         <span class="gallery-tag">04</span>
+        </figcaption>
+       </figure>
       </div>
      </div>
     </section>
