@@ -52,16 +52,34 @@
     }
 
     .hero-photo-frame {
+      position: relative;
       aspect-ratio: 1 / 1;
       overflow: hidden;
       border-radius: 1.6rem;
       box-shadow: 18px 18px 0 var(--sand);
+      background: #efe3d2;
     }
-    .hero-photo-frame img {
+    .hero-photo-stack {
+      position: relative;
+      width: 100%;
+      height: 100%;
+    }
+    .hero-slide {
+      position: absolute;
+      inset: 0;
       width: 100%;
       height: 100%;
       object-fit: cover;
       object-position: center;
+      opacity: 0;
+      transform: scale(1.05) rotateY(18deg);
+      transition: opacity 700ms ease, transform 900ms ease;
+      backface-visibility: hidden;
+    }
+    .hero-slide.active {
+      opacity: 1;
+      z-index: 2;
+      transform: scale(1) rotateY(0deg);
     }
 
     .reveal {
@@ -456,7 +474,13 @@
        <p data-template-id="hero-subtitle" class="canva-text reveal delay-3 mt-6 max-w-md leading-relaxed" style="color: rgb(82, 96, 87); font-weight: 400; font-style: normal; font-size: 18px; line-height: 1.55;"> Mari mengenal lebih jauh kepada para anggota anggota kelompok 12 !</p><button id="about-button" type="button" data-template-id="about-button" class="canva-button action-button reveal delay-4 mt-8 inline-flex items-center gap-3 rounded-full px-7 py-3.5 text-sm font-bold tracking-[0.11em]" style="background: rgb(191, 93, 67); color: rgb(255, 255, 255);"> <span data-template-id="about-button-text" class="canva-text" style="color: rgb(255, 255, 255); font-weight: 700; font-style: normal; font-size: 14px; letter-spacing: 0.1rem;">ABOUT US</span> <i data-lucide="arrow-down-right" aria-hidden="true" class="h-4 w-4"></i> </button>
       </div>
       <div class="order-1 reveal delay-2 mx-auto w-full max-w-[540px] lg:order-2">
-       <div class="hero-photo-frame"><img data-template-id="hero-image" class="canva-image" loading="lazy" src="assets/poto1.jpeg" alt="Tim kami sedang berdiskusi dan bekerja bersama.">
+       <div class="hero-photo-frame" aria-live="polite">
+        <div class="hero-photo-stack">
+         <img class="hero-slide active" data-template-id="hero-image" loading="lazy" src="assets/poto1.jpeg" alt="Tim kami sedang berdiskusi dan bekerja bersama.">
+         <img class="hero-slide" loading="lazy" src="assets/poto2.jpeg" alt="Anggota kelompok 12 di acara bersama.">
+         <img class="hero-slide" loading="lazy" src="assets/poto3.jpeg" alt="Kelompok 12 saat belajar bersama.">
+         <img class="hero-slide" loading="lazy" src="assets/poto4.jpeg" alt="Kelompok 12 berfoto bersama dengan semangat.">
+        </div>
        </div>
       </div>
      </div>
@@ -633,6 +657,23 @@
 
     audio.addEventListener('timeupdate', saveMusicState);
     window.addEventListener('beforeunload', saveMusicState);
+    const heroSlides = document.querySelectorAll('.hero-slide');
+    let heroIndex = 0;
+
+    function showHeroSlide(nextIndex) {
+      heroSlides.forEach((slide, index) => {
+        slide.classList.toggle('active', index === nextIndex);
+      });
+      heroIndex = nextIndex;
+    }
+
+    if (heroSlides.length > 1) {
+      setInterval(() => {
+        const nextIndex = (heroIndex + 1) % heroSlides.length;
+        showHeroSlide(nextIndex);
+      }, 5000);
+    }
+
     document.addEventListener("DOMContentLoaded", function () {
       lucide.createIcons();
 
