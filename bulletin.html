@@ -1,0 +1,524 @@
+<!doctype html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Bulletin Board | Kelompok 12</title>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --ink: #1d2a22;
+      --bg: #f7f1ea;
+      --bg-2: #efe4d5;
+      --panel: rgba(255, 255, 255, 0.72);
+      --panel-strong: #fffaf6;
+      --card: #ffffff;
+      --muted: #607067;
+      --line: rgba(29, 42, 34, 0.08);
+      --clay: #d9795d;
+      --clay-strong: #b85c40;
+      --clay-soft: rgba(217, 121, 93, 0.12);
+      --forest: #2f4b3d;
+      --success: #2c7a59;
+      --shadow: rgba(27, 37, 31, 0.08);
+    }
+
+    * { box-sizing: border-box; }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      margin: 0;
+      min-height: 100vh;
+      font-family: "DM Sans", sans-serif;
+      color: var(--ink);
+      background:
+        radial-gradient(circle at top left, rgba(217, 121, 93, 0.18), transparent 28%),
+        radial-gradient(circle at bottom right, rgba(47, 75, 61, 0.09), transparent 30%),
+        linear-gradient(180deg, var(--bg) 0%, #f2e7dc 100%);
+      position: relative;
+      overflow-x: hidden;
+    }
+
+    body::before,
+    body::after {
+      content: "";
+      position: fixed;
+      width: 420px;
+      height: 420px;
+      border-radius: 50%;
+      filter: blur(70px);
+      opacity: 0.38;
+      z-index: 0;
+      pointer-events: none;
+    }
+
+    body::before {
+      background: rgba(217, 121, 93, 0.15);
+      top: -110px;
+      right: -60px;
+    }
+
+    body::after {
+      background: rgba(47, 75, 61, 0.12);
+      bottom: -110px;
+      left: -60px;
+    }
+
+    .container {
+      position: relative;
+      z-index: 1;
+      max-width: 1180px;
+      margin: 0 auto;
+      padding: 24px 20px 72px;
+    }
+
+    .topbar {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 16px;
+      padding: 12px 0 18px;
+      margin-bottom: 18px;
+    }
+
+    .brand {
+      text-decoration: none;
+      color: var(--forest);
+      font-size: 0.92rem;
+      font-weight: 800;
+      letter-spacing: 0.18rem;
+      text-transform: uppercase;
+      opacity: 0.9;
+    }
+
+    .back-link {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      text-decoration: none;
+      background: rgba(29, 42, 34, 0.96);
+      color: #fff;
+      border-radius: 999px;
+      padding: 11px 18px;
+      font-size: 0.9rem;
+      font-weight: 700;
+      transition: transform 180ms ease, box-shadow 180ms ease;
+      box-shadow: 0 12px 24px rgba(29, 42, 34, 0.12);
+    }
+
+    .back-link:hover {
+      transform: translateY(-1px);
+    }
+
+    .page-header {
+      text-align: center;
+      margin-bottom: 28px;
+      padding-top: 8px;
+    }
+
+    .eyebrow {
+      display: inline-block;
+      padding: 8px 12px;
+      border-radius: 999px;
+      background: var(--clay-soft);
+      color: var(--clay-strong);
+      font-size: 0.7rem;
+      font-weight: 800;
+      letter-spacing: 0.18rem;
+      text-transform: uppercase;
+      margin-bottom: 16px;
+    }
+
+    h1 {
+      margin: 0;
+      font-size: clamp(2.2rem, 4vw, 3.6rem);
+      line-height: 1.05;
+      letter-spacing: -0.06em;
+      color: var(--forest);
+    }
+
+    .subtitle {
+      max-width: 720px;
+      margin: 14px auto 0;
+      color: var(--muted);
+      line-height: 1.7;
+      font-size: 1rem;
+    }
+
+    .board-layout {
+      display: grid;
+      grid-template-columns: 0.92fr 1.28fr;
+      gap: 24px;
+      align-items: start;
+    }
+
+    .panel {
+      background: var(--panel);
+      backdrop-filter: blur(8px);
+      border: 1px solid rgba(29, 42, 34, 0.06);
+      border-radius: 28px;
+      box-shadow: 0 20px 45px var(--shadow);
+      overflow: hidden;
+    }
+
+    .compose-panel {
+      padding: 24px;
+    }
+
+    .panel-title {
+      margin: 0 0 20px;
+      font-size: 1.12rem;
+      letter-spacing: -0.03em;
+      color: var(--forest);
+    }
+
+    .form-grid {
+      display: grid;
+      gap: 18px;
+    }
+
+    label {
+      display: grid;
+      gap: 8px;
+      font-size: 0.85rem;
+      font-weight: 700;
+      color: var(--forest);
+    }
+
+    input,
+    textarea {
+      width: 100%;
+      border: 1px solid rgba(29, 42, 34, 0.1);
+      background: rgba(255,255,255,0.7);
+      border-radius: 16px;
+      padding: 14px 16px;
+      font: inherit;
+      color: var(--ink);
+      transition: border-color 180ms ease, box-shadow 180ms ease, transform 180ms ease;
+    }
+
+    input::placeholder,
+    textarea::placeholder {
+      color: rgba(96, 112, 103, 0.8);
+    }
+
+    input:focus,
+    textarea:focus {
+      outline: none;
+      border-color: rgba(217, 121, 93, 0.7);
+      box-shadow: 0 0 0 4px rgba(217, 121, 93, 0.10);
+      background: rgba(255,255,255,0.9);
+    }
+
+    textarea {
+      min-height: 160px;
+      resize: vertical;
+    }
+
+    .submit-btn {
+      border: none;
+      border-radius: 16px;
+      background: linear-gradient(135deg, var(--clay), #e7a181);
+      color: #fff;
+      font-weight: 800;
+      letter-spacing: 0.08rem;
+      text-transform: uppercase;
+      padding: 14px 20px;
+      cursor: pointer;
+      transition: transform 180ms ease, box-shadow 180ms ease;
+      box-shadow: 0 12px 26px rgba(184, 92, 64, 0.25);
+    }
+
+    .submit-btn:hover {
+      transform: translateY(-1px);
+      box-shadow: 0 16px 30px rgba(184, 92, 64, 0.28);
+    }
+
+    .status {
+      min-height: 22px;
+      margin-top: 4px;
+      color: var(--success);
+      font-weight: 700;
+      font-size: 0.88rem;
+    }
+
+    .status.error {
+      color: #b24d35;
+    }
+
+    .feed-panel {
+      padding: 18px 18px 12px;
+    }
+
+    .feed-head {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+      padding: 10px 8px 18px;
+      border-bottom: 1px solid var(--line);
+      margin-bottom: 14px;
+    }
+
+    .feed-head h2 {
+      margin: 0;
+      font-size: 1.2rem;
+      letter-spacing: -0.04em;
+      color: var(--forest);
+    }
+
+    .feed-count {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      min-width: 42px;
+      padding: 7px 10px;
+      border-radius: 999px;
+      background: var(--clay-soft);
+      color: var(--clay-strong);
+      font-size: 0.72rem;
+      font-weight: 800;
+      letter-spacing: 0.06rem;
+      text-transform: uppercase;
+    }
+
+    .comment-list {
+      display: grid;
+      gap: 14px;
+      list-style: none;
+      margin: 0;
+      padding: 0;
+    }
+
+    .comment-item {
+      background: linear-gradient(180deg, rgba(255,255,255,0.9), rgba(247, 241, 234, 0.8));
+      border: 1px solid var(--line);
+      border-radius: 20px;
+      padding: 18px 18px 16px;
+      box-shadow: 0 10px 24px rgba(29, 42, 34, 0.04);
+      transition: transform 180ms ease, box-shadow 180ms ease;
+    }
+
+    .comment-item:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 16px 28px rgba(29, 42, 34, 0.06);
+    }
+
+    .comment-head {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+      margin-bottom: 12px;
+    }
+
+    .comment-name {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      font-weight: 800;
+      color: var(--forest);
+    }
+
+    .comment-name::before {
+      content: "";
+      width: 10px;
+      height: 10px;
+      border-radius: 50%;
+      background: linear-gradient(135deg, var(--clay), #edb194);
+      box-shadow: 0 0 0 5px rgba(217, 121, 93, 0.1);
+    }
+
+    .comment-time {
+      color: var(--muted);
+      font-size: 0.75rem;
+      white-space: nowrap;
+    }
+
+    .comment-text {
+      margin: 0;
+      color: var(--ink);
+      line-height: 1.7;
+      white-space: pre-wrap;
+      word-wrap: break-word;
+    }
+
+    .empty-state {
+      padding: 28px 20px;
+      text-align: center;
+      border: 1px dashed rgba(29, 42, 34, 0.18);
+      border-radius: 18px;
+      background: rgba(255,255,255,0.26);
+      color: var(--muted);
+      font-weight: 600;
+    }
+
+    @media (max-width: 900px) {
+      .board-layout {
+        grid-template-columns: 1fr;
+      }
+
+      .container {
+        padding-top: 18px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <header class="topbar">
+      <a href="index.html" class="brand">Kelompok 12</a>
+      <a href="index.html" class="back-link">Kembali</a>
+    </header>
+
+    <section class="page-header">
+      <div class="eyebrow">Bulletin Board</div>
+      <h1>Papan Pesan Kelompok</h1>
+      <p class="subtitle">Tulis nama Anda terlebih dahulu, lalu kirim komentar atau pesan singkat untuk membangun komunikasi lebih dekat dengan teman-teman kelompok.</p>
+    </section>
+
+    <main class="board-layout">
+      <section class="panel compose-panel" aria-label="Form komentar">
+        <h2 class="panel-title">Tulis Komentar</h2>
+        <form id="commentForm" class="form-grid" novalidate>
+          <label>
+            Nama Anda
+            <input id="nameInput" name="name" type="text" maxlength="40" placeholder="Masukkan nama lengkap Anda" required>
+          </label>
+
+          <label>
+            Pesan
+            <textarea id="messageInput" name="comment" placeholder="Tulis komentar, dukungan, atau pesan untuk kelompok..." required></textarea>
+          </label>
+
+          <button type="submit" class="submit-btn">Kirim Pesan</button>
+          <div id="formStatus" class="status" aria-live="polite"></div>
+        </form>
+      </section>
+
+      <section class="panel feed-panel" aria-label="Daftar komentar">
+        <div class="feed-head">
+          <h2>Pesan Terbaru</h2>
+          <span id="commentCount" class="feed-count">0</span>
+        </div>
+        <ul id="commentList" class="comment-list"></ul>
+      </section>
+    </main>
+  </div>
+
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+  <script>
+    const supabaseUrl = 'https://hwejnbiudcwwfuhowrtp.supabase.co';
+    const supabaseKey = 'sb_publishable_2eE7hTnPB6Ce0WAg45VNQA_pArsAZN2';
+    const supabase = window.supabase.createClient(supabaseUrl, supabaseKey);
+
+    const form = document.getElementById('commentForm');
+    const nameInput = document.getElementById('nameInput');
+    const messageInput = document.getElementById('messageInput');
+    const formStatus = document.getElementById('formStatus');
+    const commentList = document.getElementById('commentList');
+    const commentCount = document.getElementById('commentCount');
+
+    function setStatus(message, isError = false) {
+      formStatus.textContent = message;
+      formStatus.classList.toggle('error', isError);
+    }
+
+    function escapeHtml(value) {
+      return String(value ?? '')
+        .replace(/&/g, '&amp;')
+        .replace(/</g, '&lt;')
+        .replace(/>/g, '&gt;')
+        .replace(/"/g, '&quot;')
+        .replace(/'/g, '&#039;');
+    }
+
+    function formatDate(dateString) {
+      const date = new Date(dateString);
+      return new Intl.DateTimeFormat('id-ID', {
+        day: 'numeric',
+        month: 'short',
+        year: 'numeric',
+        hour: '2-digit',
+        minute: '2-digit'
+      }).format(date);
+    }
+
+    async function getAllComments() {
+      const { data, error } = await supabase
+        .from('comments')
+        .select('*')
+        .order('created_at', { ascending: false });
+
+      if (error) throw error;
+      return data || [];
+    }
+
+    async function renderComments() {
+      try {
+        const comments = await getAllComments();
+        commentCount.textContent = String(comments.length);
+
+        if (!comments.length) {
+          commentList.innerHTML = '<li class="empty-state">Belum ada komentar. Jadilah yang pertama menulis pesan.</li>';
+          return;
+        }
+
+        commentList.innerHTML = comments.map((item) => `
+          <li class="comment-item">
+            <div class="comment-head">
+              <span class="comment-name">${escapeHtml(item.name)}</span>
+              <span class="comment-time">${formatDate(item.created_at)}</span>
+            </div>
+            <p class="comment-text">${escapeHtml(item.text)}</p>
+          </li>
+        `).join('');
+      } catch (error) {
+        commentList.innerHTML = '<li class="empty-state">Database komentar tidak bisa dimuat. Silakan cek konfigurasi Supabase.</li>';
+        console.error(error);
+      }
+    }
+
+    form.addEventListener('submit', async (event) => {
+      event.preventDefault();
+
+      const name = nameInput.value.trim();
+      const text = messageInput.value.trim();
+
+      if (!name) {
+        setStatus('Nama wajib diisi sebelum menulis komentar.', true);
+        nameInput.focus();
+        return;
+      }
+
+      if (!text) {
+        setStatus('Pesan tidak boleh kosong.', true);
+        messageInput.focus();
+        return;
+      }
+
+      try {
+        const { error } = await supabase.from('comments').insert([
+          {
+            name,
+            text,
+            created_at: new Date().toISOString()
+          }
+        ]);
+
+        if (error) throw error;
+
+        form.reset();
+        setStatus('Komentar berhasil dikirim.');
+        await renderComments();
+      } catch (error) {
+        setStatus('Komentar gagal dikirim. Cek konfigurasi database Supabase.', true);
+        console.error(error);
+      }
+    });
+
+    renderComments();
+  </script>
+</body>
+</html>
