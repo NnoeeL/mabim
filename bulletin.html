@@ -527,11 +527,6 @@
         return;
       }
 
-      if (!supabase) {
-        const freshClient = window.supabase.createClient(supabaseUrl, supabaseKey);
-        Object.assign(window, { __mabimSupabase: freshClient });
-      }
-
       await renderComments();
     }
 
