@@ -510,8 +510,9 @@
         if (error) throw error;
 
         form.reset();
-        setStatus('Komentar berhasil dikirim.');
+        setStatus('Komentar berhasil dikirim. Memuat pembaruan...');
         await renderComments();
+        setStatus('Komentar berhasil dikirim.');
       } catch (error) {
         setStatus('Komentar gagal dikirim. Cek konfigurasi database Supabase.', true);
         console.error(error);
@@ -519,6 +520,10 @@
     });
 
     renderComments();
+    window.addEventListener('focus', renderComments);
+    setInterval(() => {
+      renderComments().catch(() => {});
+    }, 5000);
   </script>
 </body>
 </html>
