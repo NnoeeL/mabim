@@ -420,7 +420,7 @@
     const commentList = document.getElementById('commentList');
     const commentCount = document.getElementById('commentCount');
 
-    const supabase = window.supabase ? window.supabase.createClient(supabaseUrl, supabaseKey) : null;
+    const db = window.supabase.createClient(supabaseUrl, supabaseKey);
 
     function setStatus(message, isError = false) {
       formStatus.textContent = message;
@@ -448,7 +448,7 @@
     }
 
     async function getAllComments() {
-      const { data, error } = await supabase
+      const { data, error } = await db
         .from('comments')
         .select('*')
         .order('created_at', { ascending: false });
@@ -501,7 +501,7 @@
       }
 
       try {
-        const { error } = await supabase.from('comments').insert([
+        const { error } = await db.from('comments').insert([
           {
             name,
             text,
