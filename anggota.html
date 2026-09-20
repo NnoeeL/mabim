@@ -103,6 +103,71 @@
       padding: 22px;
       box-shadow: 0 18px 35px rgba(36, 49, 40, 0.06);
       border: 1px solid rgba(36, 49, 40, 0.08);
+      position: relative;
+      cursor: pointer;
+      scroll-margin-block: 120px;
+      transition: transform 420ms cubic-bezier(0.22, 1, 0.36, 1), box-shadow 420ms cubic-bezier(0.22, 1, 0.36, 1), border-color 420ms ease, opacity 420ms ease, filter 420ms ease;
+      overflow: hidden;
+      outline: none;
+      will-change: transform, filter;
+    }
+
+    .card::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(135deg, rgba(191, 93, 67, 0.08), transparent 60%);
+      opacity: 0;
+      transition: opacity 260ms ease;
+    }
+
+    .card:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 22px 42px rgba(36, 49, 40, 0.10);
+    }
+
+    .card.is-selected {
+      transform: translateY(-12px) scale(1.08);
+      border-color: rgba(191, 93, 67, 0.42);
+      box-shadow: 0 32px 56px rgba(191, 93, 67, 0.18);
+      z-index: 2;
+    }
+
+    .card.is-selected::before {
+      opacity: 1;
+    }
+
+    .card.is-dimmed {
+      opacity: 0.38;
+      filter: saturate(0.7) blur(0.2px);
+      transform: scale(0.98);
+    }
+
+    .card:focus-visible {
+      box-shadow: 0 0 0 4px rgba(191, 93, 67, 0.18), 0 20px 40px rgba(36, 49, 40, 0.1);
+    }
+
+    .focus-badge {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      margin-top: 14px;
+      padding: 6px 10px;
+      border-radius: 999px;
+      background: rgba(191, 93, 67, 0.12);
+      color: var(--clay-dark);
+      font-size: 0.68rem;
+      font-weight: 800;
+      letter-spacing: 0.12rem;
+      text-transform: uppercase;
+      opacity: 0;
+      transform: translateY(10px);
+      transition: opacity 220ms ease, transform 220ms ease;
+    }
+
+    .card.is-selected .focus-badge {
+      opacity: 1;
+      transform: translateY(0);
     }
 
     .leader-card {
@@ -687,110 +752,123 @@
     </section>
 
     <section class="leader-wrap">
-      <article class="card mentor-card">
+      <article class="card mentor-card" tabindex="0" aria-label="Fokus pada profil Ghania Citra Karini">
         <div class="avatar">G</div>
         <p class="role">Kaka Asuh</p>
         <h2 class="name">Ghania Citra Karini</h2>
         <p class="meta"><strong>NPM:</strong> 257006111068</p>
         <p class="meta"><strong>Instagram:</strong> <a class="insta-link" href="https://instagram.com/ghntxaac" target="_blank" rel="noopener noreferrer"><svg class="insta-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="3" width="18" height="18" rx="5"></rect><circle cx="12" cy="12" r="4"></circle><circle cx="17.5" cy="6.5" r="1.2" fill="currentColor" stroke="none"></circle></svg>@ghntxaac</a></p>
+        <span class="focus-badge">Fokus</span>
       </article>
 
-      <article class="card mentor-card">
+      <article class="card mentor-card" tabindex="0" aria-label="Fokus pada profil Indah Kasih Lestari">
         <div class="avatar">I</div>
         <p class="role">Kaka Asuh</p>
         <h2 class="name">Indah Kasih Lestari</h2>
         <p class="meta"><strong>NPM:</strong> 257006111106</p>
         <p class="meta"><strong>Instagram:</strong> <a class="insta-link" href="https://instagram.com/jndah__" target="_blank" rel="noopener noreferrer"><svg class="insta-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="3" width="18" height="18" rx="5"></rect><circle cx="12" cy="12" r="4"></circle><circle cx="17.5" cy="6.5" r="1.2" fill="currentColor" stroke="none"></circle></svg>@jndah__</a></p>
+        <span class="focus-badge">Fokus</span>
       </article>
 
-      <article class="card leader-card">
+      <article class="card leader-card" tabindex="0" aria-label="Fokus pada profil Radhitya Fauzana Rasyid">
         <div class="avatar">R</div>
         <p class="role">Ketua</p>
         <h2 class="name">Radhitya Fauzana Rasyid</h2>
         <p class="meta"><strong>NPM:</strong> 267006111105</p>
         <p class="meta"><strong>Instagram:</strong> <a class="insta-link" href="https://instagram.com/rdht_tya" target="_blank" rel="noopener noreferrer"><svg class="insta-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="3" width="18" height="18" rx="5"></rect><circle cx="12" cy="12" r="4"></circle><circle cx="17.5" cy="6.5" r="1.2" fill="currentColor" stroke="none"></circle></svg>@rdht_tya</a></p>
+        <span class="focus-badge">Fokus</span>
       </article>
     </section>
 
     <section class="grid">
-      <article class="card">
+      <article class="card" tabindex="0" aria-label="Fokus pada profil Winda Nur Fadilah">
         <div class="avatar">W</div>
         <p class="role">Anggota</p>
         <h2 class="name">Winda Nur Fadilah</h2>
         <p class="meta"><strong>NPM:</strong> 267006111009</p>
         <p class="meta"><strong>Instagram:</strong> <a class="insta-link" href="https://instagram.com/urwndaa" target="_blank" rel="noopener noreferrer"><svg class="insta-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="3" width="18" height="18" rx="5"></rect><circle cx="12" cy="12" r="4"></circle><circle cx="17.5" cy="6.5" r="1.2" fill="currentColor" stroke="none"></circle></svg>@urwndaa</a></p>
+        <span class="focus-badge">Fokus</span>
       </article>
 
-      <article class="card">
+      <article class="card" tabindex="0" aria-label="Fokus pada profil Muhammad Farrel Fachridho">
         <div class="avatar">F</div>
         <p class="role">Anggota</p>
         <h2 class="name">Muhammad Farrel Fachridho</h2>
         <p class="meta"><strong>NPM:</strong> 267006111027</p>
         <p class="meta"><strong>Instagram:</strong> <a class="insta-link" href="https://instagram.com/nnoelfr" target="_blank" rel="noopener noreferrer"><svg class="insta-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="3" width="18" height="18" rx="5"></rect><circle cx="12" cy="12" r="4"></circle><circle cx="17.5" cy="6.5" r="1.2" fill="currentColor" stroke="none"></circle></svg>@nnoelfr</a></p>
+        <span class="focus-badge">Fokus</span>
       </article>
 
-      <article class="card">
+      <article class="card" tabindex="0" aria-label="Fokus pada profil Aldi Muhamad Alfaisi">
         <div class="avatar">A3</div>
         <p class="role">Anggota</p>
         <h2 class="name">Aldi Muhamad Alfaisi</h2>
         <p class="meta"><strong>NPM:</strong> 267006111091</p>
         <p class="meta"><strong>Instagram:</strong> <a class="insta-link" href="https://instagram.com/aldimhalfsi" target="_blank" rel="noopener noreferrer"><svg class="insta-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="3" width="18" height="18" rx="5"></rect><circle cx="12" cy="12" r="4"></circle><circle cx="17.5" cy="6.5" r="1.2" fill="currentColor" stroke="none"></circle></svg>@aldimhalfsi</a></p>
+        <span class="focus-badge">Fokus</span>
       </article>
 
-      <article class="card">
+      <article class="card" tabindex="0" aria-label="Fokus pada profil Efqi 'Asykarullah">
         <div class="avatar">E</div>
         <p class="role">Anggota</p>
         <h2 class="name">Efqi 'Asykarullah</h2>
         <p class="meta"><strong>NPM:</strong> 267006111036</p>
         <p class="meta"><strong>Instagram:</strong> <a class="insta-link" href="https://instagram.com/zefqi21" target="_blank" rel="noopener noreferrer"><svg class="insta-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="3" width="18" height="18" rx="5"></rect><circle cx="12" cy="12" r="4"></circle><circle cx="17.5" cy="6.5" r="1.2" fill="currentColor" stroke="none"></circle></svg>@zefqi21</a></p>
+        <span class="focus-badge">Fokus</span>
       </article>
 
-      <article class="card">
+      <article class="card" tabindex="0" aria-label="Fokus pada profil Defnika Adistya Fadianti">
         <div class="avatar">D</div>
         <p class="role">Anggota</p>
         <h2 class="name">Defnika Adistya Fadianti</h2>
         <p class="meta"><strong>NPM:</strong> 267006111034</p>
         <p class="meta"><strong>Instagram:</strong> <a class="insta-link" href="https://instagram.com/adistydfnii" target="_blank" rel="noopener noreferrer"><svg class="insta-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="3" width="18" height="18" rx="5"></rect><circle cx="12" cy="12" r="4"></circle><circle cx="17.5" cy="6.5" r="1.2" fill="currentColor" stroke="none"></circle></svg>@adistydfnii</a></p>
+        <span class="focus-badge">Fokus</span>
       </article>
 
-      <article class="card">
+      <article class="card" tabindex="0" aria-label="Fokus pada profil Nanda Ahmad Hanani">
         <div class="avatar">N</div>
         <p class="role">Anggota</p>
         <h2 class="name">Nanda Ahmad Hanani</h2>
         <p class="meta"><strong>NPM:</strong> 267006111026</p>
         <p class="meta"><strong>Instagram:</strong> <a class="insta-link" href="https://instagram.com/sagacrane" target="_blank" rel="noopener noreferrer"><svg class="insta-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="3" width="18" height="18" rx="5"></rect><circle cx="12" cy="12" r="4"></circle><circle cx="17.5" cy="6.5" r="1.2" fill="currentColor" stroke="none"></circle></svg>@sagacrane</a></p>
+        <span class="focus-badge">Fokus</span>
       </article>
 
-      <article class="card">
+      <article class="card" tabindex="0" aria-label="Fokus pada profil Aditya Dwi Putra">
         <div class="avatar">A</div>
         <p class="role">Anggota</p>
         <h2 class="name">Aditya Dwi Putra</h2>
         <p class="meta"><strong>NPM:</strong> 267006111040</p>
         <p class="meta"><strong>Instagram:</strong> <a class="insta-link" href="https://instagram.com/adtyptraaa_" target="_blank" rel="noopener noreferrer"><svg class="insta-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="3" width="18" height="18" rx="5"></rect><circle cx="12" cy="12" r="4"></circle><circle cx="17.5" cy="6.5" r="1.2" fill="currentColor" stroke="none"></circle></svg>@adtyptraaa_</a></p>
+        <span class="focus-badge">Fokus</span>
       </article>
 
-      <article class="card">
+      <article class="card" tabindex="0" aria-label="Fokus pada profil Muhammad Daris Ghifari">
         <div class="avatar">M</div>
         <p class="role">Anggota</p>
         <h2 class="name">Muhammad Daris Ghifari</h2>
         <p class="meta"><strong>NPM:</strong> 267006111025</p>
         <p class="meta"><strong>Instagram:</strong> <a class="insta-link" href="https://instagram.com/darwiss__17" target="_blank" rel="noopener noreferrer"><svg class="insta-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="3" width="18" height="18" rx="5"></rect><circle cx="12" cy="12" r="4"></circle><circle cx="17.5" cy="6.5" r="1.2" fill="currentColor" stroke="none"></circle></svg>@darwiss__17</a></p>
+        <span class="focus-badge">Fokus</span>
       </article>
 
-      <article class="card">
+      <article class="card" tabindex="0" aria-label="Fokus pada profil M Alief Rievan R">
         <div class="avatar">A</div>
         <p class="role">Anggota</p>
         <h2 class="name">M Alief Rievan R</h2>
         <p class="meta"><strong>NPM:</strong> 267006111100</p>
         <p class="meta"><strong>Instagram:</strong> <a class="insta-link" href="https://instagram.com/Advanr_" target="_blank" rel="noopener noreferrer"><svg class="insta-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="3" width="18" height="18" rx="5"></rect><circle cx="12" cy="12" r="4"></circle><circle cx="17.5" cy="6.5" r="1.2" fill="currentColor" stroke="none"></circle></svg>@Advanr_</a></p>
+        <span class="focus-badge">Fokus</span>
       </article>
 
-      <article class="card">
+      <article class="card" tabindex="0" aria-label="Fokus pada profil Muhammad Ihsan Sya’bana">
         <div class="avatar">I</div>
         <p class="role">Anggota</p>
         <h2 class="name">Muhammad Ihsan Sya’bana</h2>
         <p class="meta"><strong>NPM:</strong> 267006111207</p>
         <p class="meta"><strong>Instagram:</strong> <a class="insta-link" href="https://instagram.com/ihsnsybna" target="_blank" rel="noopener noreferrer"><svg class="insta-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="3" width="18" height="18" rx="5"></rect><circle cx="12" cy="12" r="4"></circle><circle cx="17.5" cy="6.5" r="1.2" fill="currentColor" stroke="none"></circle></svg>@ihsnsybna</a></p>
+        <span class="focus-badge">Fokus</span>
       </article>
     </section>
   </div>
@@ -841,6 +919,38 @@
   </aside>
 
   <script>
+    const memberCards = document.querySelectorAll('.card');
+
+    function focusMemberCard(card) {
+      const shouldSelect = !card.classList.contains('is-selected');
+
+      memberCards.forEach((item) => {
+        const isActive = item === card && shouldSelect;
+        item.classList.toggle('is-selected', isActive);
+        item.classList.toggle('is-dimmed', item !== card && shouldSelect);
+      });
+
+      if (shouldSelect) {
+        card.focus({ preventScroll: true });
+        card.scrollIntoView({ behavior: 'smooth', block: 'center', inline: 'nearest' });
+      }
+    }
+
+    memberCards.forEach((card) => {
+      card.addEventListener('click', () => focusMemberCard(card));
+      card.addEventListener('keydown', (event) => {
+        if (event.key === 'Enter' || event.key === ' ') {
+          event.preventDefault();
+          focusMemberCard(card);
+        }
+        if (event.key === 'Escape') {
+          memberCards.forEach((item) => {
+            item.classList.remove('is-selected', 'is-dimmed');
+          });
+        }
+      });
+    });
+
     const audio = document.getElementById('bgAudio');
     const buttons = [...document.querySelectorAll('.track-btn')];
     const playToggle = document.getElementById('playToggle');

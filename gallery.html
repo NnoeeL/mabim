@@ -567,62 +567,77 @@
 
     .ambient-notes {
       position: fixed;
-      inset: 0 auto 0 0;
-      width: 110px;
+      left: 20px;
+      bottom: 18px;
+      display: flex;
+      align-items: flex-end;
+      gap: 10px;
       pointer-events: none;
       z-index: 1;
-      opacity: 0.7;
+      opacity: 0.75;
+      filter: drop-shadow(0 8px 14px rgba(36, 49, 40, 0.12));
     }
 
     .note-icon {
-      position: absolute;
-      width: 16px;
-      height: 16px;
-      border-radius: 50% 50% 55% 45%;
-      transform: rotate(22deg);
-      animation: noteFloat 7s ease-in-out infinite;
-      box-shadow: inset 0 0 14px rgba(255,255,255,0.3), 0 10px 18px rgba(191,93,67,0.12);
-    }
-
-    .note-icon::before,
-    .note-icon::after {
-      content: "";
-      position: absolute;
-      inset: auto;
+      position: relative;
+      width: 12px;
+      height: 28px;
+      border-radius: 6px;
+      background: linear-gradient(180deg, rgba(255,255,255,0.9), rgba(255,255,255,0.3));
+      box-shadow: inset 0 0 0 1px rgba(255,255,255,0.2);
+      animation: noteFloat 5s ease-in-out infinite;
+      transform-origin: center top;
     }
 
     .note-icon::before {
-      width: 2px;
-      height: 12px;
-      left: 50%;
-      top: -10px;
-      transform: translateX(-50%);
-      background: rgba(255,255,255,0.7);
+      content: "";
+      position: absolute;
+      right: -6px;
+      top: 6px;
+      width: 3px;
+      height: 24px;
       border-radius: 999px;
+      background: rgba(255,255,255,0.75);
     }
 
     .note-icon::after {
-      width: 6px;
-      height: 6px;
-      left: 50%;
-      top: -12px;
-      transform: translateX(-50%);
-      background: rgba(255,255,255,0.7);
-      border-radius: 50%;
+      content: "";
+      position: absolute;
+      left: 1px;
+      top: -7px;
+      width: 10px;
+      height: 10px;
+      border-radius: 4px;
+      background: rgba(255,255,255,0.36);
+      border: 2px solid rgba(255,255,255,0.55);
+      transform: rotate(12deg);
     }
 
-    .note-icon:nth-child(1) { left: 10px; top: 140px; background: linear-gradient(180deg, #f8c66e, #e7a927); animation-delay: 0.2s; }
-    .note-icon:nth-child(2) { left: 28px; top: 230px; background: linear-gradient(180deg, #ff9ba8, #e05d7f); animation-delay: 0.7s; }
-    .note-icon:nth-child(3) { left: 20px; top: 330px; background: linear-gradient(180deg, #a9d8ff, #5fa5ff); animation-delay: 1.2s; }
-    .note-icon:nth-child(4) { left: 40px; top: 445px; background: linear-gradient(180deg, #a4e8b1, #53bd7b); animation-delay: 1.8s; }
-    .note-icon:nth-child(5) { left: 26px; top: 560px; background: linear-gradient(180deg, #d2b5ff, #9478e3); animation-delay: 2.5s; }
-    .note-icon:nth-child(6) { left: 16px; top: 680px; background: linear-gradient(180deg, #ffd0a6, #ea8d61); animation-delay: 3.2s; }
-    .note-icon:nth-child(7) { left: 36px; top: 780px; background: linear-gradient(180deg, #9ae5d8, #49bda9); animation-delay: 3.8s; }
-    .note-icon:nth-child(8) { left: 18px; top: 910px; background: linear-gradient(180deg, #f7b1d4, #dc76b0); animation-delay: 4.1s; }
+    .note-icon:nth-child(1) { background: linear-gradient(180deg, #f8c66e, #e7a927); animation-delay: 0.2s; }
+    .note-icon:nth-child(2) { background: linear-gradient(180deg, #ff9ba8, #e05d7f); animation-delay: 0.7s; }
+    .note-icon:nth-child(3) { background: linear-gradient(180deg, #a9d8ff, #5fa5ff); animation-delay: 1.2s; }
+    .note-icon:nth-child(4) { background: linear-gradient(180deg, #a4e8b1, #53bd7b); animation-delay: 1.8s; }
+    .note-icon:nth-child(5) { background: linear-gradient(180deg, #d2b5ff, #9478e3); animation-delay: 2.5s; }
+    .note-icon:nth-child(6) { background: linear-gradient(180deg, #ffd0a6, #ea8d61); animation-delay: 3.2s; }
+    .note-icon:nth-child(7) { background: linear-gradient(180deg, #9ae5d8, #49bda9); animation-delay: 3.8s; }
+    .note-icon:nth-child(8) { background: linear-gradient(180deg, #f7b1d4, #dc76b0); animation-delay: 4.1s; }
 
     @keyframes noteFloat {
-      0%, 100% { transform: translateY(0) rotate(22deg) scale(1); opacity: 0.5; }
-      50% { transform: translateY(-18px) rotate(18deg) scale(1.08); opacity: 1; }
+      0% {
+        opacity: 0;
+        transform: translateY(-24px) scale(0.75) rotate(-8deg);
+      }
+      12% {
+        opacity: 0.95;
+      }
+      50% {
+        opacity: 1;
+        transform: translateY(16px) scale(1.04) rotate(4deg);
+      }
+      100% {
+        opacity: 0;
+        transform: translateY(118px) scale(0.9) rotate(18deg);
+      }
     }
 
     @keyframes equalize {
