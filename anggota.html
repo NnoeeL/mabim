@@ -119,6 +119,12 @@
       background: linear-gradient(135deg, rgba(191, 93, 67, 0.08), transparent 60%);
       opacity: 0;
       transition: opacity 260ms ease;
+      pointer-events: none;
+    }
+
+    .card > * {
+      position: relative;
+      z-index: 1;
     }
 
     .card:hover {
