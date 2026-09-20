@@ -412,7 +412,6 @@
     const cacheBust = new Date().getTime();
     const supabaseUrl = 'https://hwejnbiudcwwfuhowrtp.supabase.co';
     const supabaseKey = 'sb_publishable_2eE7hTnPB6Ce0WAg45VNQA_pArsAZN2';
-    const supabase = window.supabase.createClient(supabaseUrl, supabaseKey);
 
     const form = document.getElementById('commentForm');
     const nameInput = document.getElementById('nameInput');
@@ -420,6 +419,8 @@
     const formStatus = document.getElementById('formStatus');
     const commentList = document.getElementById('commentList');
     const commentCount = document.getElementById('commentCount');
+
+    const supabase = window.supabase ? window.supabase.createClient(supabaseUrl, supabaseKey) : null;
 
     function setStatus(message, isError = false) {
       formStatus.textContent = message;
@@ -520,7 +521,21 @@
       }
     });
 
-    renderComments();
+    async function initBulletin() {
+      if (!window.supabase) {
+        setTimeout(initBulletin, 500);
+        return;
+      }
+
+      if (!supabase) {
+        const freshClient = window.supabase.createClient(supabaseUrl, supabaseKey);
+        Object.assign(window, { __mabimSupabase: freshClient });
+      }
+
+      await renderComments();
+    }
+
+    window.addEventListener('load', initBulletin);
     window.addEventListener('focus', () => renderComments().catch(() => {}));
     setInterval(() => {
       renderComments().catch(() => {});
@@ -531,6 +546,8 @@
     if (currentUrl.search !== window.location.search) {
       history.replaceState({}, '', currentUrl);
     }
+
+    initBulletin().catch(() => {});
   </script>
 </body>
 </html>
