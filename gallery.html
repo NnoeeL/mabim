@@ -184,7 +184,42 @@
 
     .gallery-header {
       text-align: center;
-      margin-bottom: 40px;
+      margin-bottom: 32px;
+    }
+
+    .gallery-style-switcher {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 10px;
+      margin: 0 auto 28px;
+      max-width: 700px;
+    }
+
+    .style-toggle {
+      border: 1px solid rgba(36, 49, 40, 0.08);
+      background: rgba(255,255,255,0.7);
+      color: var(--ink);
+      padding: 9px 16px;
+      border-radius: 999px;
+      font-size: 0.76rem;
+      font-weight: 800;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      cursor: pointer;
+      transition: all 180ms ease;
+    }
+
+    .style-toggle:hover {
+      transform: translateY(-1px);
+      box-shadow: 0 12px 20px rgba(36, 49, 40, 0.08);
+    }
+
+    .style-toggle.active {
+      background: linear-gradient(135deg, var(--clay), #d48a66);
+      color: white;
+      border-color: transparent;
+      box-shadow: 0 14px 26px rgba(191, 93, 67, 0.22);
     }
 
     .gallery-header p {
@@ -218,6 +253,15 @@
       gap: 18px;
     }
 
+    .gallery-grid.single-photo {
+      grid-template-columns: 1fr;
+    }
+
+    .gallery-grid.single-photo .gallery-card {
+      grid-column: 1 / -1;
+      min-height: 420px;
+    }
+
     .gallery-card {
       position: relative;
       overflow: hidden;
@@ -225,13 +269,8 @@
       background: rgba(255,255,255,0.6);
       border: 1px solid rgba(36, 49, 40, 0.08);
       box-shadow: 0 20px 36px rgba(36, 49, 40, 0.08);
-      transition: transform 240ms ease, box-shadow 240ms ease;
+      transition: transform 240ms ease, box-shadow 240ms ease, border-radius 180ms ease, filter 180ms ease;
       min-height: 260px;
-    }
-
-    .gallery-card:hover {
-      transform: translateY(-4px);
-      box-shadow: 0 22px 40px rgba(36, 49, 40, 0.12);
     }
 
     .gallery-card.large {
@@ -254,7 +293,12 @@
       width: 100%;
       height: 100%;
       object-fit: cover;
-      transition: transform 300ms ease;
+      transition: transform 300ms ease, filter 180ms ease;
+    }
+
+    .gallery-card:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 22px 40px rgba(36, 49, 40, 0.12);
     }
 
     .gallery-card:hover img {
@@ -271,6 +315,68 @@
       padding: 18px 18px 16px;
       background: linear-gradient(180deg, rgba(21, 27, 22, 0), rgba(21, 27, 22, 0.7));
       color: white;
+      transition: background 200ms ease, padding 200ms ease;
+    }
+
+    main.gallery-shell[data-style="minimal"] .gallery-card {
+      border-radius: 0.8rem !important;
+      box-shadow: none !important;
+      border: 1px solid rgba(36, 49, 40, 0.12) !important;
+      background: rgba(255,255,255,0.2) !important;
+      transform: none !important;
+    }
+
+    main.gallery-shell[data-style="minimal"] .gallery-card img {
+      filter: grayscale(0.05) saturate(0.75) contrast(1.04) !important;
+    }
+
+    main.gallery-shell[data-style="minimal"] .gallery-overlay {
+      background: linear-gradient(180deg, rgba(36, 49, 40, 0.06), rgba(36, 49, 40, 0.75)) !important;
+      padding: 12px 14px 10px !important;
+    }
+
+    main.gallery-shell[data-style="poster"] .gallery-card {
+      border-radius: 2.2rem !important;
+      box-shadow: 0 22px 38px rgba(36, 49, 40, 0.18) !important;
+      border: 1px solid rgba(191, 93, 67, 0.18) !important;
+      background: linear-gradient(180deg, rgba(255,255,255,0.85), rgba(247,239,231,0.96)) !important;
+      transform: none !important;
+    }
+
+    main.gallery-shell[data-style="poster"] .gallery-card img {
+      filter: saturate(1.35) contrast(1.12) brightness(1.08) !important;
+    }
+
+    main.gallery-shell[data-style="poster"] .gallery-overlay {
+      background: linear-gradient(180deg, rgba(21, 27, 22, 0.02), rgba(21, 27, 22, 0.84)) !important;
+      padding: 20px 18px 18px !important;
+    }
+
+    main.gallery-shell[data-style="hover"] .gallery-card {
+      border-radius: 1.25rem !important;
+      overflow: hidden !important;
+      box-shadow: 0 16px 26px rgba(36, 49, 40, 0.1) !important;
+      border: 1px solid rgba(36, 49, 40, 0.12) !important;
+      background: rgba(255,255,255,0.8) !important;
+      transform: none !important;
+    }
+
+    main.gallery-shell[data-style="hover"] .gallery-card img {
+      filter: saturate(1.15) contrast(1.06) !important;
+    }
+
+    main.gallery-shell[data-style="hover"] .gallery-card:hover {
+      transform: translateY(-12px) scale(1.03) !important;
+      box-shadow: 0 30px 50px rgba(36, 49, 40, 0.18) !important;
+    }
+
+    main.gallery-shell[data-style="hover"] .gallery-card:hover img {
+      transform: scale(1.14) !important;
+    }
+
+    main.gallery-shell[data-style="hover"] .gallery-overlay {
+      background: linear-gradient(180deg, rgba(21, 27, 22, 0.08), rgba(21, 27, 22, 0.88)) !important;
+      padding: 16px 16px 14px !important;
     }
 
     .gallery-title {
@@ -668,11 +774,17 @@
       </nav>
     </header>
 
-    <main class="gallery-shell">
+    <main class="gallery-shell" data-style="poster">
       <div class="gallery-header">
         <p>Galeri</p>
         <h1>Galeri Kegiatan Kelompok</h1>
         <p class="subtitle">Beberapa momen penting yang menggambarkan semangat kerja sama, belajar, dan kebersamaan kami dalam satu kelompok.</p>
+      </div>
+
+      <div class="gallery-style-switcher" aria-label="Pilihan tema galeri">
+        <button class="style-toggle active" type="button" data-style="poster">Poster</button>
+        <button class="style-toggle" type="button" data-style="minimal">Minimal</button>
+        <button class="style-toggle" type="button" data-style="hover">Hover</button>
       </div>
 
       <section class="folder-shell" aria-label="Folder galeri kegiatan">
@@ -682,7 +794,7 @@
             <span class="folder-copy">
               <span class="folder-number">Folder 1</span>
               <span class="folder-name">MABIM</span>
-              <span class="folder-meta">2 foto</span>
+              <span class="folder-meta">1 foto</span>
             </span>
           </button>
 
@@ -691,7 +803,7 @@
             <span class="folder-copy">
               <span class="folder-number">Folder 2</span>
               <span class="folder-name">MENTORING</span>
-              <span class="folder-meta">2 foto</span>
+              <span class="folder-meta">1 foto</span>
             </span>
           </button>
         </div>
@@ -699,23 +811,15 @@
         <div class="album-panel active" id="mabim-album">
           <div class="album-header">
             <h2 class="album-title">MABIM</h2>
-            <span class="album-count">2 Foto</span>
+            <span class="album-count">1 Foto</span>
           </div>
 
-          <div class="gallery-grid" aria-label="Foto di folder MABIM">
+          <div class="gallery-grid single-photo" aria-label="Foto di folder MABIM">
             <figure class="gallery-card large">
-              <img src="assets/poto1.jpeg" alt="Kegiatan pertama kelompok 12">
+              <img src="assets/MABIM/poto1.jpeg" alt="Foto kegiatan MABIM 1">
               <figcaption class="gallery-overlay">
-                <span class="gallery-title">Diskusi Tim</span>
+                <span class="gallery-title">MABIM 1</span>
                 <span class="gallery-tag">01</span>
-              </figcaption>
-            </figure>
-
-            <figure class="gallery-card medium">
-              <img src="assets/poto2.jpeg" alt="Kegiatan belajar bersama kelompok 12">
-              <figcaption class="gallery-overlay">
-                <span class="gallery-title">Belajar Bareng</span>
-                <span class="gallery-tag">02</span>
               </figcaption>
             </figure>
           </div>
@@ -724,23 +828,15 @@
         <div class="album-panel" id="mentoring-album">
           <div class="album-header">
             <h2 class="album-title">MENTORING</h2>
-            <span class="album-count">2 Foto</span>
+            <span class="album-count">1 Foto</span>
           </div>
 
-          <div class="gallery-grid" aria-label="Foto di folder MENTORING">
-            <figure class="gallery-card small">
-              <img src="assets/poto3.jpeg" alt="Kegiatan kerja sama kelompok 12">
+          <div class="gallery-grid single-photo" aria-label="Foto di folder MENTORING">
+            <figure class="gallery-card large">
+              <img src="assets/MENTORING/MENTORING 1.jpeg" alt="Foto kegiatan mentoring 1">
               <figcaption class="gallery-overlay">
-                <span class="gallery-title">Kerja Sama</span>
+                <span class="gallery-title">Mentoring 1</span>
                 <span class="gallery-tag">03</span>
-              </figcaption>
-            </figure>
-
-            <figure class="gallery-card small">
-              <img src="assets/poto4.jpeg" alt="Foto bersama kelompok 12">
-              <figcaption class="gallery-overlay">
-                <span class="gallery-title">Bersama</span>
-                <span class="gallery-tag">04</span>
               </figcaption>
             </figure>
           </div>
@@ -806,6 +902,17 @@
   </aside>
 
   <script>
+    const galleryShell = document.querySelector('.gallery-shell');
+    const styleButtons = [...document.querySelectorAll('.style-toggle')];
+
+    styleButtons.forEach((button) => {
+      button.addEventListener('click', () => {
+        const selected = button.dataset.style;
+        galleryShell.setAttribute('data-style', selected);
+        styleButtons.forEach((item) => item.classList.toggle('active', item === button));
+      });
+    });
+
     const audio = document.getElementById('bgAudio');
     const buttons = [...document.querySelectorAll('.track-btn')];
     const playToggle = document.getElementById('playToggle');

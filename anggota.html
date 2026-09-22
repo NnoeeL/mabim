@@ -133,7 +133,7 @@
     }
 
     .card.is-selected {
-      transform: translateY(-12px) scale(1.08);
+      transform: translateY(-12px) scale(1.08) perspective(900px) rotateY(var(--flip, 0deg));
       border-color: rgba(191, 93, 67, 0.42);
       box-shadow: 0 32px 56px rgba(191, 93, 67, 0.18);
       z-index: 2;
@@ -197,10 +197,19 @@
       display: grid;
       place-items: center;
       margin-bottom: 18px;
+      overflow: hidden;
       font-weight: 800;
       font-size: 1.4rem;
       background: linear-gradient(135deg, var(--clay), #d18d6a);
       color: #fff;
+      box-shadow: 0 10px 18px rgba(36, 49, 40, 0.08);
+    }
+
+    .avatar img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
     }
 
     .role {
@@ -686,6 +695,126 @@
       }
     }
 
+    /* ===== Animasi kartu: naik saat halaman dibuka ===== */
+    @keyframes cardRise {
+      from { opacity: 0; transform: translateY(60vh) scale(0.96); }
+      to   { opacity: 1; transform: none; }
+    }
+
+    .card {
+      animation: cardRise 760ms cubic-bezier(0.22, 1, 0.36, 1) backwards;
+      animation-delay: calc(var(--i, 0) * 55ms + 120ms);
+    }
+
+    /* mencegah scrollbar "loncat" selama kartu naik dari bawah */
+    .container.is-intro {
+      overflow: clip;
+      overflow-clip-margin: 48px;
+    }
+
+    .card:active:not(.is-selected) {
+      transform: scale(0.97);
+    }
+
+    /* ===== Kartu terpilih memutar (flip) lalu membesar ===== */
+    .card.flip-out {
+      --flip: 90deg;
+      transition: transform 260ms cubic-bezier(0.55, 0, 1, 0.45), box-shadow 420ms ease, border-color 420ms ease, opacity 420ms ease, filter 420ms ease;
+    }
+
+    .card.flip-in {
+      --flip: -90deg;
+      transition: none;
+    }
+
+    [hidden] { display: none !important; }
+
+    .member-layer {
+      position: fixed;
+      inset: 0;
+      z-index: 30;
+    }
+
+    .detail-scrim {
+      position: absolute;
+      inset: 0;
+      background: rgba(36, 49, 40, 0);
+      transition: background 300ms ease;
+      cursor: pointer;
+    }
+
+    .member-layer.is-visible .detail-scrim {
+      background: rgba(36, 49, 40, 0.16);
+    }
+
+    .member-detail {
+      --dflip: -90deg;
+      position: absolute;
+      inset: 0;
+      margin: auto;
+      width: min(92vw, 520px);
+      height: min(80vh, 560px);
+      padding: 48px 40px 36px;
+      overflow: auto;
+      display: flex;
+      flex-direction: column;
+      background: var(--card);
+      border: 1px solid rgba(191, 93, 67, 0.42);
+      border-radius: 28px;
+      box-shadow: 0 40px 90px rgba(36, 49, 40, 0.28);
+      transform: perspective(1400px) rotateY(var(--dflip));
+      transition: transform 460ms cubic-bezier(0.22, 1, 0.36, 1);
+      outline: none;
+    }
+
+    .member-detail.leader-card {
+      background: linear-gradient(135deg, rgba(191, 93, 67, 0.10), rgba(234, 219, 200, 0.75)), var(--card);
+    }
+
+    .member-detail.mentor-card {
+      background: #f4ebde;
+    }
+
+    .member-detail.is-entering { --dflip: -90deg; transition: none; }
+    .member-detail.is-open { --dflip: 0deg; }
+    .member-detail.is-closing {
+      --dflip: 90deg;
+      transition: transform 300ms cubic-bezier(0.55, 0, 1, 0.45);
+    }
+
+    .member-detail-body { margin: auto 0; }
+    .member-detail .avatar { width: 116px; height: 116px; font-size: 2.1rem; margin-bottom: 24px; }
+    .member-detail .role { font-size: 0.8rem; }
+    .member-detail .name { font-size: clamp(1.5rem, 5vw, 2rem); line-height: 1.15; margin-bottom: 14px; }
+    .member-detail .meta { font-size: 1.02rem; }
+    .member-detail .insta-icon { width: 18px; height: 18px; }
+    .detail-about { margin: 18px 0 0; color: var(--muted); line-height: 1.7; }
+
+    .detail-close {
+      position: absolute;
+      top: 16px;
+      right: 16px;
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
+      border: 1px solid var(--line);
+      background: rgba(255, 255, 255, 0.6);
+      color: var(--ink);
+      font-size: 1.4rem;
+      line-height: 1;
+      cursor: pointer;
+      transition: background 180ms ease, transform 180ms ease;
+    }
+
+    .detail-close:hover { background: rgba(191, 93, 67, 0.12); transform: rotate(90deg); }
+    .detail-close:focus-visible { outline: 3px solid rgba(191, 93, 67, 0.4); outline-offset: 2px; }
+
+    @media (prefers-reduced-motion: reduce) {
+      .card { animation: none; }
+      .member-detail,
+      .member-detail.is-closing { transition: none; transform: none; }
+    }
+
     @media (max-width: 1100px) {
       .grid {
         grid-template-columns: repeat(4, minmax(180px, 1fr));
@@ -746,7 +875,7 @@
     <span class="note-icon"></span>
   </div>
 
-  <div class="container">
+  <div class="container is-intro">
     <header class="topbar">
       <a href="index.html" class="brand">Kelompok 12</a>
       <a href="index.html" class="back-link">Kembali</a>
@@ -754,11 +883,11 @@
 
     <section class="header">
       <div class="eyebrow">Kelompok 12</div>
-      <h1>Kenali Anggota Kami</h1>
+      <h1>Yuk kenalan sama Kelompok 12</h1>
     </section>
 
     <section class="leader-wrap">
-      <article class="card mentor-card" tabindex="0" aria-label="Fokus pada profil Ghania Citra Karini">
+      <article class="card mentor-card" style="--i:0" tabindex="0" aria-label="Fokus pada profil Ghania Citra Karini">
         <div class="avatar">G</div>
         <p class="role">Kaka Asuh</p>
         <h2 class="name">Ghania Citra Karini</h2>
@@ -767,7 +896,7 @@
         <span class="focus-badge">Fokus</span>
       </article>
 
-      <article class="card mentor-card" tabindex="0" aria-label="Fokus pada profil Indah Kasih Lestari">
+      <article class="card mentor-card" style="--i:1" tabindex="0" aria-label="Fokus pada profil Indah Kasih Lestari">
         <div class="avatar">I</div>
         <p class="role">Kaka Asuh</p>
         <h2 class="name">Indah Kasih Lestari</h2>
@@ -776,8 +905,10 @@
         <span class="focus-badge">Fokus</span>
       </article>
 
-      <article class="card leader-card" tabindex="0" aria-label="Fokus pada profil Radhitya Fauzana Rasyid">
-        <div class="avatar">R</div>
+      <article class="card leader-card" style="--i:2" tabindex="0" aria-label="Fokus pada profil Radhitya Fauzana Rasyid">
+        <div class="avatar">
+          <img src="assets/Radit.jpeg" alt="Radhitya Fauzana Rasyid" loading="lazy">
+        </div>
         <p class="role">Ketua</p>
         <h2 class="name">Radhitya Fauzana Rasyid</h2>
         <p class="meta"><strong>NPM:</strong> 267006111105</p>
@@ -787,7 +918,7 @@
     </section>
 
     <section class="grid">
-      <article class="card" tabindex="0" aria-label="Fokus pada profil Winda Nur Fadilah">
+      <article class="card" style="--i:3" tabindex="0" aria-label="Fokus pada profil Winda Nur Fadilah">
         <div class="avatar">W</div>
         <p class="role">Anggota</p>
         <h2 class="name">Winda Nur Fadilah</h2>
@@ -796,8 +927,10 @@
         <span class="focus-badge">Fokus</span>
       </article>
 
-      <article class="card" tabindex="0" aria-label="Fokus pada profil Muhammad Farrel Fachridho">
-        <div class="avatar">F</div>
+      <article class="card" style="--i:4" tabindex="0" aria-label="Fokus pada profil Muhammad Farrel Fachridho">
+        <div class="avatar">
+          <img src="assets/Farrel.jpeg" alt="Muhammad Farrel Fachridho" loading="lazy">
+        </div>
         <p class="role">Anggota</p>
         <h2 class="name">Muhammad Farrel Fachridho</h2>
         <p class="meta"><strong>NPM:</strong> 267006111027</p>
@@ -805,7 +938,7 @@
         <span class="focus-badge">Fokus</span>
       </article>
 
-      <article class="card" tabindex="0" aria-label="Fokus pada profil Aldi Muhamad Alfaisi">
+      <article class="card" style="--i:5" tabindex="0" aria-label="Fokus pada profil Aldi Muhamad Alfaisi">
         <div class="avatar">A3</div>
         <p class="role">Anggota</p>
         <h2 class="name">Aldi Muhamad Alfaisi</h2>
@@ -814,7 +947,7 @@
         <span class="focus-badge">Fokus</span>
       </article>
 
-      <article class="card" tabindex="0" aria-label="Fokus pada profil Efqi 'Asykarullah">
+      <article class="card" style="--i:6" tabindex="0" aria-label="Fokus pada profil Efqi 'Asykarullah">
         <div class="avatar">E</div>
         <p class="role">Anggota</p>
         <h2 class="name">Efqi 'Asykarullah</h2>
@@ -823,7 +956,7 @@
         <span class="focus-badge">Fokus</span>
       </article>
 
-      <article class="card" tabindex="0" aria-label="Fokus pada profil Defnika Adistya Fadianti">
+      <article class="card" style="--i:7" tabindex="0" aria-label="Fokus pada profil Defnika Adistya Fadianti">
         <div class="avatar">D</div>
         <p class="role">Anggota</p>
         <h2 class="name">Defnika Adistya Fadianti</h2>
@@ -832,7 +965,7 @@
         <span class="focus-badge">Fokus</span>
       </article>
 
-      <article class="card" tabindex="0" aria-label="Fokus pada profil Nanda Ahmad Hanani">
+      <article class="card" style="--i:8" tabindex="0" aria-label="Fokus pada profil Nanda Ahmad Hanani">
         <div class="avatar">N</div>
         <p class="role">Anggota</p>
         <h2 class="name">Nanda Ahmad Hanani</h2>
@@ -841,7 +974,7 @@
         <span class="focus-badge">Fokus</span>
       </article>
 
-      <article class="card" tabindex="0" aria-label="Fokus pada profil Aditya Dwi Putra">
+      <article class="card" style="--i:9" tabindex="0" aria-label="Fokus pada profil Aditya Dwi Putra">
         <div class="avatar">A</div>
         <p class="role">Anggota</p>
         <h2 class="name">Aditya Dwi Putra</h2>
@@ -850,7 +983,7 @@
         <span class="focus-badge">Fokus</span>
       </article>
 
-      <article class="card" tabindex="0" aria-label="Fokus pada profil Muhammad Daris Ghifari">
+      <article class="card" style="--i:10" tabindex="0" aria-label="Fokus pada profil Muhammad Daris Ghifari">
         <div class="avatar">M</div>
         <p class="role">Anggota</p>
         <h2 class="name">Muhammad Daris Ghifari</h2>
@@ -859,7 +992,7 @@
         <span class="focus-badge">Fokus</span>
       </article>
 
-      <article class="card" tabindex="0" aria-label="Fokus pada profil M Alief Rievan R">
+      <article class="card" style="--i:11" tabindex="0" aria-label="Fokus pada profil M Alief Rievan R">
         <div class="avatar">A</div>
         <p class="role">Anggota</p>
         <h2 class="name">M Alief Rievan R</h2>
@@ -868,7 +1001,7 @@
         <span class="focus-badge">Fokus</span>
       </article>
 
-      <article class="card" tabindex="0" aria-label="Fokus pada profil Muhammad Ihsan Sya’bana">
+      <article class="card" style="--i:12" tabindex="0" aria-label="Fokus pada profil Muhammad Ihsan Sya’bana">
         <div class="avatar">I</div>
         <p class="role">Anggota</p>
         <h2 class="name">Muhammad Ihsan Sya’bana</h2>
@@ -876,6 +1009,14 @@
         <p class="meta"><strong>Instagram:</strong> <a class="insta-link" href="https://instagram.com/ihsnsybna" target="_blank" rel="noopener noreferrer"><svg class="insta-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="3" width="18" height="18" rx="5"></rect><circle cx="12" cy="12" r="4"></circle><circle cx="17.5" cy="6.5" r="1.2" fill="currentColor" stroke="none"></circle></svg>@ihsnsybna</a></p>
         <span class="focus-badge">Fokus</span>
       </article>
+    </section>
+  </div>
+
+  <div class="member-layer" id="memberLayer" hidden>
+    <div class="detail-scrim"></div>
+    <section class="member-detail" id="memberDetail" role="dialog" aria-modal="true" aria-label="Profil anggota" tabindex="-1">
+      <button class="detail-close" id="memberClose" type="button" aria-label="Tutup profil">&times;</button>
+      <div class="member-detail-body" id="memberDetailBody"></div>
     </section>
   </div>
 
@@ -925,36 +1066,150 @@
   </aside>
 
   <script>
-    const memberCards = document.querySelectorAll('.card');
+    const memberCards = [...document.querySelectorAll('.card')];
+    const container = document.querySelector('.container');
+    const layer = document.getElementById('memberLayer');
+    const scrim = layer.querySelector('.detail-scrim');
+    const panel = document.getElementById('memberDetail');
+    const panelBody = document.getElementById('memberDetailBody');
+    const closeBtn = document.getElementById('memberClose');
+    const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
-    function focusMemberCard(card) {
-      const shouldSelect = !card.classList.contains('is-selected');
+    let activeCard = null;
+    let busy = false;
 
+    const wait = (ms) => new Promise((resolve) => setTimeout(resolve, reduceMotion ? 0 : ms));
+
+    // lepas pembatas overflow setelah animasi masuk selesai
+    setTimeout(() => container.classList.remove('is-intro'), 2200);
+
+    function selectCard(card) {
       memberCards.forEach((item) => {
-        const isActive = item === card && shouldSelect;
-        item.classList.toggle('is-selected', isActive);
-        item.classList.toggle('is-dimmed', item !== card && shouldSelect);
+        item.classList.toggle('is-selected', item === card);
+        item.classList.toggle('is-dimmed', item !== card);
+      });
+    }
+
+    function clearSelection() {
+      memberCards.forEach((item) => {
+        item.classList.remove('is-selected', 'is-dimmed', 'flip-out', 'flip-in');
+      });
+    }
+
+    function fillDetail(card) {
+      panelBody.replaceChildren();
+      [...card.children].forEach((child) => {
+        if (child.classList.contains('focus-badge')) return;
+        panelBody.appendChild(child.cloneNode(true));
       });
 
-      if (shouldSelect) {
-        card.focus({ preventScroll: true });
-        card.scrollIntoView({ behavior: 'smooth', block: 'center', inline: 'nearest' });
+      // opsional: tambahkan data-about="..." pada kartu untuk menampilkan deskripsi
+      if (card.dataset.about) {
+        const about = document.createElement('p');
+        about.className = 'detail-about';
+        about.textContent = card.dataset.about;
+        panelBody.appendChild(about);
       }
+
+      const nameEl = card.querySelector('.name');
+      panel.setAttribute('aria-label', nameEl ? `Profil ${nameEl.textContent}` : 'Profil anggota');
+      panel.classList.toggle('leader-card', card.classList.contains('leader-card'));
+      panel.classList.toggle('mentor-card', card.classList.contains('mentor-card'));
+    }
+
+    async function openMember(card) {
+      if (busy || activeCard) return;
+      busy = true;
+      activeCard = card;
+
+      // 1) kartu terangkat, kartu lain meredup
+      selectCard(card);
+      card.focus({ preventScroll: true });
+      card.scrollIntoView({ behavior: reduceMotion ? 'auto' : 'smooth', block: 'center', inline: 'nearest' });
+      await wait(520);
+
+      // 2) kartu kecil berputar hingga menyamping
+      fillDetail(card);
+      if (!reduceMotion) {
+        card.classList.add('flip-out');
+        await wait(260);
+      }
+
+      // 3) kartu besar berputar masuk dari sisi yang sama
+      layer.hidden = false;
+      panel.classList.add('is-entering');
+      void panel.offsetWidth;
+      panel.classList.remove('is-entering');
+      panel.classList.add('is-open');
+      layer.classList.add('is-visible');
+      closeBtn.focus({ preventScroll: true });
+      busy = false;
+    }
+
+    async function closeMember() {
+      if (busy || !activeCard) return;
+      busy = true;
+      const card = activeCard;
+
+      // kartu besar berputar keluar
+      panel.classList.remove('is-open');
+      panel.classList.add('is-closing');
+      layer.classList.remove('is-visible');
+      await wait(300);
+      layer.hidden = true;
+      panel.classList.remove('is-closing');
+
+      // kartu kecil berputar kembali ke tempatnya
+      if (!reduceMotion) {
+        card.classList.add('flip-in');
+        void card.offsetWidth;
+        card.classList.remove('flip-out', 'flip-in');
+        await wait(420);
+      }
+
+      // semua kartu kembali normal
+      await wait(120);
+      clearSelection();
+      card.focus({ preventScroll: true });
+      activeCard = null;
+      busy = false;
     }
 
     memberCards.forEach((card) => {
-      card.addEventListener('click', () => focusMemberCard(card));
+      card.addEventListener('click', (event) => {
+        if (event.target.closest('a')) return;
+        openMember(card);
+      });
+
       card.addEventListener('keydown', (event) => {
+        if (event.target !== card) return;
         if (event.key === 'Enter' || event.key === ' ') {
           event.preventDefault();
-          focusMemberCard(card);
-        }
-        if (event.key === 'Escape') {
-          memberCards.forEach((item) => {
-            item.classList.remove('is-selected', 'is-dimmed');
-          });
+          openMember(card);
         }
       });
+    });
+
+    closeBtn.addEventListener('click', closeMember);
+    scrim.addEventListener('click', closeMember);
+
+    document.addEventListener('keydown', (event) => {
+      if (event.key === 'Escape') closeMember();
+    });
+
+    // fokus keyboard tetap berada di dalam kartu detail
+    layer.addEventListener('keydown', (event) => {
+      if (event.key !== 'Tab') return;
+      const items = [closeBtn, ...panelBody.querySelectorAll('a[href]')];
+      const first = items[0];
+      const last = items[items.length - 1];
+      if (event.shiftKey && document.activeElement === first) {
+        event.preventDefault();
+        last.focus();
+      } else if (!event.shiftKey && document.activeElement === last) {
+        event.preventDefault();
+        first.focus();
+      }
     });
 
     const audio = document.getElementById('bgAudio');
