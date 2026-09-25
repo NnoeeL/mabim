@@ -758,6 +758,27 @@
         grid-column: 1 / -1;
         min-height: 300px;
       }
+
+      .music-panel {
+        position: static;
+        width: min(100%, 440px);
+        right: auto;
+        top: auto;
+        margin: 18px auto 26px;
+        box-shadow: 0 16px 30px rgba(36, 49, 40, 0.08);
+        transform: none !important;
+        filter: none;
+        cursor: default;
+        touch-action: auto;
+      }
+
+      .music-panel.dragging {
+        cursor: default;
+      }
+
+      .music-panel.playing {
+        transform: none !important;
+      }
     }
   </style>
 </head>
@@ -971,6 +992,7 @@
     let dragState = null;
 
     musicPanel.addEventListener('pointerdown', (event) => {
+      if (window.innerWidth <= 768) return;
       if (event.target.closest('.track-btn') || event.target.closest('.play-toggle')) {
         return;
       }
@@ -984,7 +1006,7 @@
     });
 
     musicPanel.addEventListener('pointermove', (event) => {
-      if (!dragState) return;
+      if (window.innerWidth <= 768 || !dragState) return;
 
       const maxX = window.innerWidth - musicPanel.offsetWidth - 12;
       const maxY = window.innerHeight - musicPanel.offsetHeight - 12;
