@@ -36,36 +36,49 @@
       display: flex;
       align-items: center;
       justify-content: space-between;
-      gap: 16px;
-      padding: 18px 0 28px;
-      border-bottom: 1px solid var(--line);
+      gap: 20px;
+      padding: 16px 22px;
+      border: 1px solid var(--line);
+      border-radius: 999px;
       margin-bottom: 42px;
+      background: rgba(255, 255, 255, 0.78);
+      box-shadow: 0 10px 28px rgba(36, 49, 40, 0.05);
     }
 
     .brand {
+      flex-shrink: 0;
       font-size: 1.1rem;
       font-weight: 800;
-      letter-spacing: 0.18rem;
-      text-transform: uppercase;
+      letter-spacing: 0.12em;
       color: var(--ink);
       text-decoration: none;
     }
 
-    .back-link {
-      display: inline-flex;
+    .top-links {
+      display: flex;
       align-items: center;
-      justify-content: center;
-      text-decoration: none;
-      background: var(--ink);
-      color: white;
-      border-radius: 999px;
-      padding: 12px 22px;
-      font-weight: 700;
-      transition: transform 180ms ease;
+      justify-content: flex-end;
+      flex-wrap: wrap;
+      gap: 8px 22px;
+      font-size: 0.9rem;
+      font-weight: 600;
     }
 
-    .back-link:hover {
-      transform: translateY(-2px);
+    .top-links a {
+      color: var(--muted);
+      text-decoration: none;
+      transition: color 160ms ease;
+    }
+
+    .top-links a:hover,
+    .top-links a[aria-current="page"] {
+      color: var(--clay);
+    }
+
+    .top-links a:focus-visible,
+    .brand:focus-visible {
+      outline: 3px solid rgba(191, 93, 67, 0.35);
+      outline-offset: 4px;
     }
 
     .header {
@@ -815,7 +828,7 @@
       .member-detail.is-closing { transition: none; transform: none; }
     }
 
-    @media (max-width: 1100px) {
+    @media (max-width: 1600px) {
       .grid {
         grid-template-columns: repeat(4, minmax(180px, 1fr));
       }
@@ -824,11 +837,32 @@
         position: static;
         width: min(100%, 420px);
         margin: 0 auto 28px;
+        cursor: default;
+        touch-action: auto;
       }
 
       .ambient-notes {
         width: min(70vw, 320px);
         bottom: 16px;
+      }
+    }
+
+    @media (max-width: 900px) {
+      .leader-wrap {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+      }
+
+      .topbar {
+        align-items: flex-start;
+        flex-direction: column;
+        gap: 14px;
+        border-radius: 20px;
+        margin-bottom: 32px;
+      }
+
+      .top-links {
+        justify-content: flex-start;
+        gap: 8px 16px;
       }
     }
 
@@ -839,6 +873,10 @@
     }
 
     @media (max-width: 640px) {
+      .leader-wrap {
+        grid-template-columns: 1fr;
+      }
+
       .grid {
         grid-template-columns: repeat(2, minmax(150px, 1fr));
       }
@@ -880,11 +918,11 @@
       <a href="index.html" class="brand">Kelompok 12</a>
       <nav class="top-links" aria-label="Navigasi utama">
         <a href="index.html">Home</a>
+        <a href="index.html#about">About</a>
         <a href="gallery.html">Galeri</a>
         <a href="bulletin.html">Bulletin</a>
         <a href="game.html">Game</a>
       </nav>
-      <a href="index.html" class="back-link">Kembali</a>
     </header>
 
     <section class="header">
@@ -895,7 +933,7 @@
     <section class="leader-wrap">
       <article class="card mentor-card" style="--i:0" tabindex="0" aria-label="Fokus pada profil Ghania Citra Karini">
         <div class="avatar">
-          <img src="assets/Geha.jpeg" alt="Ghania Citra Karini" loading="lazy">
+          <img src="assets/geha.jpeg" alt="Ghania Citra Karini" loading="lazy">
         </div>
         <p class="role">Kaka Asuh Tercinta</p>
         <h2 class="name">Ghania Citra Karini</h2>
@@ -906,7 +944,7 @@
 
       <article class="card mentor-card" style="--i:1" tabindex="0" aria-label="Fokus pada profil Indah Kasih Lestari">
         <div class="avatar">
-          <img src="assets/Indah.jpeg" alt="Indah Kasih Lestari" loading="lazy">
+          <img src="assets/indah.jpeg" alt="Indah Kasih Lestari" loading="lazy">
         </div>
         <p class="role">Kaka Asuh Tercinta</p>
         <h2 class="name">Indah Kasih Lestari</h2>
@@ -930,7 +968,7 @@
     <section class="grid">
       <article class="card" style="--i:3" tabindex="0" aria-label="Fokus pada profil Winda Nur Fadilah">
         <div class="avatar">
-          <img src="assets/Winda.jpeg" alt="Winda Nur Fadilah" loading="lazy">
+          <img src="assets/winda.jpeg" alt="Winda Nur Fadilah" loading="lazy">
         </div>
         <p class="role">Anggota</p>
         <h2 class="name">Winda Nur Fadilah</h2>
@@ -1029,7 +1067,7 @@
 
       <article class="card" style="--i:12" tabindex="0" aria-label="Fokus pada profil Muhammad Ihsan Sya’bana">
         <div class="avatar">
-          <img src="assets/Ihsan.jpeg" alt="Muhammad Ihsan Sya’bana" loading="lazy">
+          <img src="assets/ihsan.jpeg" alt="Muhammad Ihsan Sya’bana" loading="lazy">
         </div>
         <p class="role">Anggota</p>
         <h2 class="name">Muhammad Ihsan Sya’bana</h2>
@@ -1298,6 +1336,10 @@
     let dragState = null;
 
     musicPanel.addEventListener('pointerdown', (event) => {
+      if (getComputedStyle(musicPanel).position !== 'fixed') {
+        return;
+      }
+
       if (event.target.closest('.track-btn') || event.target.closest('.play-toggle')) {
         return;
       }
