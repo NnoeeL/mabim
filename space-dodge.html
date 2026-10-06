@@ -1,0 +1,368 @@
+<!DOCTYPE html>
+<html lang="id">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Space Dodge</title>
+    <style>
+      * { box-sizing: border-box; }
+
+      body {
+        margin: 0;
+        min-height: 100vh;
+        display: grid;
+        place-items: center;
+        background: radial-gradient(circle at center, #11243c, #040d16 72%);
+        font-family: Arial, sans-serif;
+      }
+
+      .wrap {
+        background: rgba(8, 17, 28, 0.8);
+        border: 5px solid #e0e7de;
+        box-shadow: 12px 12px 0 rgba(224, 231, 222, 0.12);
+        padding: 18px 18px 12px;
+      }
+
+      .topbar {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 12px;
+        margin-bottom: 12px;
+      }
+
+      .player-card {
+        display: flex;
+        align-items: center;
+        gap: 12px;
+        background: rgba(206, 240, 255, 0.08);
+        border: 3px solid #e0e7de;
+        padding: 8px 12px;
+        color: #e0e7de;
+      }
+
+      .player-avatar {
+        width: 42px;
+        height: 42px;
+        border: 3px solid #e0e7de;
+        background-size: contain;
+        background-repeat: no-repeat;
+        background-position: center;
+        image-rendering: pixelated;
+      }
+
+      .player-name {
+        display: flex;
+        flex-direction: column;
+        font-weight: 700;
+        font-size: 0.72rem;
+      }
+
+      .player-role {
+        font-size: 0.62rem;
+        opacity: 0.8;
+      }
+
+      .menu-btn {
+        color: #e0e7de;
+        text-decoration: none;
+        border: 3px solid #e0e7de;
+        padding: 8px 12px;
+        font-weight: 700;
+      }
+
+      canvas {
+        display: block;
+        background: #071521;
+        border: 5px solid #dfe8d9;
+      }
+
+      .hud {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        margin-top: 16px;
+        color: #dfe8d9;
+        font-weight: 700;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="wrap">
+      <div class="topbar">
+        <div class="player-card">
+          <div class="player-avatar" id="playerAvatar"></div>
+          <div class="player-name">
+            <span id="playerName">-</span>
+            <span class="player-role" id="playerRole">-</span>
+          </div>
+        </div>
+        <a class="menu-btn" href="game-menu.html">Menu</a>
+      </div>
+
+      <canvas id="gameCanvas" width="520" height="620"></canvas>
+      <div class="hud">
+        <span id="score">Skor: 0</span>
+        <span id="statusText">Awas asteroid!</span>
+      </div>
+    </div>
+
+    <script>
+      const defaultCharacter = {
+        name: 'Radhitya Fauzana Rasyid',
+        role: 'Ketua',
+        image: 'assets/game-character-03.png'
+      };
+
+      function getSelectedCharacter() {
+        try {
+          const stored = localStorage.getItem('selectedCharacter');
+          return stored ? JSON.parse(stored) : defaultCharacter;
+        } catch (error) {
+          return defaultCharacter;
+        }
+      }
+
+      const selectedCharacter = getSelectedCharacter();
+      const playerAvatar = document.getElementById('playerAvatar');
+      const playerName = document.getElementById('playerName');
+      const playerRole = document.getElementById('playerRole');
+      playerAvatar.style.backgroundImage = `url("${selectedCharacter.image}")`;
+      playerName.textContent = selectedCharacter.name;
+      playerRole.textContent = selectedCharacter.role;
+
+      const audio = {
+        context: null,
+        master: null,
+        bgInterval: null,
+        init() {
+          if (this.context) return;
+          const AudioCtx = window.AudioContext || window.webkitAudioContext;
+          if (!AudioCtx) return;
+          this.context = new AudioCtx();
+          this.master = this.context.createGain();
+          this.master.gain.value = 0.18;
+          this.master.connect(this.context.destination);
+        },
+        ensure() {
+          this.init();
+          if (this.context && this.context.state === 'suspended') {
+            this.context.resume();
+          }
+        },
+        tone(freq = 440, duration = 0.12, type = 'square', volume = 0.08, slide = 0) {
+          if (!this.context || !this.master) return;
+          const now = this.context.currentTime;
+          const oscillator = this.context.createOscillator();
+          const gain = this.context.createGain();
+
+          oscillator.type = type;
+          oscillator.frequency.setValueAtTime(freq, now);
+          if (slide !== 0) {
+            oscillator.frequency.linearRampToValueAtTime(freq + slide, now + duration);
+          }
+
+          gain.gain.setValueAtTime(0.0001, now);
+          gain.gain.exponentialRampToValueAtTime(volume, now + 0.02);
+          gain.gain.exponentialRampToValueAtTime(0.0001, now + duration);
+
+          oscillator.connect(gain);
+          gain.connect(this.master);
+          oscillator.start(now);
+          oscillator.stop(now + duration + 0.04);
+        },
+        startBg() {
+          this.ensure();
+          if (!this.context || this.bgInterval) return;
+
+          const pattern = [392, 494, 587, 659];
+          let index = 0;
+          this.bgInterval = setInterval(() => {
+            const note = pattern[index % pattern.length];
+            this.tone(note, 0.14, 'triangle', 0.03, 15);
+            index += 1;
+          }, 380);
+        },
+        stopBg() {
+          if (this.bgInterval) {
+            clearInterval(this.bgInterval);
+            this.bgInterval = null;
+          }
+        },
+        hit() {
+          this.ensure();
+          this.tone(140, 0.25, 'sawtooth', 0.12, -20);
+        },
+        move() {
+          this.ensure();
+          this.tone(220, 0.04, 'square', 0.02, 10);
+        }
+      };
+
+      const canvas = document.getElementById('gameCanvas');
+      const ctx = canvas.getContext('2d');
+      const scoreEl = document.getElementById('score');
+      const statusText = document.getElementById('statusText');
+      const playerImage = new Image();
+      playerImage.src = selectedCharacter.image;
+
+      let player;
+      let asteroids = [];
+      let score = 0;
+      let spawnTimer = 0;
+      let gameOver = false;
+      const keys = {};
+
+      function resetGame() {
+        player = {
+          x: canvas.width / 2,
+          y: canvas.height - 60,
+          radius: 18,
+          speed: 5,
+        };
+        asteroids = [];
+        score = 0;
+        spawnTimer = 0;
+        gameOver = false;
+        scoreEl.textContent = 'Skor: 0';
+        statusText.textContent = 'Awas asteroid!';
+      }
+
+      function spawnAsteroid() {
+        const radius = 12 + Math.random() * 18;
+        asteroids.push({
+          x: Math.random() * (canvas.width - radius * 2) + radius,
+          y: -radius,
+          radius,
+          speed: 2 + Math.random() * 3,
+        });
+      }
+
+      function update() {
+        if (gameOver) return;
+
+        if (keys['ArrowLeft'] || keys['a']) player.x -= player.speed;
+        if (keys['ArrowRight'] || keys['d']) player.x += player.speed;
+        if (keys['ArrowUp'] || keys['w']) player.y -= player.speed;
+        if (keys['ArrowDown'] || keys['s']) player.y += player.speed;
+
+        player.x = Math.max(player.radius, Math.min(canvas.width - player.radius, player.x));
+        player.y = Math.max(player.radius, Math.min(canvas.height - player.radius, player.y));
+
+        spawnTimer += 1;
+        if (spawnTimer > 28) {
+          spawnAsteroid();
+          spawnTimer = 0;
+        }
+
+        for (const rock of asteroids) {
+          rock.y += rock.speed;
+        }
+
+        while (asteroids.length && asteroids[0].y - asteroids[0].radius > canvas.height) {
+          asteroids.shift();
+          score += 1;
+          scoreEl.textContent = `Skor: ${score}`;
+        }
+
+        const hit = asteroids.some(rock => {
+          const dx = player.x - rock.x;
+          const dy = player.y - rock.y;
+          return Math.hypot(dx, dy) < player.radius + rock.radius;
+        });
+
+        if (hit) {
+          gameOver = true;
+          statusText.textContent = 'Game Over';
+          audio.stopBg();
+          audio.hit();
+        }
+      }
+
+      function drawBackground() {
+        ctx.fillStyle = '#071521';
+        ctx.fillRect(0, 0, canvas.width, canvas.height);
+
+        for (let i = 0; i < 80; i += 1) {
+          const x = (i * 67) % canvas.width;
+          const y = (i * 97) % canvas.height;
+          ctx.fillStyle = 'rgba(255,255,255,0.7)';
+          ctx.fillRect(x, y, 2, 2);
+        }
+      }
+
+      function drawPlayer() {
+        ctx.save();
+        ctx.translate(player.x, player.y);
+        ctx.rotate(Math.PI / 2);
+        if (playerImage.complete) {
+          ctx.drawImage(playerImage, -player.radius - 10, -player.radius - 10, player.radius * 2 + 20, player.radius * 2 + 20);
+        } else {
+          ctx.fillStyle = '#8be9fd';
+          ctx.beginPath();
+          ctx.moveTo(0, -18);
+          ctx.lineTo(18, 12);
+          ctx.lineTo(0, 6);
+          ctx.lineTo(-18, 12);
+          ctx.closePath();
+          ctx.fill();
+        }
+        ctx.restore();
+      }
+
+      function drawAsteroids() {
+        for (const rock of asteroids) {
+          ctx.fillStyle = '#d9d9d9';
+          ctx.beginPath();
+          ctx.arc(rock.x, rock.y, rock.radius, 0, Math.PI * 2);
+          ctx.fill();
+        }
+      }
+
+      function drawGameOver() {
+        if (!gameOver) return;
+        ctx.fillStyle = 'rgba(0,0,0,0.45)';
+        ctx.fillRect(0, 0, canvas.width, canvas.height);
+        ctx.fillStyle = '#fff';
+        ctx.font = 'bold 32px Arial';
+        ctx.fillText('Game Over', 170, 240);
+        ctx.font = '24px Arial';
+        ctx.fillText(`Final Score: ${score}`, 180, 280);
+        ctx.font = '20px Arial';
+        ctx.fillText('Press R to Restart', 165, 320);
+      }
+
+      function draw() {
+        drawBackground();
+        drawAsteroids();
+        drawPlayer();
+        drawGameOver();
+      }
+
+      window.addEventListener('keydown', (e) => {
+        const key = e.key.length === 1 ? e.key.toLowerCase() : e.key;
+        keys[key] = true;
+        audio.ensure();
+        if (keys['ArrowLeft'] || keys['a'] || keys['ArrowRight'] || keys['d'] || keys['ArrowUp'] || keys['w'] || keys['ArrowDown'] || keys['s']) {
+          audio.move();
+        }
+        if (e.key === 'r' && gameOver) resetGame();
+      });
+
+      window.addEventListener('keyup', (e) => {
+        const key = e.key.length === 1 ? e.key.toLowerCase() : e.key;
+        keys[key] = false;
+      });
+
+      function loop() {
+        update();
+        draw();
+        requestAnimationFrame(loop);
+      }
+
+      resetGame();
+      audio.startBg();
+      requestAnimationFrame(loop);
+    </script>
+  </body>
+</html>

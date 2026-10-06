@@ -1,0 +1,400 @@
+<!DOCTYPE html>
+<html lang="id">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Dino Chrome</title>
+    <style>
+      * { box-sizing: border-box; }
+
+      body {
+        margin: 0;
+        min-height: 100vh;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        background: linear-gradient(180deg, #d9f0d2, #b8d0b2 52%, #9fb79c 100%);
+        font-family: Arial, sans-serif;
+      }
+
+      .game-shell {
+        background: rgba(245, 250, 242, 0.92);
+        border: 5px solid #1d2b2b;
+        box-shadow: 12px 12px 0 rgba(29, 43, 43, 0.15);
+        padding: 18px 18px 12px;
+      }
+
+      .topbar {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 14px;
+        margin-bottom: 14px;
+      }
+
+      .player-card {
+        display: flex;
+        align-items: center;
+        gap: 12px;
+        background: #edf3ea;
+        border: 3px solid #1d2b2b;
+        padding: 8px 12px;
+      }
+
+      .player-avatar {
+        width: 42px;
+        height: 42px;
+        border: 3px solid #1d2b2b;
+        background-color: #dfe9d8;
+        background-size: contain;
+        background-repeat: no-repeat;
+        background-position: center;
+        image-rendering: pixelated;
+      }
+
+      .player-name {
+        display: flex;
+        flex-direction: column;
+        font-weight: 700;
+        font-size: 0.78rem;
+      }
+
+      .player-role {
+        font-size: 0.62rem;
+        opacity: 0.75;
+      }
+
+      .menu-btn {
+        text-decoration: none;
+        color: #1d2b2b;
+        border: 3px solid #1d2b2b;
+        background: #e8efe2;
+        padding: 8px 12px;
+        font-weight: 700;
+      }
+
+      canvas {
+        display: block;
+        border: 5px solid #1d2b2b;
+        background: linear-gradient(180deg, #f7f7f7 0%, #edf2f7 100%);
+        image-rendering: pixelated;
+      }
+
+      .hud {
+        margin-top: 14px;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        gap: 10px;
+        font-weight: 700;
+      }
+
+      #statusText {
+        color: #24493d;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="game-shell">
+      <div class="topbar">
+        <div class="player-card">
+          <div class="player-avatar" id="playerAvatar"></div>
+          <div class="player-name">
+            <span id="playerName">-</span>
+            <span class="player-role" id="playerRole">-</span>
+          </div>
+        </div>
+        <a class="menu-btn" href="game-menu.html">Menu</a>
+      </div>
+
+      <canvas id="gameCanvas" width="900" height="250"></canvas>
+      <div class="hud">
+        <span id="score">Score: 0</span>
+        <span id="statusText">Ready</span>
+      </div>
+    </div>
+
+    <script>
+      const defaultCharacter = {
+        name: 'Radhitya Fauzana Rasyid',
+        role: 'Ketua',
+        image: 'assets/game-character-03.png'
+      };
+
+      function getSelectedCharacter() {
+        try {
+          const stored = localStorage.getItem('selectedCharacter');
+          return stored ? JSON.parse(stored) : defaultCharacter;
+        } catch (error) {
+          return defaultCharacter;
+        }
+      }
+
+      const selectedCharacter = getSelectedCharacter();
+      const playerAvatar = document.getElementById('playerAvatar');
+      const playerName = document.getElementById('playerName');
+      const playerRole = document.getElementById('playerRole');
+      playerAvatar.style.backgroundImage = `url("${selectedCharacter.image}")`;
+      playerName.textContent = selectedCharacter.name;
+      playerRole.textContent = selectedCharacter.role;
+
+      const audio = {
+        context: null,
+        master: null,
+        bgInterval: null,
+        init() {
+          if (this.context) return;
+          const AudioCtx = window.AudioContext || window.webkitAudioContext;
+          if (!AudioCtx) return;
+          this.context = new AudioCtx();
+          this.master = this.context.createGain();
+          this.master.gain.value = 0.18;
+          this.master.connect(this.context.destination);
+        },
+        ensure() {
+          this.init();
+          if (this.context && this.context.state === 'suspended') {
+            this.context.resume();
+          }
+        },
+        tone(freq = 440, duration = 0.12, type = 'square', volume = 0.08, slide = 0) {
+          if (!this.context || !this.master) return;
+          const now = this.context.currentTime;
+          const oscillator = this.context.createOscillator();
+          const gain = this.context.createGain();
+
+          oscillator.type = type;
+          oscillator.frequency.setValueAtTime(freq, now);
+          if (slide !== 0) {
+            oscillator.frequency.linearRampToValueAtTime(freq + slide, now + duration);
+          }
+
+          gain.gain.setValueAtTime(0.0001, now);
+          gain.gain.exponentialRampToValueAtTime(volume, now + 0.02);
+          gain.gain.exponentialRampToValueAtTime(0.0001, now + duration);
+
+          oscillator.connect(gain);
+          gain.connect(this.master);
+          oscillator.start(now);
+          oscillator.stop(now + duration + 0.04);
+        },
+        startBg() {
+          this.ensure();
+          if (!this.context || this.bgInterval) return;
+
+          const pattern = [330, 392, 440, 392];
+          let index = 0;
+          this.bgInterval = setInterval(() => {
+            const note = pattern[index % pattern.length];
+            this.tone(note, 0.18, 'triangle', 0.02, 20);
+            index += 1;
+          }, 450);
+        },
+        stopBg() {
+          if (this.bgInterval) {
+            clearInterval(this.bgInterval);
+            this.bgInterval = null;
+          }
+        },
+        jump() {
+          this.ensure();
+          this.tone(520, 0.08, 'square', 0.08, 60);
+        },
+        crash() {
+          this.ensure();
+          this.tone(110, 0.4, 'sawtooth', 0.12, -30);
+        }
+      };
+
+      const canvas = document.getElementById('gameCanvas');
+      const ctx = canvas.getContext('2d');
+      const scoreEl = document.getElementById('score');
+      const statusText = document.getElementById('statusText');
+
+      const groundY = 200;
+      let score = 0;
+      let gameSpeed = 5;
+      let lastTime = 0;
+      let spawnTimer = 0;
+      let gameOver = false;
+
+      const heroImage = new Image();
+      heroImage.src = selectedCharacter.image;
+
+      const dino = {
+        x: 70,
+        y: groundY - 32,
+        width: 28,
+        height: 32,
+        vy: 0,
+        jumpForce: 11,
+        grounded: true,
+      };
+
+      const obstacles = [];
+
+      function resetGame() {
+        score = 0;
+        gameSpeed = 5;
+        spawnTimer = 0;
+        gameOver = false;
+        statusText.textContent = 'Ready';
+        dino.y = groundY - dino.height;
+        dino.vy = 0;
+        dino.grounded = true;
+        obstacles.length = 0;
+      }
+
+      function jump() {
+        if (dino.grounded && !gameOver) {
+          dino.vy = -dino.jumpForce;
+          dino.grounded = false;
+          audio.jump();
+        }
+      }
+
+      function spawnObstacle() {
+        const width = 16 + Math.random() * 28;
+        const height = 20 + Math.random() * 40;
+        obstacles.push({
+          x: canvas.width + 20,
+          y: groundY - height,
+          width,
+          height,
+        });
+      }
+
+      function checkCollision() {
+        for (const obs of obstacles) {
+          const hitX = dino.x + dino.width > obs.x && dino.x < obs.x + obs.width;
+          const hitY = dino.y + dino.height > obs.y && dino.y < obs.y + obs.height;
+          if (hitX && hitY) {
+            gameOver = true;
+            statusText.textContent = 'Crashed';
+            audio.stopBg();
+            audio.crash();
+            break;
+          }
+        }
+      }
+
+      function update(delta) {
+        if (gameOver) return;
+
+        dino.vy += 0.5;
+        dino.y += dino.vy;
+
+        if (dino.y + dino.height >= groundY) {
+          dino.y = groundY - dino.height;
+          dino.vy = 0;
+          dino.grounded = true;
+        } else {
+          dino.grounded = false;
+        }
+
+        spawnTimer += delta;
+        if (spawnTimer > 1200) {
+          spawnObstacle();
+          spawnTimer = 0;
+        }
+
+        for (const obs of obstacles) {
+          obs.x -= gameSpeed;
+        }
+
+        while (obstacles.length && obstacles[0].x + obstacles[0].width < 0) {
+          obstacles.shift();
+          score += 1;
+        }
+
+        scoreEl.textContent = `Score: ${score}`;
+        gameSpeed += 0.001;
+        checkCollision();
+      }
+
+      function drawGround() {
+        ctx.fillStyle = '#d0d0d0';
+        ctx.fillRect(0, groundY, canvas.width, canvas.height - groundY);
+        ctx.fillStyle = '#848484';
+        for (let i = 0; i < canvas.width + 40; i += 20) {
+          ctx.fillRect(i, groundY + 18, 10, 4);
+        }
+      }
+
+      function drawDino() {
+        ctx.save();
+        ctx.translate(dino.x + dino.width / 2, dino.y + dino.height / 2);
+        if (heroImage.complete) {
+          ctx.drawImage(heroImage, -dino.width / 2 - 8, -dino.height / 2 - 8, dino.width + 16, dino.height + 16);
+        } else {
+          ctx.fillStyle = '#2f3a3a';
+          ctx.fillRect(-dino.width / 2, -dino.height / 2, dino.width, dino.height);
+        }
+        ctx.restore();
+      }
+
+      function drawObstacles() {
+        for (const obs of obstacles) {
+          ctx.fillStyle = '#4b8a4b';
+          ctx.fillRect(obs.x, obs.y, obs.width, obs.height);
+        }
+      }
+
+      function drawGameOver() {
+        if (!gameOver) return;
+        ctx.fillStyle = 'rgba(0,0,0,0.45)';
+        ctx.fillRect(0, 0, canvas.width, canvas.height);
+        ctx.fillStyle = '#ffffff';
+        ctx.font = 'bold 32px Arial';
+        ctx.fillText('Game Over', 360, 100);
+        ctx.font = '24px Arial';
+        ctx.fillText(`Final Score: ${score}`, 330, 140);
+        ctx.font = '20px Arial';
+        ctx.fillText('Press Space to Restart', 330, 180);
+      }
+
+      function render() {
+        ctx.clearRect(0, 0, canvas.width, canvas.height);
+        drawGround();
+        drawDino();
+        drawObstacles();
+        drawGameOver();
+      }
+
+      function loop(timestamp) {
+        const delta = timestamp - lastTime;
+        lastTime = timestamp;
+
+        update(delta);
+        render();
+
+        requestAnimationFrame(loop);
+      }
+
+      window.addEventListener('keydown', (e) => {
+        if (e.code === 'Space' || e.code === 'ArrowUp') {
+          e.preventDefault();
+          audio.ensure();
+          if (gameOver) {
+            resetGame();
+            audio.startBg();
+          }
+          jump();
+        }
+      });
+
+      canvas.addEventListener('pointerdown', () => {
+        audio.ensure();
+        if (gameOver) {
+          resetGame();
+          audio.startBg();
+        }
+        jump();
+      });
+
+      resetGame();
+      audio.startBg();
+      requestAnimationFrame(loop);
+    </script>
+  </body>
+</html>

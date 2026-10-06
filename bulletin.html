@@ -73,42 +73,47 @@
       padding: 24px 20px 72px;
     }
 
-    .topbar {
+    .site-nav {
       display: flex;
       align-items: center;
       justify-content: space-between;
-      gap: 16px;
-      padding: 12px 0 18px;
-      margin-bottom: 18px;
+      gap: 20px;
+      margin: 0 0 26px;
+      padding: 16px 22px;
+      border: 1px solid var(--line);
+      border-radius: 999px;
+      background: rgba(255, 255, 255, 0.78);
+      box-shadow: 0 10px 28px rgba(29, 42, 34, 0.05);
     }
 
     .brand {
+      flex-shrink: 0;
       text-decoration: none;
       color: var(--forest);
       font-size: 0.92rem;
       font-weight: 800;
-      letter-spacing: 0.18rem;
-      text-transform: uppercase;
-      opacity: 0.9;
+      letter-spacing: 0.12em;
     }
 
-    .back-link {
-      display: inline-flex;
+    .top-links {
+      display: flex;
       align-items: center;
-      justify-content: center;
-      text-decoration: none;
-      background: rgba(29, 42, 34, 0.96);
-      color: #fff;
-      border-radius: 999px;
-      padding: 11px 18px;
-      font-size: 0.9rem;
-      font-weight: 700;
-      transition: transform 180ms ease, box-shadow 180ms ease;
-      box-shadow: 0 12px 24px rgba(29, 42, 34, 0.12);
+      justify-content: flex-end;
+      flex-wrap: wrap;
+      gap: 8px 22px;
+      font-size: 0.88rem;
+      font-weight: 600;
     }
 
-    .back-link:hover {
-      transform: translateY(-1px);
+    .top-links a {
+      color: var(--muted);
+      text-decoration: none;
+      transition: color 160ms ease;
+    }
+
+    .top-links a:hover,
+    .top-links a[aria-current="page"] {
+      color: var(--clay-strong);
     }
 
     .page-header {
@@ -603,6 +608,19 @@
         padding-top: 18px;
       }
 
+      .site-nav {
+        align-items: flex-start;
+        flex-direction: column;
+        gap: 14px;
+        padding: 16px 18px;
+        border-radius: 20px;
+      }
+
+      .top-links {
+        justify-content: flex-start;
+        gap: 8px 16px;
+      }
+
       .music-panel {
         position: static;
         width: min(100%, 420px);
@@ -615,9 +633,15 @@
 </head>
 <body>
   <div class="container">
-    <header class="topbar">
+    <header class="site-nav">
       <a href="index.html" class="brand">Kelompok 12</a>
-      <a href="index.html" class="back-link">Kembali</a>
+      <nav class="top-links" aria-label="Navigasi utama">
+        <a href="index.html">Home</a>
+        <a href="index.html#about">About</a>
+        <a href="gallery.html">Galeri</a>
+        <a href="bulletin.html" aria-current="page">Bulletin</a>
+        <a href="game.html">Game</a>
+      </nav>
     </header>
 
     <aside class="music-panel" aria-label="Panel musik latar">

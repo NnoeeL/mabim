@@ -1,0 +1,368 @@
+<!DOCTYPE html>
+<html lang="id">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Flappy Bird</title>
+    <style>
+      * { box-sizing: border-box; }
+
+      body {
+        margin: 0;
+        min-height: 100vh;
+        display: grid;
+        place-items: center;
+        background: linear-gradient(180deg, #9ad8ff, #c9ecff 48%, #dff7b3 100%);
+        font-family: Arial, sans-serif;
+      }
+
+      .wrap {
+        background: rgba(250, 250, 245, 0.95);
+        border: 5px solid #1d2b2b;
+        box-shadow: 12px 12px 0 rgba(29, 43, 43, 0.15);
+        padding: 18px 18px 12px;
+      }
+
+      .topbar {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 12px;
+        margin-bottom: 12px;
+      }
+
+      .player-card {
+        display: flex;
+        align-items: center;
+        gap: 12px;
+        background: #edf7ff;
+        border: 3px solid #1d2b2b;
+        padding: 8px 12px;
+      }
+
+      .player-avatar {
+        width: 42px;
+        height: 42px;
+        border: 3px solid #1d2b2b;
+        background-size: contain;
+        background-repeat: no-repeat;
+        background-position: center;
+        image-rendering: pixelated;
+      }
+
+      .player-name {
+        display: flex;
+        flex-direction: column;
+        font-weight: 700;
+        font-size: 0.72rem;
+      }
+
+      .player-role {
+        font-size: 0.62rem;
+        opacity: 0.7;
+      }
+
+      .menu-btn {
+        text-decoration: none;
+        color: #1d2b2b;
+        background: #edf7dd;
+        border: 3px solid #1d2b2b;
+        padding: 8px 12px;
+        font-weight: 700;
+      }
+
+      canvas {
+        display: block;
+        border: 5px solid #1d2b2b;
+        background: linear-gradient(180deg, #7fc9ff, #d7f0ff 60%, #c8e7b6 60%, #c8e7b6 100%);
+      }
+
+      .hud {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-top: 16px;
+        font-weight: 700;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="wrap">
+      <div class="topbar">
+        <div class="player-card">
+          <div class="player-avatar" id="playerAvatar"></div>
+          <div class="player-name">
+            <span id="playerName">-</span>
+            <span class="player-role" id="playerRole">-</span>
+          </div>
+        </div>
+        <a class="menu-btn" href="game-menu.html">Menu</a>
+      </div>
+
+      <canvas id="gameCanvas" width="420" height="640"></canvas>
+      <div class="hud">
+        <span id="score">Score: 0</span>
+        <span id="statusText">Tap to Fly</span>
+      </div>
+    </div>
+
+    <script>
+      const defaultCharacter = {
+        name: 'Radhitya Fauzana Rasyid',
+        role: 'Ketua',
+        image: 'assets/game-character-03.png'
+      };
+
+      function getSelectedCharacter() {
+        try {
+          const stored = localStorage.getItem('selectedCharacter');
+          return stored ? JSON.parse(stored) : defaultCharacter;
+        } catch (error) {
+          return defaultCharacter;
+        }
+      }
+
+      const selectedCharacter = getSelectedCharacter();
+      const playerAvatar = document.getElementById('playerAvatar');
+      const playerName = document.getElementById('playerName');
+      const playerRole = document.getElementById('playerRole');
+      playerAvatar.style.backgroundImage = `url("${selectedCharacter.image}")`;
+      playerName.textContent = selectedCharacter.name;
+      playerRole.textContent = selectedCharacter.role;
+
+      const audio = {
+        context: null,
+        master: null,
+        bgInterval: null,
+        init() {
+          if (this.context) return;
+          const AudioCtx = window.AudioContext || window.webkitAudioContext;
+          if (!AudioCtx) return;
+          this.context = new AudioCtx();
+          this.master = this.context.createGain();
+          this.master.gain.value = 0.18;
+          this.master.connect(this.context.destination);
+        },
+        ensure() {
+          this.init();
+          if (this.context && this.context.state === 'suspended') {
+            this.context.resume();
+          }
+        },
+        tone(freq = 440, duration = 0.12, type = 'square', volume = 0.08, slide = 0) {
+          if (!this.context || !this.master) return;
+          const now = this.context.currentTime;
+          const oscillator = this.context.createOscillator();
+          const gain = this.context.createGain();
+
+          oscillator.type = type;
+          oscillator.frequency.setValueAtTime(freq, now);
+          if (slide !== 0) {
+            oscillator.frequency.linearRampToValueAtTime(freq + slide, now + duration);
+          }
+
+          gain.gain.setValueAtTime(0.0001, now);
+          gain.gain.exponentialRampToValueAtTime(volume, now + 0.02);
+          gain.gain.exponentialRampToValueAtTime(0.0001, now + duration);
+
+          oscillator.connect(gain);
+          gain.connect(this.master);
+          oscillator.start(now);
+          oscillator.stop(now + duration + 0.04);
+        },
+        startBg() {
+          this.ensure();
+          if (!this.context || this.bgInterval) return;
+
+          const pattern = [440, 554, 659, 554];
+          let index = 0;
+          this.bgInterval = setInterval(() => {
+            const note = pattern[index % pattern.length];
+            this.tone(note, 0.18, 'triangle', 0.03, 20);
+            index += 1;
+          }, 420);
+        },
+        stopBg() {
+          if (this.bgInterval) {
+            clearInterval(this.bgInterval);
+            this.bgInterval = null;
+          }
+        },
+        flap() {
+          this.ensure();
+          this.tone(520, 0.08, 'square', 0.08, 70);
+        },
+        crash() {
+          this.ensure();
+          this.tone(110, 0.5, 'sawtooth', 0.12, -40);
+        }
+      };
+
+      const canvas = document.getElementById('gameCanvas');
+      const ctx = canvas.getContext('2d');
+      const scoreEl = document.getElementById('score');
+      const statusText = document.getElementById('statusText');
+      const birdImage = new Image();
+      birdImage.src = selectedCharacter.image;
+
+      let bird;
+      let pipes = [];
+      let score = 0;
+      let gameOver = false;
+      let frame = 0;
+
+      function resetGame() {
+        bird = {
+          x: 90,
+          y: canvas.height / 2,
+          radius: 20,
+          velocity: 0,
+          gravity: 0.5,
+          lift: -8.5,
+        };
+        pipes = [];
+        score = 0;
+        gameOver = false;
+        frame = 0;
+        scoreEl.textContent = 'Score: 0';
+        statusText.textContent = 'Tap to Fly';
+      }
+
+      function flap() {
+        if (!gameOver) {
+          bird.velocity = bird.lift;
+          audio.flap();
+        }
+      }
+
+      function createPipe() {
+        const gap = 150;
+        const minHeight = 70;
+        const maxHeight = canvas.height - gap - 100;
+        const topHeight = minHeight + Math.random() * (maxHeight - minHeight);
+        pipes.push({
+          x: canvas.width + 30,
+          width: 60,
+          gap,
+          topHeight,
+          passed: false,
+        });
+      }
+
+      function update() {
+        if (gameOver) return;
+
+        frame += 1;
+        bird.velocity += bird.gravity;
+        bird.y += bird.velocity;
+
+        if (frame % 90 === 0) createPipe();
+
+        for (const pipe of pipes) {
+          pipe.x -= 3;
+          if (!pipe.passed && pipe.x + pipe.width < bird.x) {
+            pipe.passed = true;
+            score += 1;
+            scoreEl.textContent = `Score: ${score}`;
+          }
+        }
+
+        while (pipes.length && pipes[0].x + pipes[0].width < 0) {
+          pipes.shift();
+        }
+
+        const hitPipe = pipes.some(pipe => {
+          const inX = bird.x + bird.radius > pipe.x && bird.x - bird.radius < pipe.x + pipe.width;
+          const hitTop = bird.y - bird.radius < pipe.topHeight;
+          const hitBottom = bird.y + bird.radius > pipe.topHeight + pipe.gap;
+          return inX && (hitTop || hitBottom);
+        });
+
+        if (bird.y - bird.radius <= 0 || bird.y + bird.radius >= canvas.height || hitPipe) {
+          gameOver = true;
+          statusText.textContent = 'Game Over';
+          audio.stopBg();
+          audio.crash();
+        }
+      }
+
+      function drawBird() {
+        ctx.save();
+        ctx.translate(bird.x, bird.y);
+        ctx.rotate(bird.velocity * 0.08);
+        if (birdImage.complete) {
+          ctx.drawImage(birdImage, -bird.radius - 4, -bird.radius - 4, bird.radius * 2 + 8, bird.radius * 2 + 8);
+        } else {
+          ctx.fillStyle = '#ffd93b';
+          ctx.beginPath();
+          ctx.arc(0, 0, bird.radius, 0, Math.PI * 2);
+          ctx.fill();
+        }
+        ctx.restore();
+      }
+
+      function drawPipes() {
+        for (const pipe of pipes) {
+          ctx.fillStyle = '#38a169';
+          ctx.fillRect(pipe.x, 0, pipe.width, pipe.topHeight);
+          ctx.fillRect(pipe.x, pipe.topHeight + pipe.gap, pipe.width, canvas.height - pipe.topHeight - pipe.gap);
+
+          ctx.fillStyle = '#2f7d32';
+          ctx.fillRect(pipe.x - 6, pipe.topHeight - 18, pipe.width + 12, 18);
+          ctx.fillRect(pipe.x - 6, pipe.topHeight + pipe.gap, pipe.width + 12, 18);
+        }
+      }
+
+      function drawGameOver() {
+        if (!gameOver) return;
+        ctx.fillStyle = 'rgba(0,0,0,0.5)';
+        ctx.fillRect(0, 0, canvas.width, canvas.height);
+        ctx.fillStyle = '#fff';
+        ctx.font = 'bold 36px Arial';
+        ctx.fillText('Game Over', 120, 220);
+        ctx.font = '24px Arial';
+        ctx.fillText(`Final Score: ${score}`, 130, 260);
+        ctx.font = '18px Arial';
+        ctx.fillText('Press Space to Restart', 118, 300);
+      }
+
+      function draw() {
+        ctx.clearRect(0, 0, canvas.width, canvas.height);
+        drawPipes();
+        drawBird();
+        drawGameOver();
+      }
+
+      function loop() {
+        update();
+        draw();
+        requestAnimationFrame(loop);
+      }
+
+      window.addEventListener('keydown', (e) => {
+        if (e.code === 'Space') {
+          e.preventDefault();
+          audio.ensure();
+          if (gameOver) {
+            resetGame();
+            audio.startBg();
+          }
+          flap();
+        }
+      });
+
+      canvas.addEventListener('pointerdown', () => {
+        audio.ensure();
+        if (gameOver) {
+          resetGame();
+          audio.startBg();
+        }
+        flap();
+      });
+
+      resetGame();
+      audio.startBg();
+      requestAnimationFrame(loop);
+    </script>
+  </body>
+</html>

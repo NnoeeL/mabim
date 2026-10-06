@@ -1,0 +1,253 @@
+<!DOCTYPE html>
+<html lang="id">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Pilih Game</title>
+    <style>
+      :root {
+        --bg1: #dfe9d9;
+        --bg2: #c2d4c3;
+        --panel: #f5f0e7;
+        --ink: #1f2d2d;
+        --line: #2f2f2f;
+        --accent: #d7724d;
+        --accent2: #7eb8a2;
+        --shadow: rgba(31, 45, 45, 0.18);
+      }
+
+      * { box-sizing: border-box; }
+
+      body {
+        margin: 0;
+        min-height: 100vh;
+        display: grid;
+        place-items: center;
+        font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+        background: linear-gradient(180deg, var(--bg1), var(--bg2));
+        color: var(--ink);
+      }
+
+      .wrap {
+        width: min(1100px, 92vw);
+        padding: 32px 24px 40px;
+        background: rgba(245, 240, 231, 0.96);
+        border: 4px solid var(--line);
+        box-shadow: 12px 12px 0 var(--shadow);
+      }
+
+      .hero-banner {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 18px;
+        background: linear-gradient(135deg, #f3d99d, #f1efe5);
+        border: 4px solid var(--line);
+        padding: 18px 20px;
+        margin-bottom: 26px;
+      }
+
+      .hero-avatar {
+        width: 90px;
+        height: 90px;
+        border: 4px solid var(--line);
+        background-color: #edf3ea;
+        background-size: contain;
+        background-repeat: no-repeat;
+        background-position: center;
+        image-rendering: pixelated;
+      }
+
+      .hero-meta {
+        display: flex;
+        flex-direction: column;
+        gap: 6px;
+      }
+
+      .hero-label {
+        font-size: 0.66rem;
+        text-transform: uppercase;
+        letter-spacing: 0.1em;
+        font-weight: 800;
+      }
+
+      .hero-name {
+        font-size: 1rem;
+        font-weight: 900;
+      }
+
+      .hero-role {
+        font-size: 0.7rem;
+        opacity: 0.8;
+      }
+
+      h1 {
+        margin: 0 0 12px;
+        text-align: center;
+        font-size: clamp(1.7rem, 3vw, 2.8rem);
+        letter-spacing: 0.08em;
+        text-transform: uppercase;
+      }
+
+      .subtitle {
+        text-align: center;
+        font-weight: 700;
+        letter-spacing: 0.12em;
+        text-transform: uppercase;
+        margin-bottom: 28px;
+        font-size: 0.8rem;
+      }
+
+      .game-grid {
+        display: grid;
+        grid-template-columns: repeat(3, minmax(210px, 1fr));
+        gap: 22px;
+      }
+
+      .game-card {
+        background: #edf3ea;
+        border: 4px solid var(--line);
+        box-shadow: 6px 6px 0 rgba(0, 0, 0, 0.08);
+        padding: 18px 16px 16px;
+        text-align: center;
+        transition: transform 0.18s ease, box-shadow 0.18s ease;
+      }
+
+      .game-card:hover {
+        transform: translate(-3px, -3px);
+        box-shadow: 9px 9px 0 rgba(0, 0, 0, 0.12);
+      }
+
+      .icon {
+        width: 120px;
+        height: 120px;
+        margin: 0 auto 18px;
+        display: grid;
+        place-items: center;
+        font-size: 4rem;
+        background: #e9eedf;
+        border: 4px solid var(--line);
+      }
+
+      .game-card h2 {
+        margin: 0 0 10px;
+        font-size: 1.15rem;
+      }
+
+      .game-card p {
+        margin: 0 0 18px;
+        line-height: 1.6;
+        font-size: 0.9rem;
+      }
+
+      .game-card a {
+        display: inline-block;
+        padding: 12px 18px;
+        background: var(--accent);
+        color: white;
+        text-decoration: none;
+        border: 3px solid var(--line);
+        font-weight: 800;
+        box-shadow: 4px 4px 0 rgba(0, 0, 0, 0.12);
+      }
+
+      .back {
+        display: inline-block;
+        margin-top: 26px;
+        padding: 12px 18px;
+        background: #dfe7d8;
+        border: 3px solid var(--line);
+        text-decoration: none;
+        color: var(--ink);
+        font-weight: 800;
+      }
+
+      .nav-wrap {
+        text-align: center;
+      }
+
+      @media (max-width: 840px) {
+        .game-grid {
+          grid-template-columns: 1fr;
+        }
+
+        .hero-banner {
+          flex-direction: column;
+          text-align: center;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <div class="wrap">
+      <div class="hero-banner">
+        <div class="hero-avatar" id="selectedAvatar"></div>
+        <div class="hero-meta">
+          <div class="hero-label">Hero terpilih</div>
+          <div class="hero-name" id="selectedName">-</div>
+          <div class="hero-role" id="selectedRole">-</div>
+        </div>
+      </div>
+
+      <h1>Pilih Game</h1>
+      <div class="subtitle">Choose your challenge</div>
+
+      <div class="game-grid">
+        <div class="game-card">
+          <div class="icon">🐾</div>
+          <h2>Dino Chrome</h2>
+          <p>Jalan terus, lompat saat rintangan datang. Seru dan menantang.</p>
+          <a href="dino.html">Mainkan</a>
+        </div>
+
+        <div class="game-card">
+          <div class="icon">🐦</div>
+          <h2>Flappy Bird</h2>
+          <p>Terbang melewati pipa dan buat skor setinggi mungkin.</p>
+          <a href="flappy.html">Mainkan</a>
+        </div>
+
+        <div class="game-card">
+          <div class="icon">🚀</div>
+          <h2>Space Dodge</h2>
+          <p>Hindari asteroid dan bertahan selama mungkin di luar angkasa.</p>
+          <a href="space-dodge.html">Mainkan</a>
+        </div>
+      </div>
+
+      <div class="nav-wrap">
+        <a href="game.html" class="back">Kembali</a>
+      </div>
+    </div>
+
+    <script>
+      const defaultCharacter = {
+        name: 'Radhitya Fauzana Rasyid',
+        role: 'Ketua',
+        image: 'assets/game-character-03.png'
+      };
+
+      function getSelectedCharacter() {
+        try {
+          const stored = localStorage.getItem('selectedCharacter');
+          return stored ? JSON.parse(stored) : defaultCharacter;
+        } catch (error) {
+          return defaultCharacter;
+        }
+      }
+
+      function renderSelectedCharacter() {
+        const selected = getSelectedCharacter();
+        const avatar = document.getElementById('selectedAvatar');
+        const nameEl = document.getElementById('selectedName');
+        const roleEl = document.getElementById('selectedRole');
+
+        avatar.style.backgroundImage = `url("${selected.image}")`;
+        nameEl.textContent = selected.name;
+        roleEl.textContent = selected.role;
+      }
+
+      renderSelectedCharacter();
+    </script>
+  </body>
+</html>
