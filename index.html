@@ -324,7 +324,7 @@
         ig: "adistydfnii",
         image: "assets/Defnika.jpeg",
         bio: "Diam bukan berarti lemah, tapi lapar",
-        stats: { kelas: "D", "asal sma": "" }
+        stats: { kelas: "D", "asal sma": "SMKN Manonjaya" }
       },
       {
         id: "09",
@@ -348,7 +348,7 @@
         ig: "adtyptraaa_",
         image: "assets/Aditya.jpeg",
         bio: "Impossible is a word to be found only in the dictionary of fools.",
-        stats: { kelas: "C", "asal sma": "" }
+        stats: { kelas: "C", "asal sma": "SMAN 4 Tasikmalaya" }
       },
       {
         id: "11",
@@ -371,8 +371,8 @@
         npm: "267006111100",
         ig: "Advanr_",
         image: "assets/Alief.jpeg",
-        bio: "Turut merancang konsep mekanik permainan mini game arcade kelompok. Membawa semangat positif dan dedikasi dalam setiap sesi pengerjaan.",
-        stats: { kelas: "C", "asal sma": "Game Dev" }
+        bio: " jalani apa yang sudah kamu mulai.",
+        stats: { kelas: "C", "asal sma": "SMAN 3 KOTA SUKABUMI" }
       },
       {
         id: "13",
@@ -384,7 +384,7 @@
         ig: "ihsnsybna",
         image: "assets/ihsan.jpeg",
         imagePosition: "center 15%",
-        bio: "",
+        bio: "We walk the talk, not only talk the talk",
         stats: { kelas: "F", "asal sma": "SMKN 1 Ciamis" }
       }
     ];
@@ -421,6 +421,19 @@
       );
     }
 
+    const greetingSequence = [
+      { text: 'HALO', language: 'INDONESIA' },
+      { text: 'HELLO', language: 'ENGLISH' },
+      { text: 'HOLA', language: 'ESPANOL' },
+      { text: 'BONJOUR', language: 'FRANCAIS' },
+      { text: 'CIAO', language: 'ITALIANO' },
+      { text: 'OLA', language: 'PORTUGUES' },
+      { text: 'こんにちは', language: 'JAPANESE' }
+    ];
+    const supabaseUrl = 'https://zuvptlbuozisxdzrjgdd.supabase.co';
+    const supabaseKey = 'sb_publishable_HtNVVO82MPPQs95gAHkuDQ_TcYlZII0';
+    const supabaseDb = window.supabase ? window.supabase.createClient(supabaseUrl, supabaseKey) : null;
+
     // ==================== MAIN COMPONENT ====================
     function App() {
       const [activeSection, setActiveSection] = useState('home');
@@ -429,15 +442,6 @@
       const [selectedMember, setSelectedMember] = useState(null);
       const [lightboxData, setLightboxData] = useState(null);
       const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
-      const greetings = [
-        { text: 'HALO', language: 'INDONESIA' },
-        { text: 'HELLO', language: 'ENGLISH' },
-        { text: 'HOLA', language: 'ESPANOL' },
-        { text: 'BONJOUR', language: 'FRANCAIS' },
-        { text: 'CIAO', language: 'ITALIANO' },
-        { text: 'OLA', language: 'PORTUGUES' },
-        { text: 'こんにちは', language: 'JAPANESE' }
-      ];
       const [showGreeting, setShowGreeting] = useState(() => !window.matchMedia('(prefers-reduced-motion: reduce)').matches);
       const [greetingIndex, setGreetingIndex] = useState(0);
 
@@ -445,14 +449,20 @@
         if (!showGreeting) return undefined;
         const previousOverflow = document.body.style.overflow;
         document.body.style.overflow = 'hidden';
-        const greetingTimers = greetings.map((_, index) =>
-          window.setTimeout(() => setGreetingIndex(index), index * 320)
-        );
-        const dismissTimer = window.setTimeout(() => setShowGreeting(false), 2600);
+        let nextGreetingIndex = 0;
+        const greetingInterval = window.setInterval(() => {
+          nextGreetingIndex += 1;
+          if (nextGreetingIndex >= greetingSequence.length) {
+            window.clearInterval(greetingInterval);
+            return;
+          }
+          setGreetingIndex(nextGreetingIndex);
+        }, 800);
+        const dismissTimer = window.setTimeout(() => setShowGreeting(false), 6400);
 
         return () => {
           document.body.style.overflow = previousOverflow;
-          greetingTimers.forEach(window.clearTimeout);
+          window.clearInterval(greetingInterval);
           window.clearTimeout(dismissTimer);
         };
       }, [showGreeting]);
@@ -465,7 +475,10 @@
       const tracks = [
         { title: 'Shape of My Heart', artist: 'Backstreet Boys', src: 'assets/Backstreet Boys - Shape Of My Heart (Official HD Video).mp3' },
         { title: 'About You', artist: 'The 1975', src: 'assets/The 1975 - About You (Official).mp3' },
-        { title: 'Merry Christmas I Miss You', artist: 'Alex Crichton', src: 'assets/Merry Christmas, i miss you - Alex Crichton  Lirik Terjemahan Indonesia.mp3' }
+        { title: 'Merry Christmas I Miss You', artist: 'Alex Crichton', src: 'assets/Merry Christmas, i miss you - Alex Crichton  Lirik Terjemahan Indonesia.mp3' },
+        { title: 'DJ Sudah Terbiasa', artist: 'Viral TikTok', src: 'assets/DJ SUDAH TERBIASA TERJADI TANTE TEMAN DATANG KETIKA BUTUH SAJA VIRAL TIKTOK TERBARU 2025.mp3' },
+        { title: 'Hymne Teknik', artist: 'Teknik', src: 'assets/Hymne Teknik.mp3' },
+        { title: 'Peradaban', artist: '.FEAST', src: 'assets/PERADABAN - .FEAST (KARAOKE).mp3' }
       ];
 
       // Supabase State
@@ -475,10 +488,6 @@
       const [commentBody, setCommentBody] = useState('');
       const [isSubmitting, setIsSubmitting] = useState(false);
       const [submitStatus, setSubmitStatus] = useState(null);
-
-      const supabaseUrl = 'https://hwejnbiudcwwfuhowrtp.supabase.co';
-      const supabaseKey = 'sb_publishable_2eE7hTnPB6Ce0WAg45VNQA_pArsAZN2';
-      const db = window.supabase ? window.supabase.createClient(supabaseUrl, supabaseKey) : null;
 
       // Scroll spy
       useEffect(() => {
@@ -499,9 +508,9 @@
       }, []);
 
       const fetchComments = async () => {
-        if (!db) return;
+        if (!supabaseDb) return;
         try {
-          const { data, count, error } = await db
+          const { data, count, error } = await supabaseDb
             .from('comments')
             .select('*', { count: 'exact' })
             .order('created_at', { ascending: false })
@@ -516,14 +525,16 @@
 
       const handleCommentSubmit = async (e) => {
         e.preventDefault();
-        if (!authorName.trim() || !commentBody.trim() || !db) return;
+        const safeName = authorName.trim().substring(0, 50).replace(/</g, "&lt;").replace(/>/g, "&gt;");
+        const safeText = commentBody.trim().substring(0, 100).replace(/</g, "&lt;").replace(/>/g, "&gt;");
+        if (!safeName || !safeText || !supabaseDb) return;
         setIsSubmitting(true);
         setSubmitStatus('Mengirimkan pesan ke database...');
         try {
-          const { error } = await db.from('comments').insert([
+          const { error } = await supabaseDb.from('comments').insert([
             {
-              name: authorName.trim(),
-              text: commentBody.trim(),
+              name: safeName,
+              text: safeText,
               created_at: new Date().toISOString()
             }
           ]);
@@ -561,7 +572,7 @@
             initial: { opacity: 1 },
             animate: { opacity: 1 },
             exit: { opacity: 0 },
-            transition: { duration: 0.45, ease: 'easeOut' },
+            transition: { duration: 0.8, ease: 'easeOut' },
             className: 'fixed inset-0 z-[100] flex items-center justify-center overflow-hidden bg-[#111111] text-white',
             role: 'status',
             'aria-live': 'polite',
@@ -574,17 +585,14 @@
               className: 'absolute right-6 top-7 z-10 px-3 py-2 font-mono text-xs font-bold uppercase tracking-wider text-white/75 transition-colors hover:text-[#b8f34b] focus-visible:outline focus-visible:outline-2 focus-visible:outline-[#b8f34b] sm:right-10 sm:top-10'
             }, 'Lewati intro'),
             React.createElement('div', { className: 'relative z-10 w-full px-6 text-center sm:px-12' },
-              React.createElement(AnimatePresence, { mode: 'wait' },
-                React.createElement(motion.div, {
-                  key: greetings[greetingIndex].text,
-                  initial: { opacity: 0, y: 24, filter: 'blur(12px)' },
-                  animate: { opacity: 1, y: 0, filter: 'blur(0px)' },
-                  exit: { opacity: 0, y: -18, filter: 'blur(8px)' },
-                  transition: { duration: 0.32, ease: 'easeOut' },
-                  className: 'text-5xl font-black uppercase leading-none sm:text-7xl md:text-8xl'
-                }, greetings[greetingIndex].text)
-              ),
-              React.createElement('p', { className: 'mt-5 font-mono text-xs font-bold uppercase tracking-[0.16em] text-white/55' }, greetings[greetingIndex].language),
+              React.createElement(motion.div, {
+                key: greetingSequence[greetingIndex].text,
+                initial: { opacity: 0, y: 24, filter: 'blur(12px)' },
+                animate: { opacity: 1, y: 0, filter: 'blur(0px)' },
+                transition: { duration: 0.6, ease: 'easeInOut' },
+                className: 'text-5xl font-black uppercase leading-none sm:text-7xl md:text-8xl'
+              }, greetingSequence[greetingIndex].text),
+              React.createElement('p', { className: 'mt-5 font-mono text-xs font-bold uppercase tracking-[0.16em] text-white/55' }, greetingSequence[greetingIndex].language),
             )
           )
         ),
@@ -844,7 +852,7 @@
                     'We Are 12th PPKM Group.'
                   ),
                   React.createElement('p', { className: 'text-neutral-700 text-sm md:text-base leading-relaxed' },
-                    'Di bawah naungan Masa Bimbingan dan PPKM 2026 Jurusan Informatika, kami dibimbing untuk saling mengenal, berkolaborasi, dan mengasah keahlian teknis secara mandiri. Melalui website ini, kami membagikan profil seluruh anggota, galeri kegiatan nyata, papan komentar pengunjung, dan mini game buatan kelompok.'
+                    'Kelompok PPKM Informatika 2026 tempat kita bareng-bareng bonding, saling kenal satu sama lain, sekaligus ngasah critical thinking. Lewat website ini, kita mau showcase profil semua anggota, galeri keseruan kegiatan, papan komentar buat pengunjung, sampai mini-game seru buatan kelompok kita sendiri!.'
                   )
                 ),
                 React.createElement('div', { className: 'pt-6 flex flex-wrap gap-3 items-center' },
@@ -952,7 +960,7 @@
                 React.createElement('p', { className: 'text-xs font-bold uppercase tracking-widest text-neutral-600 mb-3' }, 'PENDAMPING KAMI / KAKA ASUH'),
                 React.createElement('h2', { className: 'text-4xl md:text-7xl font-black uppercase tracking-tighter text-black' }, 'Our Mentor'),
                 React.createElement('p', { className: 'text-neutral-600 text-sm md:text-base max-w-xl mt-3 font-medium' },
-                  'Dua sosok yang menemani langkah pertama kami mengenal dunia perkuliahan dan kehidupan kampus.'
+                  'Dua sosok seru yang ngebantu kita survive dan adaptasi di masa-masa awal jadi mahasiswa.'
                 )
               ),
               React.createElement('span', { className: 'px-4 py-2 bg-[#b8f34b] border-2 border-black text-xs font-black uppercase shadow-brutal-xs' }, '02 / MENTOR ASUH')
@@ -967,12 +975,12 @@
               },
                 React.createElement('div', { className: 'space-y-5' },
                   React.createElement('div', { className: 'w-12 h-12 bg-[#b8f34b] border-2 border-black rounded-full flex items-center justify-center text-2xl shadow-brutal-xs' }, '👋'),
-                  React.createElement('h3', { className: 'text-2xl md:text-4xl font-black uppercase text-black' }, 'Selalu ada teman untuk bertanya.'),
+                  React.createElement('h3', { className: 'text-2xl md:text-4xl font-black uppercase text-black' }, 'THE ULTIMATE SUPPORT SYSTEM KITA.'),
                   React.createElement('p', { className: 'text-sm md:text-base text-neutral-700 leading-relaxed' },
-                    'Kaka asuh kami berbagi pengalaman, memberi arahan, dan menjaga semangat kelompok selama masa bimbingan. Kehadiran mereka membuat proses adaptasi terasa lebih hangat dan menyenangkan.'
+                    'Mulai dari bagiin cerita, ngasih arahan, sampai bikin suasana kelompok tetap on track, semuanya dibantuin sama mereka. Bikin kegiatan PPKM jadi lebih berkesan dan seru.'
                   ),
                   React.createElement('p', { className: 'text-sm md:text-base text-neutral-700 leading-relaxed' },
-                    'Kenali Ghania dan Indah, dua mentor yang selalu siap mendampingi Kelompok 12.'
+                    'Say hello to Ghania dan Indah, mentor andalan Kelompok 12!'
                   )
                 ),
                 React.createElement('div', { className: 'mt-8 pt-5 border-t-2 border-black flex flex-wrap items-center justify-between gap-4' },
@@ -1031,7 +1039,7 @@
               React.createElement('div', {},
                 React.createElement('h2', { className: 'text-4xl md:text-7xl font-black uppercase tracking-tighter text-black' }, 'Profil Anggota'),
                 React.createElement('p', { className: 'text-neutral-600 text-sm md:text-base max-w-md mt-2 font-medium' },
-                  'Setiap anggota mendapat ruangnya sendiri; section akan saling menumpuk saat digulir.'
+                  'Kenalan yuk sama semua anggota tim kami! Tinggal klik tombol di samping kalau mau lihat kelompok tertentu..'
                 )
               ),
 
@@ -1180,26 +1188,26 @@
                       {
                         src: 'assets/MABIM/poto1.jpeg',
                         tag: 'MABIM / 01',
-                        title: 'Awal Kebersamaan',
+                        title: 'Mabim hari pertama',
                         desc: 'Potret kelompok setelah kegiatan di lingkungan kampus.'
                       },
                       {
                         src: 'assets/MENTORING/MENTORING 1.jpeg',
                         tag: 'MENTORING / 01',
-                        title: 'Sesi Bersama Kaka Asuh',
-                        desc: 'Diskusi dan berbagi pengalaman bersama mentor.'
+                        title: 'mentoring pertama',
+                        desc: 'Diskusi dan sharing session bersama mentor.'
                       },
                       {
                         src: 'assets/MENTORING/WhatsApp Image 2026-10-06 at 17.28.05.jpeg',
                         tag: 'MENTORING / 02',
-                        title: 'Cerita di Lapangan',
-                        desc: 'Momen santai dan kebersamaan selama rangkaian mentoring.'
+                        title: 'mentoring pertemuan ke dua',
+                        desc: 'diskusi dan berbagi pengalaman.'
                       },
                       {
                         src: 'assets/MENTORING/WhatsApp Image 2026-10-08 at 10.49.47.jpeg',
                         tag: 'MENTORING / 03',
-                        title: 'Satu Langkah Bersama',
-                        desc: 'Kenangan kelompok dalam perjalanan kegiatan kampus.'
+                        title: 'mentoring pertemuan ke tiga',
+                        desc: 'diskusi dan berbagi pengalaman.'
                       }
                     ].map((item, i) =>
                       React.createElement(motion.button, {
@@ -1282,6 +1290,7 @@
                     React.createElement('input', {
                       type: 'text',
                       required: true,
+                      maxLength: 50,
                       value: authorName,
                       onChange: (e) => setAuthorName(e.target.value),
                       placeholder: 'Misal: Budi Santoso / Teman Kuliah',
@@ -1293,6 +1302,7 @@
                     React.createElement('textarea', {
                       rows: 4,
                       required: true,
+                      maxLength: 100,
                       value: commentBody,
                       onChange: (e) => setCommentBody(e.target.value),
                       placeholder: 'Tuliskan salam hangat atau pesan semangat untuk Kelompok 12...',
@@ -1478,7 +1488,7 @@
               // Col 3: Contributor Credits
               React.createElement('div', { className: 'md:col-span-4 space-y-2 text-xs text-neutral-700 leading-relaxed' },
                 React.createElement('h4', { className: 'font-bold uppercase tracking-widest text-black mb-3 border-b-2 border-black pb-1' }, 'KONTRIBUSI KELOMPOK'),
-                React.createElement('p', {}, '• ', React.createElement('strong', { className: 'text-black' }, 'Pengembangan Web:'), ' Farrel & Awak Tim 12'),
+                React.createElement('p', {}, '• ', React.createElement('strong', { className: 'text-black' }, 'Pengembangan Web:'), ' Farrel & anggota'),
                 React.createElement('p', {}, '• ', React.createElement('strong', { className: 'text-black' }, 'Animasi & Interaksi:'), ' Aditya'),
                 React.createElement('p', {}, '• ', React.createElement('strong', { className: 'text-black' }, 'Konsep & Ketua:'), ' Radhitya'),
                 React.createElement('p', {}, '• ', React.createElement('strong', { className: 'text-black' }, 'Mini Games:'), ' Ihsan, Alief, Daris, Nanda'),
@@ -1568,6 +1578,62 @@
                 React.createElement('span', { className: 'text-[10px] font-bold px-3 py-1 bg-neutral-100 border-2 border-black rounded-full uppercase' }, lightboxData.tag),
                 React.createElement('h3', { className: 'text-lg font-black uppercase text-black mt-2' }, lightboxData.title),
                 React.createElement('p', { className: 'text-xs text-neutral-600 mt-1 font-medium' }, lightboxData.desc)
+              )
+            )
+          )
+        ),
+        // ==================== 11. SPOTIFY-LIKE PLAYER ====================
+        React.createElement('div', {
+          className: 'fixed bottom-4 md:bottom-6 right-4 md:right-6 z-[90] bg-[#121212] text-white p-3 rounded-2xl flex items-center gap-3 w-[290px] sm:w-[320px] shadow-2xl border border-neutral-800'
+        },
+          // Album art placeholder
+          React.createElement('div', { className: 'w-12 h-12 bg-gradient-to-br from-[#1DB954] to-neutral-800 flex-shrink-0 rounded-md flex items-center justify-center overflow-hidden' },
+            React.createElement('div', { className: 'w-4 h-4 rounded-full bg-white/20' })
+          ),
+          // Track Info
+          React.createElement('div', { className: 'flex-1 min-w-0 overflow-hidden text-left' },
+            React.createElement('div', { className: 'text-sm font-bold truncate hover:underline cursor-pointer' }, tracks[currentTrackIdx].title),
+            React.createElement('div', { className: 'text-[11px] text-[#b3b3b3] truncate' }, tracks[currentTrackIdx].artist)
+          ),
+          // Controls
+          React.createElement('div', { className: 'flex items-center gap-1.5 flex-shrink-0' },
+            // Prev
+            React.createElement('button', { 
+              onClick: () => {
+                const nextIdx = (currentTrackIdx - 1 + tracks.length) % tracks.length;
+                setCurrentTrackIdx(nextIdx);
+                if (isPlaying) setTimeout(() => audioRef.current?.play(), 50);
+              },
+              className: 'w-8 h-8 flex items-center justify-center text-neutral-400 hover:text-white transition-colors' 
+            }, 
+              React.createElement('svg', { viewBox: '0 0 16 16', fill: 'currentColor', className: 'w-4 h-4' },
+                React.createElement('path', { d: 'M3.3 1a.7.7 0 0 1 .7.7v5.15l9.95-5.744a.7.7 0 0 1 1.05.606v12.575a.7.7 0 0 1-1.05.607L4 9.149V14.3a.7.7 0 0 1-.7.7H1.7a.7.7 0 0 1-.7-.7V1.7a.7.7 0 0 1 .7-.7h1.6z' })
+              )
+            ),
+            // Play/Pause
+            React.createElement('button', {
+              onClick: toggleAudio,
+              className: 'w-8 h-8 flex items-center justify-center bg-white rounded-full text-black hover:scale-105 transition-transform'
+            },
+              isPlaying ? 
+                React.createElement('svg', { viewBox: '0 0 16 16', fill: 'currentColor', className: 'w-4 h-4' },
+                  React.createElement('path', { d: 'M2.7 1a.7.7 0 0 0-.7.7v12.6a.7.7 0 0 0 .7.7h2.6a.7.7 0 0 0 .7-.7V1.7a.7.7 0 0 0-.7-.7H2.7zm8 0a.7.7 0 0 0-.7.7v12.6a.7.7 0 0 0 .7.7h2.6a.7.7 0 0 0 .7-.7V1.7a.7.7 0 0 0-.7-.7h-2.6z' })
+                ) :
+                React.createElement('svg', { viewBox: '0 0 16 16', fill: 'currentColor', className: 'w-4 h-4 ml-0.5' },
+                  React.createElement('path', { d: 'M3 1.713a.7.7 0 0 1 1.05-.607l10.89 6.288a.7.7 0 0 1 0 1.212L4.05 14.894A.7.7 0 0 1 3 14.288V1.713z' })
+                )
+            ),
+            // Next
+            React.createElement('button', { 
+              onClick: () => {
+                const nextIdx = (currentTrackIdx + 1) % tracks.length;
+                setCurrentTrackIdx(nextIdx);
+                if (isPlaying) setTimeout(() => audioRef.current?.play(), 50);
+              },
+              className: 'w-8 h-8 flex items-center justify-center text-neutral-400 hover:text-white transition-colors' 
+            }, 
+              React.createElement('svg', { viewBox: '0 0 16 16', fill: 'currentColor', className: 'w-4 h-4' },
+                React.createElement('path', { d: 'M12.7 1a.7.7 0 0 0-.7.7v5.15L2.05 1.107A.7.7 0 0 0 1 1.712v12.575a.7.7 0 0 0 1.05.607L12 9.149V14.3a.7.7 0 0 0 .7.7h1.6a.7.7 0 0 0 .7-.7V1.7a.7.7 0 0 0-.7-.7h-1.6z' })
               )
             )
           )

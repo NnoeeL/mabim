@@ -709,7 +709,7 @@
 
           <label>
             Pesan
-            <textarea id="messageInput" name="comment" placeholder="Tulis komentar disiniii" required></textarea>
+            <textarea id="messageInput" name="comment" maxlength="100" placeholder="Tulis komentar disiniii" required></textarea>
           </label>
 
           <button type="submit" class="submit-btn">Kirim Pesan</button>
@@ -730,8 +730,8 @@
   <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2?v=2"></script>
   <script>
     const cacheBust = new Date().getTime();
-    const supabaseUrl = 'https://hwejnbiudcwwfuhowrtp.supabase.co';
-    const supabaseKey = 'sb_publishable_2eE7hTnPB6Ce0WAg45VNQA_pArsAZN2';
+    const supabaseUrl = 'https://zuvptlbuozisxdzrjgdd.supabase.co';
+    const supabaseKey = 'sb_publishable_HtNVVO82MPPQs95gAHkuDQ_TcYlZII0';
 
     const form = document.getElementById('commentForm');
     const nameInput = document.getElementById('nameInput');
@@ -805,8 +805,8 @@
     form.addEventListener('submit', async (event) => {
       event.preventDefault();
 
-      const name = nameInput.value.trim();
-      const text = messageInput.value.trim();
+      const name = nameInput.value.trim().substring(0, 50).replace(/</g, "&lt;").replace(/>/g, "&gt;");
+      const text = messageInput.value.trim().substring(0, 100).replace(/</g, "&lt;").replace(/>/g, "&gt;");
 
       if (!name) {
         setStatus('Nama wajib diisi sebelum menulis komentar.', true);
