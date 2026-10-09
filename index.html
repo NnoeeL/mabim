@@ -1,1219 +1,1601 @@
 <!doctype html>
-<html lang="id"><head><script>window["__codeletBootstrap__"]=JSON.parse('{"A":"A","B":"20260918-05-13efa67","C":{"Abril Fatface":"YACgEZbkUVE,0","Alfa Slab One":"YACgEYS9sJU,0","Anton":"YACgEcYqQ-A,0","Archivo":"YACgEZulLoA,0","Arial Narrow":"YAGyDvJ_4Ts,0","Arial Rounded MT Bold":"YAFcfoaHu-s,0","Arial":"YAGyDvJ_4Ts,0","Avenir Next":"YAFcfmNq6UY,0","Baloo 2":"YADK30bC6HQ,0","Bebas Neue":"YACgESME5ew,0","Bricolage Grotesque":"YAFyMcdwzpc,0","Broken Glyph":"YADZ-exUkv0,0","Canva Sans":"YAFdJjTk5UU,1","Caveat":"YALBs2ploWQ,0","Comic Sans MS":"YAFcfvtOAUY,1","Cormorant Garamond":"YAFdJhX-538,0","Courier New":"YAGzXiGs0_8,0","Courier Prime":"YAD1aFjegN8,0","DM Sans":"YAD1aU3sLnI,0","DM Serif Display":"YAD1aYG82rc,0","Forum":"YACgEcnnqB4,0","Fraunces":"YAFdJpU7Kkk,0","Georgia":"YAGzXkO0pEM,0","Ghost Mono":"YAHQutsX00Q,0","Hanken Grotesk":"YAFcfhwp99E,0","Helvetica Neue":"YAFcf6CtJfI,0","Helvetica":"YAFcf6CtJfI,0","IBM Plex Mono":"YAFdJkmvhGI,0","Impact":"YAFcfnjI7Vk,0","Instrument Serif":"YAHFeOnZNEk,0","Inter":"YAFdJvSyp_k,3","Iowan Old Style":"YAGNIFa8j9o,0","Jacques Francois":"YADK3zbC6RM,0","JetBrains Mono":"YAFdJksXcAk,0","Josefin Sans":"YAFdJjvw9Ps,0","Lato":"YAFdJuFCnaw,0","Libre Baskerville":"YACgEUFdPdA,0","Lobster":"YAD8SnSjSFI,0","Lora":"YACgEXvxf8Q,0","Merriweather":"YACgEXvHxxs,0","Montserrat":"YAFdtQi73Xs,0","Nunito":"YAFdJoNRMmU,1","Oleo Script":"YACgEQQ14jI,0","Oswald":"YACgEQY10lw,0","Pacifico":"YADLjORQ1u4,0","Phantom Sans":"YAFdJvgJ5TU,0","Playfair Display":"YAFdJhem5V8,1","Plus Jakarta Sans":"YAGvf3_u0_Q,0","Poppins":"YAFdJjbTu24,1","Press Start 2P":"YAFyGr-8pmQ,0","Quicksand":"YAFdJpYtCxE,1","Raleway":"YAFdJhmxbVQ,1","Roboto Slab":"YAFdJswIKAg,0","Rockwell":"YAFcfyVZnN0,0","Rye":"YACgEdQP21k,0","Segoe UI":"YAHNdRD1Klw,0","Source Sans 3":"YAG4lO1Mj10,0","Source Serif 4":"YACgEfdj394,0","Space Grotesk":"YADZ-dYEmhg,0","Space Mono":"YADW1-vpsoc,0","Times New Roman":"YAGzXW3gftg,0","Times":"YAGzXW3gftg,0","Trebuchet MS":"YAFcfrglpVA,0","UV Display":"YAEdVfSSpYo,0","UV Sans":"YAFdJvgJ5TU,0","Ubuntu":"YACgERDU--Q,0","Verdana":"YAGzXTctYtQ,0","Work Sans":"YAGXhLOKv44,0","Yellowtail":"YACgEYG4kG4,0","ui-monospace":"YAD1aFjegN8,0","ui-sans-serif":"YACkoD1yZN0,0"}}');</script><script src="/_sdk/83d6dfdadcd4750a.telemetry_sdk.js" integrity="sha512-XS4Dvzp6vbagZS9vFErihvr8aO3S0tH78KWUefn06fmL4WYqryBtZj/IOLITYj7dFA4gPVvPg1W/JB1DK3uLNQ=="></script>
+<html lang="id" class="scroll-smooth font-mono">
+<head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>KELOMPOK 12 - Mabim</title>
-  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&amp;display=swap" rel="stylesheet">
+  <title>Kelompok 12 — PPKM 2026 | Informatika</title>
+  <meta name="description" content="Website resmi Kelompok 12 Kegiatan PPKM 2026 Jurusan Informatika. Desain neo-brutalist putih bersih terinspirasi dari portofolio profesional Areston Styfen Sagala.">
+
+  <!-- Tailwind CSS -->
+  <script src="https://cdn.tailwindcss.com/3.4.17"></script>
+  <!-- Supabase Client -->
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            brand: {
+              white: '#ffffff',
+              paper: '#fafafa',
+              muted: '#f4f4f4',
+              line: '#000000',
+              accent: '#b8f34b'
+            }
+          },
+          fontFamily: {
+            sans: ['"Space Grotesk"', 'sans-serif'],
+            mono: ['"JetBrains Mono"', 'monospace']
+          },
+          boxShadow: {
+            'brutal-xs': '2px 2px 0px 0px #000000',
+            'brutal-sm': '3px 3px 0px 0px #000000',
+            'brutal-md': '5px 5px 0px 0px #000000',
+            'brutal-lg': '8px 8px 0px 0px #000000',
+            'brutal-xl': '12px 12px 0px 0px #000000',
+            'brutal-hover': '7px 7px 0px 0px #000000'
+          }
+        }
+      }
+    };
+  </script>
+
   <style>
     :root {
-      --ink: #243128;
-      --cream: #fbf7ef;
-      --clay: #bf5d43;
-      --clay-dark: #9f472f;
-      --sand: #eadbc8;
+      color-scheme: light;
     }
 
-    html { scroll-behavior: smooth; }
     body {
       margin: 0;
-      font-family: "DM Sans", sans-serif;
-      color: var(--ink);
-      overflow-x: hidden;
+      background-color: #ffffff;
+      color: #000000;
+      font-family: "Space Grotesk", sans-serif;
+      overflow-x: clip;
+      selection-background-color: #000000;
+      selection-color: #ffffff;
     }
 
-    .page-shell { width: 100%; min-height: 100%; }
-    header nav.site-nav {
+    /* Subtle Technical Grid Background */
+    .tech-grid-bg {
+      background-image: 
+        linear-gradient(rgba(0, 0, 0, 0.05) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(0, 0, 0, 0.05) 1px, transparent 1px);
+      background-size: 40px 40px;
+    }
+
+    .member-overlap-list {
       position: relative;
-      z-index: 2;
-      padding: 0.95rem 1.25rem;
-      border: 1px solid rgba(36, 49, 40, 0.08);
-      border-radius: 999px;
-      background: rgba(255, 255, 255, 0.72);
-      box-shadow: 0 12px 28px rgba(36, 49, 40, 0.05);
-      backdrop-filter: blur(12px);
+      display: flex;
+      flex-direction: column;
+      padding-bottom: 18vh;
     }
 
-    header .nav-links {
+    .member-overlap-section {
+      /* Pure CSS sticky stacking: each full-screen section pins to the viewport top. */
+      position: sticky;
+      top: 0;
+      min-height: 100vh;
+      min-height: 100svh;
       display: flex;
       align-items: center;
-      justify-content: flex-end;
-      flex-wrap: wrap;
-      gap: 0.6rem 1.4rem;
+      padding: 92px 0 28px;
+      border-bottom: 1px solid rgba(17, 17, 17, 0.18);
     }
 
-    header nav.site-nav > a {
-      flex: 0 0 auto;
-      white-space: nowrap;
+    .member-overlap-section:not(:first-child) {
+      border-top-left-radius: 24px;
+      border-top-right-radius: 24px;
+      box-shadow: 0 -18px 38px rgba(17, 17, 17, 0.12);
     }
 
-    .nav-link {
-      position: relative;
-      transition: color 180ms ease;
-    }
-    .nav-link::after {
-      content: "";
-      position: absolute;
-      width: 0;
-      height: 1px;
-      left: 0;
-      bottom: -5px;
-      background: currentColor;
-      transition: width 180ms ease;
-    }
-    .nav-link:hover::after, .nav-link:focus-visible::after { width: 100%; }
-
-    .action-button {
-      transition: transform 180ms ease, box-shadow 180ms ease, background 180ms ease;
-    }
-    .action-button:hover {
-      transform: translateY(-2px);
-      box-shadow: 0 12px 28px rgba(159, 71, 47, 0.22);
-    }
-    .action-button:focus-visible,
-    .nav-link:focus-visible,
-    .hero-actions > .hero-action:focus-visible {
-      outline: 3px solid rgba(191, 93, 67, 0.35);
-      outline-offset: 4px;
-    }
-
-    .hero-actions {
-      display: grid;
-      grid-template-columns: repeat(2, minmax(0, 1fr));
-      align-items: stretch;
-      gap: 12px;
-      width: min(100%, 460px);
-    }
-
-    .hero-actions > .hero-action {
-      display: inline-flex;
+    .member-section-inner {
       width: 100%;
-      min-height: 52px;
-      align-items: center;
-      justify-content: center;
-      gap: 0.6rem;
-      padding: 0.8rem 1rem;
-      border-radius: 999px;
-      font-size: 0.78rem;
-      font-weight: 700;
-      letter-spacing: 0.055em;
-      line-height: 1.25;
-      text-align: center;
-      text-decoration: none;
-      white-space: nowrap;
+      max-width: 72rem;
+      margin: 0 auto;
+      padding: 0 16px;
     }
 
-    .hero-actions > .hero-action:hover {
-      box-shadow: 0 12px 28px rgba(159, 71, 47, 0.14);
-    }
-
-    .bulletin-highlight {
-      background: linear-gradient(180deg, rgba(255, 255, 255, 0.46), rgba(246, 238, 230, 0.76));
-      border-top: 1px solid rgba(36, 49, 40, 0.06);
-      border-bottom: 1px solid rgba(36, 49, 40, 0.06);
-    }
-
-    .comment-preview-card {
-      background: rgba(255, 255, 255, 0.72);
-      border: 1px solid rgba(36, 49, 40, 0.08);
-      border-radius: 1.25rem;
-      padding: 1.2rem 1.1rem;
-      box-shadow: 0 12px 30px rgba(36, 49, 40, 0.04);
-      transition: transform 180ms ease, box-shadow 180ms ease;
-    }
-
-    .comment-preview-card:hover {
-      transform: translateY(-4px);
-      box-shadow: 0 18px 30px rgba(191, 93, 67, 0.08);
-    }
-
-    .comment-preview-meta {
+    .member-section-meta {
       display: flex;
       align-items: center;
       justify-content: space-between;
-      gap: 0.5rem;
-      margin-bottom: 0.75rem;
-      font-size: 0.72rem;
-      font-weight: 700;
-      letter-spacing: 0.08em;
-      text-transform: uppercase;
-      color: rgba(36, 49, 40, 0.7);
+      gap: 20px;
+      padding-bottom: 16px;
+      border-bottom: 2px solid #111;
     }
 
-    .comment-preview-name {
-      font-size: 1rem;
-      font-weight: 800;
-      color: var(--ink);
-      margin: 0 0 0.6rem;
+    .member-section-body {
+      display: grid;
+      grid-template-columns: minmax(260px, 0.82fr) minmax(0, 1.18fr);
+      align-items: center;
+      gap: clamp(28px, 5vw, 72px);
+      padding: clamp(24px, 4vw, 48px) 0;
     }
 
-    .comment-preview-text {
-      margin: 0;
-      color: rgba(36, 49, 40, 0.78);
-      line-height: 1.65;
-      display: -webkit-box;
-      -webkit-line-clamp: 4;
-      -webkit-box-orient: vertical;
-      overflow: hidden;
-    }
-
-    .comment-preview-empty {
-      border: 1px dashed rgba(191, 93, 67, 0.4);
-      background: rgba(253, 242, 238, 0.7);
-      border-radius: 1.25rem;
-      padding: 1.2rem;
-      color: rgba(36, 49, 40, 0.7);
-      line-height: 1.6;
-    }
-
-    .hero-photo-frame {
-      position: relative;
-      aspect-ratio: 1 / 1;
-      overflow: hidden;
-      border-radius: 1.6rem;
-      box-shadow: 18px 18px 0 var(--sand);
-      background: #efe3d2;
-    }
-    .hero-photo-stack {
+    .member-section-portrait {
       position: relative;
       width: 100%;
-      height: 100%;
+      height: min(58svh, 520px);
+      min-height: 320px;
+      overflow: hidden;
+      background: #e8e9e5;
     }
-    .hero-slide {
-      position: absolute;
-      inset: 0;
+
+    .member-section-portrait img {
+      display: block;
       width: 100%;
       height: 100%;
       object-fit: cover;
-      object-position: center;
-      opacity: 0;
-      transform: scale(1.05) rotateY(18deg);
-      transition: opacity 700ms ease, transform 900ms ease;
-      backface-visibility: hidden;
-    }
-    .hero-slide.active {
-      opacity: 1;
-      z-index: 2;
-      transform: scale(1) rotateY(0deg);
     }
 
-    .reveal {
-      opacity: 0;
-      transform: translateY(18px);
-      animation: rise 650ms ease forwards;
-    }
-    .delay-1 { animation-delay: 100ms; }
-    .delay-2 { animation-delay: 200ms; }
-    .delay-3 { animation-delay: 300ms; }
-    .delay-4 { animation-delay: 360ms; }
-
-    @keyframes rise {
-      to { opacity: 1; transform: translateY(0); }
+    .member-section-content {
+      min-width: 0;
     }
 
-    @media (prefers-reduced-motion: reduce) {
-      html { scroll-behavior: auto; }
-      .reveal { opacity: 1; transform: none; animation: none; }
-      .action-button { transition: none; }
-    }
-
-    .page-decor {
-      position: fixed;
-      top: 120px;
-      width: 220px;
-      height: 440px;
-      pointer-events: none;
-      z-index: 0;
-      opacity: 0.9;
-    }
-
-    .page-decor.left {
-      left: -28px;
-    }
-
-    .page-decor.right {
-      right: -28px;
-    }
-
-    .orb {
-      position: absolute;
-      display: block;
-      border-radius: 50%;
-      filter: blur(2px);
-      animation: floatOrb 8s ease-in-out infinite;
-    }
-
-    .orb-one {
-      width: 120px;
-      height: 120px;
-      background: rgba(191, 93, 67, 0.18);
-      top: 10px;
-      left: 30px;
-    }
-
-    .orb-two {
-      width: 90px;
-      height: 90px;
-      background: rgba(191, 93, 67, 0.11);
-      top: 140px;
-      left: 90px;
-      animation-delay: 1.2s;
-    }
-
-    .orb-three {
-      width: 140px;
-      height: 140px;
-      background: rgba(146, 194, 170, 0.17);
-      bottom: 20px;
-      left: 40px;
-      animation-delay: 2.3s;
-    }
-
-    @keyframes floatOrb {
-      0%, 100% { transform: translateY(0px) scale(1); }
-      50% { transform: translateY(-18px) scale(1.04); }
-    }
-
-    .music-panel {
-      position: fixed;
-      right: 24px;
-      top: 120px;
-      width: 260px;
-      background: linear-gradient(180deg, rgba(255,255,255,0.72), rgba(246,238,230,0.74));
-      backdrop-filter: blur(16px);
-      border: 1px solid rgba(36, 49, 40, 0.08);
-      box-shadow: 0 20px 40px rgba(36, 49, 40, 0.08);
-      border-radius: 24px;
-      padding: 16px 14px 14px;
-      z-index: 10;
-      filter: saturate(0.72) contrast(0.96);
-      transition: transform 200ms ease, box-shadow 200ms ease, border-color 200ms ease, filter 200ms ease;
-      cursor: grab;
-      user-select: none;
-      touch-action: none;
-    }
-
-    .music-panel.dragging {
-      cursor: grabbing;
-      transition: none;
-    }
-
-    .music-panel.playing {
-      border-color: rgba(191, 93, 67, 0.2);
-      box-shadow: 0 20px 42px rgba(191, 93, 67, 0.11);
-      transform: translateY(-2px);
-      filter: saturate(0.8) contrast(0.97);
-    }
-
-    .music-head {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      gap: 8px;
-      font-size: 0.7rem;
-      font-weight: 800;
-      letter-spacing: 0.12rem;
-      text-transform: uppercase;
-      color: var(--clay);
-      margin-bottom: 12px;
-    }
-
-    .music-badge {
-      display: inline-flex;
-      align-items: center;
-      gap: 8px;
-    }
-
-    .status-pill {
-      display: inline-flex;
-      align-items: center;
-      justify-content: center;
-      min-width: 68px;
-      padding: 5px 8px;
-      border-radius: 999px;
-      background: rgba(36, 49, 40, 0.06);
-      color: var(--ink);
-      font-size: 0.64rem;
-      font-weight: 700;
-      letter-spacing: 0.04em;
-      transition: all 180ms ease;
-    }
-
-    .music-panel.playing .status-pill {
-      background: rgba(191, 93, 67, 0.12);
-      color: var(--clay-dark);
-    }
-
-    .equalizer {
-      display: flex;
-      align-items: end;
-      gap: 3px;
-      height: 16px;
-      padding: 2px 0;
-    }
-
-    .equalizer span {
-      display: block;
-      width: 4px;
-      border-radius: 999px;
-      background: linear-gradient(180deg, var(--clay), #d18d6a);
-      animation: equalize 1s ease-in-out infinite alternate;
-      transform-origin: bottom;
-      opacity: 0.4;
-    }
-
-    .equalizer span:nth-child(1) { height: 6px; animation-delay: 0.1s; }
-    .equalizer span:nth-child(2) { height: 12px; animation-delay: 0.2s; }
-    .equalizer span:nth-child(3) { height: 9px; animation-delay: 0.4s; }
-
-    .music-panel.playing .equalizer span {
-      opacity: 1;
-    }
-
-    .music-panel:not(.playing) .equalizer span {
-      opacity: 0.32;
-      animation: none;
-    }
-
-    .gallery-section {
-      position: relative;
-      padding: 92px 0 40px;
-    }
-
-    .gallery-grid {
-      display: grid;
-      grid-template-columns: repeat(12, minmax(0, 1fr));
-      gap: 18px;
-      margin-top: 32px;
-    }
-
-    .gallery-item {
-      position: relative;
-      overflow: hidden;
-      border-radius: 1.6rem;
-      border: 1px solid rgba(36, 49, 40, 0.08);
-      background: rgba(255,255,255,0.5);
-      box-shadow: 0 18px 34px rgba(36, 49, 40, 0.08);
-      transition: transform 240ms ease, box-shadow 240ms ease;
-      min-height: 250px;
-    }
-
-    .gallery-item:hover {
-      transform: translateY(-4px);
-      box-shadow: 0 18px 32px rgba(36, 49, 40, 0.12);
-    }
-
-    .gallery-item.large {
-      grid-column: span 7;
-      min-height: 420px;
-    }
-
-    .gallery-item.medium {
-      grid-column: span 5;
-      min-height: 420px;
-    }
-
-    .gallery-item.small {
-      grid-column: span 4;
-      min-height: 300px;
-    }
-
-    .gallery-item img {
-      width: 100%;
-      height: 100%;
-      object-fit: cover;
-      display: block;
-      transition: transform 300ms ease;
-    }
-
-    .gallery-item:hover img {
-      transform: scale(1.04);
-    }
-
-    .gallery-overlay {
-      position: absolute;
-      inset: auto 0 0 0;
-      display: flex;
-      align-items: flex-end;
-      justify-content: space-between;
-      gap: 12px;
-      padding: 18px 18px 16px;
-      background: linear-gradient(180deg, rgba(21, 27, 22, 0), rgba(21, 27, 22, 0.7));
-      color: white;
-    }
-
-    .gallery-title {
-      font-size: 1rem;
-      font-weight: 700;
-      letter-spacing: 0.01em;
-    }
-
-    .gallery-tag {
-      display: inline-flex;
-      align-items: center;
-      padding: 6px 10px;
-      border-radius: 999px;
-      background: rgba(255,255,255,0.14);
-      border: 1px solid rgba(255,255,255,0.28);
-      font-size: 0.68rem;
-      font-weight: 700;
-      letter-spacing: 0.12em;
-      text-transform: uppercase;
-      backdrop-filter: blur(6px);
-    }
-
-    .music-meta {
-      display: flex;
-      align-items: center;
-      gap: 10px;
-      padding: 12px 10px;
-      border-radius: 16px;
-      background: rgba(36,49,40,0.03);
-      border: 1px solid rgba(36,49,40,0.06);
-      margin-bottom: 12px;
-    }
-
-    .music-progress {
-      margin-bottom: 12px;
-      padding: 0 6px;
-    }
-
-    .time-row {
-      display: flex;
-      justify-content: space-between;
-      color: rgba(36, 49, 40, 0.68);
-      font-size: 0.64rem;
-      font-weight: 700;
-      letter-spacing: 0.04em;
-      margin-bottom: 7px;
-    }
-
-    .progress-track {
-      position: relative;
-      height: 7px;
-      width: 100%;
-      border-radius: 999px;
-      overflow: hidden;
-      background: rgba(36, 49, 40, 0.08);
-      cursor: pointer;
-    }
-
-    .progress-fill {
-      position: absolute;
-      inset: 0 auto 0 0;
-      width: 0%;
-      border-radius: inherit;
-      background: linear-gradient(90deg, var(--clay), #d18d6a, #f0c492);
-      box-shadow: 0 0 12px rgba(191, 93, 67, 0.26);
-    }
-
-    .player-controls {
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      gap: 10px;
-      margin: 10px 0 12px;
-    }
-
-    .nav-btn {
-      width: 32px;
-      height: 32px;
-      border: 1px solid rgba(36, 49, 40, 0.08);
-      border-radius: 50%;
-      background: rgba(255,255,255,0.5);
-      color: var(--ink);
-      font-size: 1.05rem;
-      font-weight: 800;
-      cursor: pointer;
-      transition: all 180ms ease;
-    }
-
-    .nav-btn:hover {
-      transform: translateY(-1px);
-      border-color: rgba(191, 93, 67, 0.2);
-      background: rgba(191, 93, 67, 0.08);
-    }
-
-    .album-art {
-      width: 52px;
-      height: 52px;
-      border-radius: 16px;
-      background: linear-gradient(135deg, var(--clay), #d18d6a 55%, #f2d0b6);
-      box-shadow: inset 0 0 14px rgba(255,255,255,0.18), 0 8px 18px rgba(191,93,67,0.22);
-      position: relative;
-      overflow: hidden;
-    }
-
-    .album-art::before,
-    .album-art::after {
-      content: "";
-      position: absolute;
-      border-radius: 50%;
-      border: 2px solid rgba(255,255,255,0.62);
-    }
-
-    .album-art::before {
-      width: 20px;
-      height: 20px;
-      inset: 16px 12px auto auto;
-    }
-
-    .album-art::after {
-      width: 8px;
-      height: 8px;
-      inset: auto auto 10px 12px;
-      background: rgba(255,255,255,0.75);
-      border: none;
-    }
-
-    .music-title {
-      margin: 0;
-      font-size: 0.62rem;
-      letter-spacing: 0.12em;
-      text-transform: uppercase;
-      color: rgba(36,49,40,0.7);
-    }
-
-    .music-track-name {
-      margin: 4px 0 0;
-      font-size: 0.9rem;
-      font-weight: 700;
-      line-height: 1.3;
-      color: var(--ink);
-      display: -webkit-box;
-      -webkit-line-clamp: 2;
-      -webkit-box-orient: vertical;
-      overflow: hidden;
-    }
-
-    .track-list {
-      display: grid;
-      gap: 8px;
-      margin-bottom: 12px;
-    }
-
-    .track-btn {
-      border: 1px solid rgba(36, 49, 40, 0.08);
-      background: rgba(36, 49, 40, 0.02);
-      color: var(--ink);
-      border-radius: 12px;
-      padding: 10px 12px;
-      font: inherit;
-      font-size: 0.8rem;
-      text-align: left;
-      cursor: pointer;
-      transition: all 180ms ease;
-    }
-
-    .track-btn:hover,
-    .track-btn.active {
-      background: linear-gradient(135deg, rgba(191, 93, 67, 0.12), rgba(234, 219, 200, 0.9));
-      border-color: rgba(191, 93, 67, 0.2);
-      transform: translateX(-2px);
-    }
-
-    .play-toggle {
-      width: 100%;
-      border: none;
-      border-radius: 999px;
-      background: linear-gradient(135deg, var(--ink), #2f3d35);
-      color: white;
-      font-weight: 700;
-      padding: 11px 16px;
-      cursor: pointer;
-      transition: transform 180ms ease, box-shadow 180ms ease;
-      box-shadow: 0 10px 18px rgba(36, 49, 40, 0.18);
-    }
-
-    .play-toggle.is-playing {
-      background: linear-gradient(135deg, var(--clay), #d18d6a);
-      box-shadow: 0 10px 18px rgba(191, 93, 67, 0.28);
-    }
-
-    .play-toggle:hover {
-      transform: translateY(-1px);
-    }
-
-    .ambient-notes {
-      position: fixed;
-      left: 24px;
-      bottom: 18px;
-      display: flex;
-      align-items: flex-end;
-      gap: 10px;
-      pointer-events: none;
-      z-index: 1;
-      opacity: 0.8;
-      filter: drop-shadow(0 8px 14px rgba(36, 49, 40, 0.12));
-    }
-
-    .note-icon {
-      position: relative;
-      width: 12px;
-      height: 28px;
-      border-radius: 6px;
-      background: linear-gradient(180deg, rgba(255,255,255,0.9), rgba(255,255,255,0.3));
-      box-shadow: inset 0 0 0 1px rgba(255,255,255,0.2);
-      animation: noteFloat 5s ease-in-out infinite;
-      transform-origin: center top;
-    }
-
-    .note-icon::before {
-      content: "";
-      position: absolute;
-      right: -6px;
-      top: 6px;
-      width: 3px;
-      height: 24px;
-      border-radius: 999px;
-      background: rgba(255,255,255,0.75);
-    }
-
-    .note-icon::after {
-      content: "";
-      position: absolute;
-      left: 1px;
-      top: -7px;
-      width: 10px;
-      height: 10px;
-      border-radius: 4px;
-      background: rgba(255,255,255,0.36);
-      border: 2px solid rgba(255,255,255,0.55);
-      transform: rotate(12deg);
-    }
-
-    .note-icon:nth-child(1) { background: linear-gradient(180deg, #f8c66e, #e7a927); animation-delay: 0.2s; }
-    .note-icon:nth-child(2) { background: linear-gradient(180deg, #ff9ba8, #e05d7f); animation-delay: 0.7s; }
-    .note-icon:nth-child(3) { background: linear-gradient(180deg, #a9d8ff, #5fa5ff); animation-delay: 1.2s; }
-    .note-icon:nth-child(4) { background: linear-gradient(180deg, #a4e8b1, #53bd7b); animation-delay: 1.8s; }
-    .note-icon:nth-child(5) { background: linear-gradient(180deg, #d2b5ff, #9478e3); animation-delay: 2.5s; }
-    .note-icon:nth-child(6) { background: linear-gradient(180deg, #ffd0a6, #ea8d61); animation-delay: 3.2s; }
-    .note-icon:nth-child(7) { background: linear-gradient(180deg, #9ae5d8, #49bda9); animation-delay: 3.8s; }
-    .note-icon:nth-child(8) { background: linear-gradient(180deg, #f7b1d4, #dc76b0); animation-delay: 4.1s; }
-
-    @keyframes noteFloat {
-      0% {
-        opacity: 0;
-        transform: translateY(-24px) scale(0.75) rotate(-8deg);
-      }
-      12% {
-        opacity: 0.95;
-      }
-      50% {
-        opacity: 1;
-        transform: translateY(16px) scale(1.04) rotate(4deg);
-      }
-      100% {
-        opacity: 0;
-        transform: translateY(118px) scale(0.9) rotate(18deg);
-      }
-    }
-
-    @media (max-width: 1100px) {
-      .music-panel {
-        position: static;
-        width: min(100%, 420px);
-        margin: 0 auto 28px;
-      }
-
-      .ambient-notes {
-        width: min(70vw, 320px);
-        bottom: 16px;
-      }
+    .member-section-content h3 {
+      overflow-wrap: anywhere;
     }
 
     @media (max-width: 760px) {
-      header nav.site-nav {
+      .member-overlap-section {
+        min-height: 100vh;
+        min-height: 100svh;
         align-items: flex-start;
-        flex-direction: column;
-        gap: 0.85rem;
-        padding: 1rem 1.1rem;
-        border-radius: 1.25rem;
+        padding: 88px 0 28px;
       }
 
-      header .nav-links {
-        justify-content: flex-start;
-        gap: 0.55rem 1.1rem;
-        width: 100%;
+      .member-section-meta {
+        align-items: flex-start;
+      }
+
+      .member-section-body {
+        grid-template-columns: 1fr;
+        gap: 24px;
+      }
+
+      .member-section-portrait {
+        width: min(100%, 360px);
+        height: min(28svh, 250px);
+        min-height: 190px;
+        margin: 0 auto;
       }
     }
 
-    @media (max-width: 480px) {
-      .hero-actions {
-        grid-template-columns: 1fr;
-        width: min(100%, 340px);
-      }
+    /* Equalizer bars (black on white) */
+    .eq-bar {
+      display: inline-block;
+      width: 2.5px;
+      border-radius: 999px;
+      background: #000000;
+      transform-origin: bottom;
+      transition: height 120ms ease;
+    }
+    .playing .eq-bar:nth-child(1) { animation: eqAnim 0.7s ease-in-out infinite alternate; }
+    .playing .eq-bar:nth-child(2) { animation: eqAnim 1s ease-in-out infinite alternate 0.2s; }
+    .playing .eq-bar:nth-child(3) { animation: eqAnim 0.6s ease-in-out infinite alternate 0.4s; }
+
+    @keyframes eqAnim {
+      0% { height: 3px; }
+      100% { height: 15px; }
+    }
+
+    /* Typewriter Caret */
+    .typewriter-cursor {
+      display: inline-block;
+      width: 3px;
+      height: 1.1em;
+      background-color: #000000;
+      margin-left: 4px;
+      vertical-align: middle;
+      animation: blink 0.8s infinite;
+    }
+
+    @keyframes blink {
+      0%, 100% { opacity: 1; }
+      50% { opacity: 0; }
+    }
+
+    /* Custom Scrollbar */
+    ::-webkit-scrollbar {
+      width: 7px;
+    }
+    ::-webkit-scrollbar-track {
+      background: #f1f1f1;
+    }
+    ::-webkit-scrollbar-thumb {
+      background: #000000;
+      border-radius: 999px;
+    }
+    ::-webkit-scrollbar-thumb:hover {
+      background: #333333;
     }
   </style>
-  <script src="https://cdn.tailwindcss.com/3.4.17" type="text/javascript"></script>
-  <script src="https://cdn.jsdelivr.net/npm/lucide@0.577.0/dist/umd/lucide.min.js" type="text/javascript"></script>
-  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
-  <script src="/_sdk/8de366929c5f3b48.data_sdk.js" type="text/javascript" integrity="sha512-TyQ8k8cZj66xe/aENmn6RyZpdOFZXbAo5+KBG3PeFM+Q4qMTHU8xAqmq4ADClNfPrstgQYV6OzZHwLTnElzB2g=="></script>
-  <script src="/_sdk/0ddbbee1c66b1212.editing_sdk.js" type="text/javascript" integrity="sha512-HQn5LM1yruQSbY78ATUril6QeOJ9xj7KqO64ltLtb4vBwI5Qv3/tloFFOndBPZTNZoeV5xKzuth5y6FTi9crsg=="></script>
-  <script src="/_sdk/765e1fea0cec97ce.resizing_sdk.js" type="text/javascript" integrity="sha512-IRTJnqww0+HQ5V/LlWEQrlD5SrYHaVvaeVoNe8HYQXoaguzUGheSd9+n9s6WOgaTcEH0g37DuINHZ9aqfzWjlw=="></script>
- </head>
- <body data-template-id="__page-root" style="background: rgb(251, 247, 239);">
-  <div class="page-shell">
-   <header id="top" class="w-full px-6 py-6 md:px-12 lg:px-20">
-    <nav aria-label="Navigasi utama" class="site-nav mx-auto flex max-w-7xl items-center justify-between gap-6"><a href="#home" data-template-id="brand-name" class="canva-link text-lg font-bold tracking-[0.16em]" style="color: rgb(36, 49, 40); font-weight: 700; font-style: normal; font-size: 18px; letter-spacing: 0.16rem;">Kelompok 12</a>
-     <div class="nav-links text-sm font-medium"><a href="#home" data-template-id="nav-home" class="canva-link nav-link" style="color: rgb(36, 49, 40); font-weight: 500; font-style: normal; font-size: 14px;">Home</a> <a href="#about" data-template-id="nav-about" class="canva-link nav-link" style="color: rgb(36, 49, 40); font-weight: 500; font-style: normal; font-size: 14px;">About</a> <a href="gallery.html" class="canva-link nav-link" style="color: rgb(36, 49, 40); font-weight: 500; font-style: normal; font-size: 14px;">Galeri</a> <a href="bulletin.html" class="canva-link nav-link" style="color: rgb(36, 49, 40); font-weight: 500; font-style: normal; font-size: 14px;">Bulletin</a> <a href="game.html" class="canva-link nav-link" style="color: rgb(36, 49, 40); font-weight: 500; font-style: normal; font-size: 14px;">Game</a> <a href="#contact" data-template-id="nav-contact" class="canva-link nav-link" style="color: rgb(36, 49, 40); font-weight: 500; font-style: normal; font-size: 14px;">Contact</a>
-     </div>
-    </nav>
-   </header>
-   <main>
-    <section id="home" aria-labelledby="hero-title" class="w-full px-6 pb-20 pt-10 md:px-12 md:pb-28 md:pt-16 lg:px-20">
-     <div class="mx-auto grid max-w-7xl items-center gap-14 lg:grid-cols-2 lg:gap-20">
-      <div class="order-2 flex max-w-xl flex-col items-center text-center lg:order-1 lg:items-start lg:text-left">
-       <p data-template-id="hero-eyebrow" class="canva-text reveal delay-1 mb-5 text-xs font-bold uppercase tracking-[0.22em]" style="color: rgb(191, 93, 67); font-weight: 700; font-style: normal; font-size: 12px; letter-spacing: 0.18rem;">Kelompok 12</p>
-       <h1 id="hero-title" data-template-id="hero-title" class="canva-text reveal delay-2 max-w-lg font-bold leading-[1.04] tracking-[-0.045em]" style="color: rgb(36, 49, 40); font-weight: 700; font-style: normal; font-size: 32px;">Selamat Datang di Website Kelompok Kami</h1>
-       <p data-template-id="hero-subtitle" class="canva-text reveal delay-3 mt-6 max-w-md leading-relaxed" style="color: rgb(82, 96, 87); font-weight: 400; font-style: normal; font-size: 18px; line-height: 1.55;"> Mari mengenal lebih jauh kepada para anggota anggota kelompok 12 !</p>
-       <div class="hero-actions reveal delay-4 mt-8">
-        <button id="about-button" type="button" data-template-id="about-button" class="canva-button action-button hero-action rounded-full px-7 py-3.5 text-sm font-bold tracking-[0.11em]" style="background: rgb(191, 93, 67); color: rgb(255, 255, 255);"> <span data-template-id="about-button-text" class="canva-text">ABOUT US</span> <i data-lucide="arrow-down-right" aria-hidden="true" class="h-4 w-4"></i> </button>
-        <a href="gallery.html" id="gallery-button" class="hero-action rounded-full border border-[#243128]/15 bg-white/75 text-[#243128] transition hover:-translate-y-0.5 hover:bg-[#fffaf4]"><i data-lucide="images" aria-hidden="true" class="h-4 w-4"></i> GALERI KEGIATAN</a>
-        <a href="bulletin.html" id="KOEMNTAR-button" class="hero-action rounded-full border border-[#bf5d43]/25 bg-[#fdf2ee] text-[#bf5d43] transition hover:-translate-y-0.5 hover:bg-[#fce9e1]"><i data-lucide="messages-square" aria-hidden="true" class="h-4 w-4"></i> KOMENTAR</a>
-        <a href="game.html" id="game-button" class="hero-action rounded-full border border-[#243128]/15 bg-[#f7efe7] text-[#243128] transition hover:-translate-y-0.5 hover:bg-[#f1e2d2]"><i data-lucide="gamepad-2" aria-hidden="true" class="h-4 w-4"></i> GAME</a>
-       </div>
-      </div>
-      <div class="order-1 reveal delay-2 mx-auto w-full max-w-[540px] lg:order-2">
-       <div class="hero-photo-frame" aria-live="polite">
-        <div class="hero-photo-stack">
-         <img class="hero-slide active" data-template-id="hero-image" loading="lazy" src="assets/MABIM/poto1.jpeg" alt="Dokumentasi kegiatan MABIM 1.">
-         <img class="hero-slide" loading="lazy" src="assets/MABIM/poto1.jpeg" alt="Dokumentasi kegiatan MABIM 2.">
-         <img class="hero-slide" loading="lazy" src="assets/MENTORING/MENTORING 1.jpeg" alt="Dokumentasi kegiatan mentoring 1.">
-         <img class="hero-slide" loading="lazy" src="assets/MENTORING/MENTORING 1.jpeg" alt="Dokumentasi kegiatan mentoring 2.">
-        </div>
-       </div>
-      </div>
-     </div>
-    </section>
-    <div class="w-full h-12 md:h-20" aria-hidden="true"></div>
-    <section id="about" aria-labelledby="about-title" data-template-id="about-section" class="canva-section w-full px-6 py-20 md:px-12 md:py-28 lg:px-20" style="background: rgb(241, 229, 214);">
-     <div class="mx-auto grid max-w-7xl gap-10 md:grid-cols-[0.8fr_1.2fr] md:items-start">
-      <div>
-       <p data-template-id="about-label" class="canva-text text-xs font-bold uppercase tracking-[0.22em]" style="color: rgb(191, 93, 67); font-weight: 700; font-style: normal; font-size: 12px; letter-spacing: 0.18rem;">Mengenal kami</p>
-       <h2 id="about-title" data-template-id="about-title" class="canva-text mt-4 font-bold leading-tight tracking-[-0.035em]" style="color: rgb(36, 49, 40); font-weight: 700; font-style: normal; font-size: 24px;">About Us</h2>
-      </div>
-      <div class="max-w-2xl">
-       <p data-template-id="about-copy" class="canva-text leading-relaxed" style="color: rgb(70, 82, 73); font-weight: 400; font-style: normal; font-size: 18px; line-height: 1.65;">Kami adalah Kelompok 12 Mabim, Jurusan Informatika. Website ini kami buat untuk memperkenalkan diri, membagikan kegiatan kami, dan mengajak teman-teman ikut berinteraksi lewat papan komentar. Situs ini kami bangun sendiri dengan HTML, CSS, JavaScript, dan Supabase, sebagai bagian dari proses belajar kami.</p>
-       <div class="mt-8 flex flex-wrap items-center gap-3">
-        <button id="back-to-top" type="button" data-template-id="back-to-top" class="canva-button action-button inline-flex items-center gap-2 rounded-full px-6 py-3 text-sm font-semibold" style="background: rgb(36, 49, 40); color: rgb(255, 255, 255);"> <i data-lucide="arrow-up" aria-hidden="true" class="h-4 w-4"></i> <span data-template-id="back-to-top-text" class="canva-text" style="color: rgb(255, 255, 255); font-weight: 600; font-style: normal; font-size: 14px;">Kembali ke atas</span> </button>
-        <a href="anggota.html" id="learn-more" data-template-id="learn-more" class="canva-button action-button inline-flex items-center gap-2 rounded-full px-6 py-3 text-sm font-semibold" style="background: rgb(191, 93, 67); color: rgb(255, 255, 255); text-decoration: none;"> <span data-template-id="learn-more-text" class="canva-text" style="color: rgb(255, 255, 255); font-weight: 600; font-style: normal; font-size: 14px;">Lebih Kenal !</span> </a>
-       </div>
-      </div>
-     </div>
-    </section>
+  <link rel="stylesheet" href="assets/site.css">
+  <link rel="stylesheet" href="assets/TechText.css">
+  <link rel="stylesheet" href="https://unpkg.com/lenis@1.3.26/dist/lenis.css">
+  <script src="https://unpkg.com/lenis@1.3.26/dist/lenis.min.js" defer></script>
+</head>
+<body class="relative min-h-screen bg-white text-black selection:bg-black selection:text-white">
 
-    <section class="bulletin-highlight w-full px-6 py-20 md:px-12 lg:px-20" aria-labelledby="highlight-bulletin-title">
-     <div class="mx-auto max-w-7xl">
-      <div class="mb-8 flex flex-col gap-5 sm:flex-row sm:items-end sm:justify-between">
-       <div>
-        <p class="text-xs font-bold uppercase tracking-[0.22em]" style="color: rgb(191, 93, 67);">Bulletin</p>
-        <h2 id="highlight-bulletin-title" class="mt-3 text-3xl font-bold tracking-[-0.04em]" style="color: rgb(36, 49, 40);">Beberapa Komentar yang ada</h2>
-       </div>
-       <a href="bulletin.html" class="inline-flex items-center justify-center rounded-full border border-[#bf5d43]/25 bg-[#fdf2ee] px-6 py-3 text-sm font-bold tracking-[0.12em] text-[#bf5d43] transition hover:-translate-y-0.5 hover:bg-[#fce9e1]" style="letter-spacing: 0.1rem; text-decoration: none;">TULIS KOMENTAR</a>
-      </div>
-      <div id="latestCommentPreview" class="grid gap-5 md:grid-cols-3" aria-live="polite"></div>
-     </div>
-    </section>
-   </main>
-   <footer id="contact" class="w-full px-6 py-8 md:px-12 lg:px-20">
-    <div class="mx-auto flex max-w-7xl flex-col justify-between gap-3 border-t border-[#243128]/15 pt-6 text-sm sm:flex-row">
-     <p data-template-id="footer-note" class="canva-text" style="color: rgb(82, 96, 87); font-weight: 400; font-style: normal; font-size: 14px;">Kelompok 12.</p>
-     <p data-template-id="footer-contact" class="canva-text" style="color: rgb(82, 96, 87); font-weight: 400; font-style: normal; font-size: 14px;">raditgamingwokwok@gmail.com</p>
-    </div>
-   </footer>
-  </div>
-  <div class="page-decor left" aria-hidden="true">
-    <span class="orb orb-one"></span>
-    <span class="orb orb-two"></span>
-    <span class="orb orb-three"></span>
-  </div>
+  <!-- React Root -->
+  <div id="root" class="relative z-10 min-h-screen flex flex-col"></div>
 
-  <div class="page-decor right" aria-hidden="true">
-    <span class="orb orb-one"></span>
-    <span class="orb orb-two"></span>
-    <span class="orb orb-three"></span>
-  </div>
+  <!-- React 18 + Framer Motion ESM Script -->
+  <script type="module">
+    import React, { useState, useEffect, useRef } from 'https://esm.sh/react@18.3.1';
+    import ReactDOM from 'https://esm.sh/react-dom@18.3.1/client';
+    import { motion, AnimatePresence } from 'https://esm.sh/framer-motion@11.18.2?deps=react@18.3.1,react-dom@18.3.1';
+    import TechText from './assets/TechText.js';
 
-  <div class="ambient-notes" aria-hidden="true">
-    <span class="note-icon"></span>
-    <span class="note-icon"></span>
-    <span class="note-icon"></span>
-    <span class="note-icon"></span>
-    <span class="note-icon"></span>
-    <span class="note-icon"></span>
-    <span class="note-icon"></span>
-    <span class="note-icon"></span>
-  </div>
-
-  <aside class="music-panel">
-    <div class="music-head">
-      <div class="music-badge">
-        <div class="equalizer" aria-hidden="true">
-          <span></span>
-          <span></span>
-          <span></span>
-        </div>
-        <span>Now</span>
-      </div>
-      <span class="status-pill" id="statusPill">Paused</span>
-    </div>
-
-    <div class="music-meta">
-      <div class="album-art" aria-hidden="true"></div>
-      <div>
-        <p class="music-title">Current</p>
-        <p class="music-track-name" id="currentTrackName">Shape of My Heart</p>
-      </div>
-    </div>
-
-    <div class="music-progress" aria-label="Progress lagu">
-      <div class="time-row">
-        <span id="currentTimeLabel">0:00</span>
-        <span id="durationLabel">0:00</span>
-      </div>
-      <div class="progress-track">
-        <div class="progress-fill" id="progressFill"></div>
-      </div>
-    </div>
-
-    <div class="player-controls">
-      <button class="nav-btn" id="prevTrackBtn" aria-label="Lagu sebelumnya">‹</button>
-      <button class="play-toggle" id="playToggle" aria-label="Putar musik">Play</button>
-      <button class="nav-btn" id="nextTrackBtn" aria-label="Lagu berikutnya">›</button>
-    </div>
-
-    <div class="track-list">
-      <button class="track-btn active" data-track="Shape of My Heart" data-src="assets/Backstreet Boys - Shape Of My Heart (Official HD Video).mp3">Shape of My Heart</button>
-      <button class="track-btn" data-track="About You" data-src="assets/The 1975 - About You (Official).mp3">About You</button>
-      <button class="track-btn" data-track="Merry Christmas I Miss You" data-src="assets/Merry Christmas, i miss you - Alex Crichton  Lirik Terjemahan Indonesia.mp3">Merry Christmas I Miss You</button>
-    </div>
-    <audio id="bgAudio" loop preload="auto"></audio>
-  </aside>
-
-  <script>
-    const supabaseUrl = 'https://hwejnbiudcwwfuhowrtp.supabase.co';
-    const supabaseKey = 'sb_publishable_2eE7hTnPB6Ce0WAg45VNQA_pArsAZN2';
-    const latestCommentRoot = document.getElementById('latestCommentPreview');
-
-    function escapeHtmlText(value) {
-      return String(value ?? '')
-        .replace(/&/g, '&amp;')
-        .replace(/</g, '&lt;')
-        .replace(/>/g, '&gt;')
-        .replace(/"/g, '&quot;')
-        .replace(/'/g, '&#039;');
-    }
-
-    function formatCommentDate(dateString) {
-      const date = new Date(dateString);
-      return new Intl.DateTimeFormat('id-ID', {
-        day: 'numeric',
-        month: 'short',
-        year: 'numeric'
-      }).format(date);
-    }
-
-    async function renderLatestComments() {
-      if (!latestCommentRoot || !window.supabase) return;
-
-      try {
-        const db = window.supabase.createClient(supabaseUrl, supabaseKey);
-        const { data, error } = await db
-          .from('comments')
-          .select('*')
-          .order('created_at', { ascending: false })
-          .limit(3);
-
-        if (error) throw error;
-
-        if (!data || !data.length) {
-          latestCommentRoot.innerHTML = `
-            <div class="comment-preview-empty">
-              Belum ada komentar terbaru. Jadilah yang pertama menulis pesan hangat untuk kelompok kami di <a href="bulletin.html" style="color: #bf5d43; font-weight: 700;">Bulletin</a>.
-            </div>
-          `;
-          return;
-        }
-
-        latestCommentRoot.innerHTML = data.map((item) => `
-          <article class="comment-preview-card">
-            <div class="comment-preview-meta">
-              <span>${escapeHtmlText(item.name)}</span>
-              <span>${formatCommentDate(item.created_at)}</span>
-            </div>
-            <p class="comment-preview-name">Pesan untuk kami</p>
-            <p class="comment-preview-text">${escapeHtmlText(item.text)}</p>
-          </article>
-        `).join('');
-      } catch (error) {
-        latestCommentRoot.innerHTML = `
-          <div class="comment-preview-empty">
-            Komentar terbaru belum bisa dimuat saat ini. Yuk, bantu kita mulai percakapan di <a href="bulletin.html" style="color: #bf5d43; font-weight: 700;">Bulletin</a>.
-          </div>
-        `;
-        console.error(error);
+    // ==================== MEMBER DOSSIER DATA (13 ANGGOTA) ====================
+    const membersData = [
+      {
+        id: "01",
+        name: "Ghania Citra Karini",
+        role: "Kaka Asuh Tercinta",
+        category: "mentor",
+        typeTag: "KAKA ASUH / MENTOR",
+        npm: "257006111068",
+        ig: "ghntxaac",
+        image: "assets/geha.jpeg",
+        bio: "Mentor penyayang dan penuntun setia langkah Kelompok 12 sejak awal masa bimbingan. Selalu hadir memberikan arahan, motivasi, dan inspirasi dalam mengarungi dinamika perkuliahan.",
+        stats: { kelas: "100%", "asal sma": "Mentorship" }
+      },
+      {
+        id: "02",
+        name: "Indah Kasih Lestari",
+        role: "Kaka Asuh Tercinta",
+        category: "mentor",
+        typeTag: "KAKA ASUH / MENTOR",
+        npm: "257006111106",
+        ig: "jndah__",
+        image: "assets/indah.jpeg",
+        bio: "Mentor penuh energi positif yang selalu menjaga kehangatan serta kekompakan seluruh adik-adik kelompok 12. Menjadi teman diskusi dan pembimbing yang hangat.",
+        stats: { kelas: "100%", "asal sma": "Mentorship" }
+      },
+      {
+        id: "03",
+        name: "Radhitya Fauzana Rasyid",
+        role: "Ketua Kelompok (Leader)",
+        category: "leader",
+        typeTag: "LEADER / COORDINATOR",
+        npm: "267006111105",
+        ig: "rdht_tya",
+        image: "assets/Radit.jpeg",
+        bio: "Jangan mengulangi kesalahan yang sama masih banyak kesalahan yang harus di coba.",
+        stats: { kelas: "A", "asal sma": "SMAN 1 Talaga" }
+      },
+      {
+        id: "04",
+        name: "Winda Nur Fadilah",
+        role: "Anggota",
+        category: "member",
+        typeTag: "CREW MEMBER",
+        npm: "267006111009",
+        ig: "urwndaa",
+        image: "assets/winda.jpeg",
+        bio: "Becoming someone my younger self would be proud of.",
+        stats: { kelas: "A", "asal sma": "SMAN 1 CIAMIS" }
+      },
+      {
+        id: "05",
+        name: "Muhammad Farrel Fachridho",
+        role: "Anggota",
+        category: "member",
+        typeTag: "DEVELOPER / TECH",
+        npm: "267006111027",
+        ig: "nnoelfr",
+        image: "assets/Farrel.jpeg",
+        bio: "Immo all prestasi",
+        stats: { kelas: "C", "asal sma": "SMAN 3 Tasikmalaya Kota" }
+      },
+      {
+        id: "06",
+        name: "Aldi Muhamad Alfaisi",
+        role: "Anggota",
+        category: "member",
+        typeTag: "CREW MEMBER",
+        npm: "267006111091",
+        ig: "aldimhalfsi",
+        image: "assets/Aldi.jpeg",
+        bio: "In the name of self-respect, don't sell your principles for a moment of applause.",
+        stats: { kelas: "B", "asal sma": "SMKN 3 Kuningan" }
+      },
+      {
+        id: "07",
+        name: "Efqi 'Asykarullah",
+        role: "Anggota",
+        category: "member",
+        typeTag: "CREW MEMBER",
+        npm: "267006111036",
+        ig: "zefqi21",
+        image: "assets/Efqhi.jpeg",
+        bio: "Jika engkau tak tahan lelahnya belajar, maka engkau harus tahan menanggung perihnya kebodohan",
+        stats: { kelas: "D", "asal sma": "SMA AL-ISLAM BOARDING SCHOOL" }
+      },
+      {
+        id: "08",
+        name: "Defnika Adistya Fadianti",
+        role: "Anggota",
+        category: "member",
+        typeTag: "CREW MEMBER",
+        npm: "267006111034",
+        ig: "adistydfnii",
+        image: "assets/Defnika.jpeg",
+        bio: "Diam bukan berarti lemah, tapi lapar",
+        stats: { kelas: "D", "asal sma": "" }
+      },
+      {
+        id: "09",
+        name: "Nanda Ahmad Hanani",
+        role: "Anggota",
+        category: "member",
+        typeTag: "DESIGNER / CREATIVE",
+        npm: "267006111026",
+        ig: "sagacrane",
+        image: "assets/Nanda.jpeg",
+        bio: "setia pada diri sendiri.",
+        stats: { kelas: "C", "asal sma": "SMAN 3 Tasikmalaya" }
+      },
+      {
+        id: "10",
+        name: "Aditya Dwi Putra",
+        role: "Anggota",
+        category: "member",
+        typeTag: "MOTION & UI",
+        npm: "267006111040",
+        ig: "adtyptraaa_",
+        image: "assets/Aditya.jpeg",
+        bio: "Impossible is a word to be found only in the dictionary of fools.",
+        stats: { kelas: "C", "asal sma": "" }
+      },
+      {
+        id: "11",
+        name: "Muhammad Daris Ghifari",
+        role: "Anggota",
+        category: "member",
+        typeTag: "CREW MEMBER",
+        npm: "267006111025",
+        ig: "darwiss__17",
+        image: "assets/Daris.jpeg",
+        bio: "Coba saja dulu, urusan hasil belakangan",
+        stats: { kelas: "Tinggi", "asal sma": "SMAN 1 Karangnunggal" }
+      },
+      {
+        id: "12",
+        name: "M Alief Rievan R",
+        role: "Anggota",
+        category: "member",
+        typeTag: "CREW MEMBER",
+        npm: "267006111100",
+        ig: "Advanr_",
+        image: "assets/Alief.jpeg",
+        bio: "Turut merancang konsep mekanik permainan mini game arcade kelompok. Membawa semangat positif dan dedikasi dalam setiap sesi pengerjaan.",
+        stats: { kelas: "C", "asal sma": "Game Dev" }
+      },
+      {
+        id: "13",
+        name: "Muhammad Ihsan Sya’bana",
+        role: "Anggota",
+        category: "member",
+        typeTag: "CREW MEMBER",
+        npm: "267006111207",
+        ig: "ihsnsybna",
+        image: "assets/ihsan.jpeg",
+        imagePosition: "center 15%",
+        bio: "",
+        stats: { kelas: "F", "asal sma": "SMKN 1 Ciamis" }
       }
-    }
+    ];
+    // ==================== TYPEWRITER COMPONENT ====================
+    function TypewriterText() {
+      const phrases = ['SATU IDEOLOGI', 'SATU SOLIDARITAS'];
+      const [idx, setIdx] = useState(0);
+      const [txt, setTxt] = useState('');
+      const [isDeleting, setIsDeleting] = useState(false);
 
-    const audio = document.getElementById('bgAudio');
-    const buttons = [...document.querySelectorAll('.track-btn')];
-    const playToggle = document.getElementById('playToggle');
-    const prevTrackBtn = document.getElementById('prevTrackBtn');
-    const nextTrackBtn = document.getElementById('nextTrackBtn');
-    const progressTrack = document.querySelector('.progress-track');
-    const musicPanel = document.querySelector('.music-panel');
-    const currentTrackName = document.getElementById('currentTrackName');
-    const statusPill = document.getElementById('statusPill');
-    const currentTimeLabel = document.getElementById('currentTimeLabel');
-    const durationLabel = document.getElementById('durationLabel');
-    const progressFill = document.getElementById('progressFill');
-    const STORAGE_KEY = 'mabim_music_state';
-
-    function formatTime(totalSeconds) {
-      if (!Number.isFinite(totalSeconds) || totalSeconds < 0) return '0:00';
-      const minutes = Math.floor(totalSeconds / 60);
-      const seconds = Math.floor(totalSeconds % 60).toString().padStart(2, '0');
-      return `${minutes}:${seconds}`;
-    }
-
-    function getSavedMusicState() {
-      try {
-        return JSON.parse(localStorage.getItem(STORAGE_KEY) || '{}');
-      } catch (error) {
-        return {};
-      }
-    }
-
-    function syncTrackLabel() {
-      const activeTrack = document.querySelector('.track-btn.active');
-      if (currentTrackName && activeTrack) {
-        currentTrackName.textContent = activeTrack.dataset.track || 'Unknown track';
-      }
-    }
-
-    function saveMusicState() {
-      const activeTrack = document.querySelector('.track-btn.active');
-      const state = {
-        src: activeTrack ? activeTrack.dataset.src : audio.src,
-        playing: !audio.paused && Boolean(audio.src),
-        currentTime: Number.isFinite(audio.currentTime) ? audio.currentTime : 0
-      };
-
-      try {
-        localStorage.setItem(STORAGE_KEY, JSON.stringify(state));
-      } catch (error) {
-        console.warn('Music state could not be saved:', error);
-      }
-    }
-
-    function clamp(value, min, max) {
-      return Math.min(Math.max(value, min), max);
-    }
-
-    let dragState = null;
-
-    musicPanel.addEventListener('pointerdown', (event) => {
-      if (event.target.closest('.track-btn') || event.target.closest('.play-toggle')) {
-        return;
-      }
-
-      dragState = {
-        offsetX: event.clientX - musicPanel.getBoundingClientRect().left,
-        offsetY: event.clientY - musicPanel.getBoundingClientRect().top
-      };
-      musicPanel.classList.add('dragging');
-      musicPanel.setPointerCapture(event.pointerId);
-    });
-
-    musicPanel.addEventListener('pointermove', (event) => {
-      if (!dragState) return;
-
-      const maxX = window.innerWidth - musicPanel.offsetWidth - 12;
-      const maxY = window.innerHeight - musicPanel.offsetHeight - 12;
-      const nextLeft = clamp(event.clientX - dragState.offsetX, 12, Math.max(12, maxX));
-      const nextTop = clamp(event.clientY - dragState.offsetY, 12, Math.max(12, maxY));
-
-      musicPanel.style.left = `${nextLeft}px`;
-      musicPanel.style.top = `${nextTop}px`;
-      musicPanel.style.right = 'auto';
-    });
-
-    ['pointerup', 'pointercancel', 'pointerleave'].forEach((eventName) => {
-      musicPanel.addEventListener(eventName, () => {
-        if (!dragState) return;
-        dragState = null;
-        musicPanel.classList.remove('dragging');
-      });
-    });
-
-    function updateProgressBar() {
-      if (!Number.isFinite(audio.duration) || audio.duration <= 0) {
-        durationLabel.textContent = '0:00';
-        currentTimeLabel.textContent = '0:00';
-        progressFill.style.width = '0%';
-        return;
-      }
-
-      const progress = (audio.currentTime / audio.duration) * 100;
-      progressFill.style.width = `${progress}%`;
-      currentTimeLabel.textContent = formatTime(audio.currentTime);
-      durationLabel.textContent = formatTime(audio.duration);
-    }
-
-    function setTrackByIndex(index) {
-      const targetButton = buttons[index];
-      if (!targetButton) return;
-      loadTrack(targetButton);
-    }
-
-    function moveTrack(step) {
-      const activeIndex = buttons.findIndex((button) => button.classList.contains('active'));
-      const nextIndex = (activeIndex + step + buttons.length) % buttons.length;
-      setTrackByIndex(nextIndex);
-    }
-
-    function seekTrack(event) {
-      if (!Number.isFinite(audio.duration) || audio.duration <= 0) return;
-      const rect = progressTrack.getBoundingClientRect();
-      const ratio = clamp((event.clientX - rect.left) / rect.width, 0, 1);
-      audio.currentTime = ratio * audio.duration;
-      updateProgressBar();
-      saveMusicState();
-    }
-
-    function updateMusicState(isPlaying) {
-      playToggle.textContent = isPlaying ? 'Pause' : 'Play';
-      playToggle.classList.toggle('is-playing', isPlaying);
-      musicPanel.classList.toggle('playing', isPlaying);
-      statusPill.textContent = isPlaying ? 'Playing' : 'Paused';
-      syncTrackLabel();
-      updateProgressBar();
-    }
-
-    function resumeMusicAfterInteraction() {
-      if (!audio.src || !audio.paused) return;
-      playAudio();
-    }
-
-    function playAudio() {
-      if (!audio.src) return;
-      audio.muted = false;
-      audio.volume = 0.7;
-      const playPromise = audio.play();
-      if (playPromise && typeof playPromise.catch === 'function') {
-        playPromise.catch(() => {
-          document.addEventListener('pointerdown', resumeMusicAfterInteraction, { once: true });
-          document.addEventListener('keydown', resumeMusicAfterInteraction, { once: true });
-          updateMusicState(false);
-        });
-      }
-      updateMusicState(!audio.paused);
-      saveMusicState();
-    }
-
-    function loadTrack(button) {
-      buttons.forEach((btn) => btn.classList.toggle('active', btn === button));
-      audio.src = encodeURI(button.dataset.src);
-      audio.load();
-      audio.currentTime = 0;
-      syncTrackLabel();
-      playAudio();
-      saveMusicState();
-    }
-
-    buttons.forEach((button) => {
-      button.addEventListener('click', () => loadTrack(button));
-    });
-
-    playToggle.addEventListener('click', () => {
-      if (audio.paused) {
-        playAudio();
-      } else {
-        audio.pause();
-        updateMusicState(false);
-        saveMusicState();
-      }
-    });
-
-    prevTrackBtn.addEventListener('click', () => moveTrack(-1));
-    nextTrackBtn.addEventListener('click', () => moveTrack(1));
-    progressTrack.addEventListener('click', seekTrack);
-
-    function restoreSavedMusicState() {
-      const saved = getSavedMusicState();
-      const savedButton = saved.src
-        ? [...buttons].find((button) => button.dataset.src === saved.src)
-        : null;
-      const firstTrack = savedButton || document.querySelector('.track-btn.active');
-
-      if (!firstTrack) return;
-
-      buttons.forEach((btn) => btn.classList.toggle('active', btn === firstTrack));
-      audio.src = encodeURI(firstTrack.dataset.src);
-      syncTrackLabel();
-      audio.load();
-
-      audio.addEventListener('loadedmetadata', () => {
-        const savedTime = Number(saved.currentTime) || 0;
-        if (Number.isFinite(audio.duration) && audio.duration > 0) {
-          audio.currentTime = Math.min(savedTime, audio.duration - 0.1);
-        }
-
-        if (saved.playing) {
-          const resumePlayback = () => {
-            if (audio.paused) {
-              playAudio();
+      useEffect(() => {
+        const word = phrases[idx];
+        const speed = isDeleting ? 40 : 90;
+        const timer = setTimeout(() => {
+          if (!isDeleting) {
+            setTxt(word.substring(0, txt.length + 1));
+            if (txt === word) {
+              setTimeout(() => setIsDeleting(true), 1500);
             }
-          };
+          } else {
+            setTxt(word.substring(0, txt.length - 1));
+            if (txt === '') {
+              setIsDeleting(false);
+              setIdx((idx + 1) % phrases.length);
+            }
+          }
+        }, speed);
+        return () => clearTimeout(timer);
+      }, [txt, isDeleting, idx]);
 
-          document.addEventListener('pointerdown', resumePlayback, { once: true });
-          document.addEventListener('keydown', resumePlayback, { once: true });
-          playAudio();
-        } else {
-          updateMusicState(false);
+      return React.createElement('span', { className: 'inline-flex items-center text-black font-mono font-bold' },
+        txt,
+        React.createElement('span', { className: 'typewriter-cursor' })
+      );
+    }
+
+    // ==================== MAIN COMPONENT ====================
+    function App() {
+      const [activeSection, setActiveSection] = useState('home');
+      const [activeFilter, setActiveFilter] = useState('all');
+      const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+      const [selectedMember, setSelectedMember] = useState(null);
+      const [lightboxData, setLightboxData] = useState(null);
+      const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+      const greetings = [
+        { text: 'HALO', language: 'INDONESIA' },
+        { text: 'HELLO', language: 'ENGLISH' },
+        { text: 'HOLA', language: 'ESPANOL' },
+        { text: 'BONJOUR', language: 'FRANCAIS' },
+        { text: 'CIAO', language: 'ITALIANO' },
+        { text: 'OLA', language: 'PORTUGUES' },
+        { text: 'こんにちは', language: 'JAPANESE' }
+      ];
+      const [showGreeting, setShowGreeting] = useState(() => !window.matchMedia('(prefers-reduced-motion: reduce)').matches);
+      const [greetingIndex, setGreetingIndex] = useState(0);
+
+      useEffect(() => {
+        if (!showGreeting) return undefined;
+        const previousOverflow = document.body.style.overflow;
+        document.body.style.overflow = 'hidden';
+        const greetingTimers = greetings.map((_, index) =>
+          window.setTimeout(() => setGreetingIndex(index), index * 320)
+        );
+        const dismissTimer = window.setTimeout(() => setShowGreeting(false), 2600);
+
+        return () => {
+          document.body.style.overflow = previousOverflow;
+          greetingTimers.forEach(window.clearTimeout);
+          window.clearTimeout(dismissTimer);
+        };
+      }, [showGreeting]);
+
+      // Audio state
+      const [isPlaying, setIsPlaying] = useState(false);
+      const [currentTrackIdx, setCurrentTrackIdx] = useState(0);
+      const audioRef = useRef(null);
+
+      const tracks = [
+        { title: 'Shape of My Heart', artist: 'Backstreet Boys', src: 'assets/Backstreet Boys - Shape Of My Heart (Official HD Video).mp3' },
+        { title: 'About You', artist: 'The 1975', src: 'assets/The 1975 - About You (Official).mp3' },
+        { title: 'Merry Christmas I Miss You', artist: 'Alex Crichton', src: 'assets/Merry Christmas, i miss you - Alex Crichton  Lirik Terjemahan Indonesia.mp3' }
+      ];
+
+      // Supabase State
+      const [comments, setComments] = useState([]);
+      const [commentCount, setCommentCount] = useState(0);
+      const [authorName, setAuthorName] = useState('');
+      const [commentBody, setCommentBody] = useState('');
+      const [isSubmitting, setIsSubmitting] = useState(false);
+      const [submitStatus, setSubmitStatus] = useState(null);
+
+      const supabaseUrl = 'https://hwejnbiudcwwfuhowrtp.supabase.co';
+      const supabaseKey = 'sb_publishable_2eE7hTnPB6Ce0WAg45VNQA_pArsAZN2';
+      const db = window.supabase ? window.supabase.createClient(supabaseUrl, supabaseKey) : null;
+
+      // Scroll spy
+      useEffect(() => {
+        const handleScroll = () => {
+          const sections = ['home', 'about', 'mentor', 'anggota', 'galeri', 'bulletin', 'game', 'contact'];
+          const pos = window.scrollY + 180;
+          for (const s of sections) {
+            const el = document.getElementById(s);
+            if (el && pos >= el.offsetTop && pos < el.offsetTop + el.offsetHeight) {
+              setActiveSection(s);
+              break;
+            }
+          }
+        };
+        window.addEventListener('scroll', handleScroll);
+        fetchComments();
+        return () => window.removeEventListener('scroll', handleScroll);
+      }, []);
+
+      const fetchComments = async () => {
+        if (!db) return;
+        try {
+          const { data, count, error } = await db
+            .from('comments')
+            .select('*', { count: 'exact' })
+            .order('created_at', { ascending: false })
+            .limit(6);
+          if (error) throw error;
+          setComments(data || []);
+          setCommentCount(count || (data ? data.length : 0));
+        } catch (e) {
+          console.error(e);
         }
-      }, { once: true });
+      };
+
+      const handleCommentSubmit = async (e) => {
+        e.preventDefault();
+        if (!authorName.trim() || !commentBody.trim() || !db) return;
+        setIsSubmitting(true);
+        setSubmitStatus('Mengirimkan pesan ke database...');
+        try {
+          const { error } = await db.from('comments').insert([
+            {
+              name: authorName.trim(),
+              text: commentBody.trim(),
+              created_at: new Date().toISOString()
+            }
+          ]);
+          if (error) throw error;
+          setAuthorName('');
+          setCommentBody('');
+          setSubmitStatus('✓ Komentar berhasil dipublikasikan!');
+          await fetchComments();
+          setTimeout(() => setSubmitStatus(null), 4000);
+        } catch (e) {
+          console.error(e);
+          setSubmitStatus('✗ Gagal mengirim. Coba lagi.');
+        } finally {
+          setIsSubmitting(false);
+        }
+      };
+
+      const toggleAudio = () => {
+        if (!audioRef.current) return;
+        if (isPlaying) {
+          audioRef.current.pause();
+          setIsPlaying(false);
+        } else {
+          audioRef.current.play().then(() => setIsPlaying(true)).catch(() => setIsPlaying(false));
+        }
+      };
+
+      const crewMembers = membersData.filter(m => m.category !== 'mentor');
+      const filteredMembers = crewMembers.filter(m => activeFilter === 'all' || m.category === activeFilter);
+
+      return React.createElement('div', { className: 'w-full bg-white text-black tech-grid-bg' },
+        React.createElement(AnimatePresence, {},
+          showGreeting && React.createElement(motion.div, {
+            key: 'greeting-intro',
+            initial: { opacity: 1 },
+            animate: { opacity: 1 },
+            exit: { opacity: 0 },
+            transition: { duration: 0.45, ease: 'easeOut' },
+            className: 'fixed inset-0 z-[100] flex items-center justify-center overflow-hidden bg-[#111111] text-white',
+            role: 'status',
+            'aria-live': 'polite',
+            'aria-atomic': 'true'
+          },
+            React.createElement('div', { className: 'absolute inset-0 opacity-20', 'aria-hidden': true, style: { backgroundImage: 'linear-gradient(rgba(255,255,255,.12) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,.12) 1px, transparent 1px)', backgroundSize: '36px 36px' } }),
+            React.createElement('button', {
+              type: 'button',
+              onClick: () => setShowGreeting(false),
+              className: 'absolute right-6 top-7 z-10 px-3 py-2 font-mono text-xs font-bold uppercase tracking-wider text-white/75 transition-colors hover:text-[#b8f34b] focus-visible:outline focus-visible:outline-2 focus-visible:outline-[#b8f34b] sm:right-10 sm:top-10'
+            }, 'Lewati intro'),
+            React.createElement('div', { className: 'relative z-10 w-full px-6 text-center sm:px-12' },
+              React.createElement(AnimatePresence, { mode: 'wait' },
+                React.createElement(motion.div, {
+                  key: greetings[greetingIndex].text,
+                  initial: { opacity: 0, y: 24, filter: 'blur(12px)' },
+                  animate: { opacity: 1, y: 0, filter: 'blur(0px)' },
+                  exit: { opacity: 0, y: -18, filter: 'blur(8px)' },
+                  transition: { duration: 0.32, ease: 'easeOut' },
+                  className: 'text-5xl font-black uppercase leading-none sm:text-7xl md:text-8xl'
+                }, greetings[greetingIndex].text)
+              ),
+              React.createElement('p', { className: 'mt-5 font-mono text-xs font-bold uppercase tracking-[0.16em] text-white/55' }, greetings[greetingIndex].language),
+            )
+          )
+        ),
+
+        // ==================== 1. FIXED TOP NAVBAR (STYFEN SAGALA WHITE STYLE) ====================
+        React.createElement('nav', {
+          className: 'fixed top-0 left-0 w-full z-50 bg-white/95 backdrop-blur-md border-b-2 border-black font-mono transition-colors duration-300'
+        },
+          React.createElement('div', { className: 'max-w-7xl mx-auto px-6 h-20 flex items-center justify-between relative' },
+            
+            // Brand Logo (Left)
+            React.createElement('div', { className: 'flex-shrink-0 z-20' },
+              React.createElement('a', { href: '#home', className: 'flex items-center gap-3 group' },
+                React.createElement(motion.div, {
+                  whileHover: { scale: 1.08, rotate: -2 },
+                  whileTap: { scale: 0.95 },
+                  className: 'w-10 h-10 rounded-xl bg-black text-white font-black flex items-center justify-center text-sm shadow-brutal-sm'
+                }, '12'),
+                React.createElement('div', { className: 'flex flex-col' },
+                  React.createElement('span', { className: 'font-bold uppercase tracking-tight text-black text-sm' }, 'KELOMPOK 12'),
+                  React.createElement('span', { className: 'text-[10px] text-neutral-600 uppercase tracking-widest font-bold' }, 'INFORMATIKA ')
+                )
+              )
+            ),
+
+            // Centered Links (Desktop)
+            React.createElement('div', {
+              className: 'site-desktop-links hidden md:flex items-center gap-8 absolute left-1/2 top-1/2 transform -translate-x-1/2 -translate-y-1/2'
+            },
+              [
+                { id: 'home', label: 'HOME' },
+                { id: 'about', label: 'ABOUT' },
+                { id: 'mentor', label: 'MENTOR' },
+                { id: 'anggota', label: 'ANGGOTA' },
+                { id: 'galeri', label: 'GALERI' },
+                { id: 'bulletin', label: 'BULLETIN' },
+                { id: 'game', label: 'GAMES' },
+                { id: 'contact', label: 'CONTACT' }
+              ].map(item =>
+                React.createElement('a', {
+                  key: item.id,
+                  href: `#${item.id}`,
+                  className: `text-xs font-bold uppercase tracking-widest transition-all ${activeSection === item.id ? 'text-black border-b-2 border-black pb-1' : 'text-neutral-500 hover:text-black'}`
+                }, item.label)
+              )
+            ),
+
+            // Right Controls: Audio & Guestbook Button
+            React.createElement('div', { className: 'site-nav-controls flex items-center gap-3 z-20' },
+              React.createElement(motion.button, {
+                whileHover: { scale: 1.05 },
+                whileTap: { scale: 0.95 },
+                onClick: toggleAudio,
+                className: `p-2.5 rounded-full border-2 border-black bg-white text-black hover:bg-black hover:text-white transition-all cursor-pointer flex items-center gap-2 shadow-brutal-xs ${isPlaying ? 'playing' : ''}`,
+                title: isPlaying ? 'Jeda Audio' : 'Putar Audio'
+              },
+                React.createElement('div', { className: 'flex items-center gap-1 h-3.5 px-0.5' },
+                  React.createElement('span', { className: 'eq-bar', style: { height: '5px' } }),
+                  React.createElement('span', { className: 'eq-bar', style: { height: '12px' } }),
+                  React.createElement('span', { className: 'eq-bar', style: { height: '7px' } })
+                ),
+                React.createElement('span', { className: 'text-[10px] font-bold font-mono uppercase hidden sm:inline' },
+                  isPlaying ? 'PLAYING' : 'AUDIO'
+                )
+              ),
+              React.createElement(motion.a, {
+                whileHover: { scale: 1.05 },
+                whileTap: { scale: 0.95 },
+                href: '#bulletin',
+                className: 'hidden sm:inline-flex px-4 py-2 rounded-full border-2 border-black bg-black text-white font-mono font-bold text-xs uppercase tracking-wider hover:bg-neutral-800 transition-colors shadow-brutal-sm'
+              }, 'GUESTBOOK ✦'),
+              React.createElement('button', {
+                onClick: () => setMobileMenuOpen(!mobileMenuOpen),
+                className: 'site-menu-toggle md:hidden p-2 rounded-lg border-2 border-black bg-white text-black font-bold'
+              }, mobileMenuOpen ? '✕' : '☰')
+            )
+
+          )
+        ),
+
+        // Mobile Dropdown Menu
+        mobileMenuOpen && React.createElement(motion.div, {
+          initial: { opacity: 0, y: -20 },
+          animate: { opacity: 1, y: 0 },
+          className: 'fixed top-20 left-4 right-4 z-50 md:hidden bg-white border-2 border-black rounded-2xl p-4 shadow-brutal-md flex flex-col gap-2 font-mono text-sm'
+        },
+          [
+            { id: 'home', label: '🏠 HOME' },
+            { id: 'about', label: '📖 ABOUT' },
+            { id: 'mentor', label: '🤝 KAKA ASUH' },
+            { id: 'anggota', label: '👥 PROFIL ANGGOTA' },
+            { id: 'galeri', label: '📸 GALERI KEGIATAN' },
+            { id: 'bulletin', label: '💬 BULLETIN BOARD' },
+            { id: 'game', label: '🎮 MINI GAMES' },
+            { id: 'contact', label: '📬 KONTAK' }
+          ].map(m =>
+            React.createElement('a', {
+              key: m.id,
+              href: `#${m.id}`,
+              onClick: () => setMobileMenuOpen(false),
+              className: 'p-2.5 rounded-xl border border-black/10 hover:bg-black hover:text-white transition-colors font-bold'
+            }, m.label)
+          )
+        ),
+
+        // ==================== 2. HERO SECTION (STYFEN WHITE NEO-BRUTALIST HERO) ====================
+        React.createElement('section', {
+          id: 'home',
+          className: 'relative w-full h-[100svh] md:h-[100dvh] pt-20 z-10 overflow-hidden flex flex-col items-center justify-between'
+        },
+          // Floating Sticker Badges
+          React.createElement(motion.div, {
+            initial: { opacity: 0, y: -20 },
+            animate: { opacity: 1, y: 0 },
+            transition: { duration: 0.6 },
+            className: 'w-full max-w-7xl mx-auto px-4 pt-10 flex flex-wrap items-center justify-center gap-3 md:gap-4 z-20'
+          },
+            React.createElement(motion.div, {
+              whileHover: { scale: 1.06, rotate: 1 },
+              className: 'rounded-full px-4 py-2 bg-white text-black border-2 border-black font-mono font-bold text-xs uppercase tracking-wider shadow-brutal-sm flex items-center gap-2 cursor-default'
+            },
+              React.createElement('span', { className: 'inline-block w-2.5 h-2.5 rounded-full bg-green-500 animate-ping' }),
+              'PPKM 2026'
+            ),
+            React.createElement(motion.div, {
+              whileHover: { scale: 1.06, rotate: -1 },
+              className: 'rounded-full px-4 py-2 bg-transparent text-black border-2 border-black font-mono font-bold text-xs uppercase tracking-wider hover:bg-black hover:text-white transition-colors cursor-default'
+            }, 'JURUSAN INFORMATIKA'),
+            React.createElement(motion.div, {
+              whileHover: { scale: 1.06, rotate: 1 },
+              className: 'rounded-full px-4 py-2 bg-white text-black border-2 border-black font-mono font-bold text-xs uppercase tracking-wider shadow-brutal-sm cursor-default'
+            }, '11 ANGGOTA'),
+            React.createElement(motion.div, {
+              whileHover: { scale: 1.06, rotate: -1 },
+              className: 'rounded-full px-4 py-2 bg-transparent text-black border-2 border-black font-mono font-bold text-xs uppercase tracking-wider hover:bg-black hover:text-white transition-colors cursor-default'
+            }, '2 MENTOR ASUH'),
+            React.createElement(motion.div, {
+              whileHover: { scale: 1.1, rotate: 12 },
+              className: 'w-10 h-10 rounded-full border-2 border-black bg-white flex items-center justify-center text-black font-bold text-lg shadow-brutal-sm cursor-default'
+            }, '✦')
+          ),
+
+          // Massive Typography: KELOMPOK 12
+          React.createElement(motion.div, {
+            initial: { scale: 0.95 },
+            animate: { scale: 1 },
+            transition: { duration: 0.7, delay: 0.2 },
+            className: 'w-full flex flex-col items-center justify-center my-auto px-4 select-none z-10 text-center'
+          },
+            React.createElement('div', { className: 'mb-3 inline-block px-4 py-1.5 rounded-full border-2 border-black bg-neutral-100 text-xs font-mono font-bold uppercase tracking-widest text-black shadow-brutal-xs' },
+              'Satu Ideologi, Satu Solidaritas'
+            ),
+            React.createElement('h1', { className: 'w-full m-0 text-center' },
+              React.createElement('span', { className: 'sr-only' }, 'KELOMPOK 12'),
+              React.createElement('div', {
+                'aria-hidden': true,
+                className: 'mx-auto w-full max-w-[1400px]',
+                style: { height: 'clamp(110px, 21vw, 240px)' }
+              },
+                React.createElement(TechText, {
+                  text: 'KELOMPOK 12',
+                  fontFamily: '"Space Grotesk", sans-serif',
+                  fontWeight: 900,
+                  fontSize: 220,
+                  letterSpacing: -0.05,
+                  color: '#111111',
+                  accentColor: '#b8f34b',
+                  reveal: 'letter',
+                  reach: 180,
+                  specks: 12,
+                  labels: false,
+                  draggable: false,
+                  sweep: true,
+                  speed: 0.55,
+                  className: 'hero-tech-text'
+                })
+              )
+            ),
+            React.createElement('div', { className: 'mt-6 text-sm md:text-xl font-bold uppercase tracking-widest text-neutral-700 flex items-center justify-center gap-2' },
+              React.createElement('span', { className: 'font-mono text-black font-black' }, 'INFORMATIKA:'),
+              React.createElement(TypewriterText)
+            )
+          ),
+
+          // 4-Column Bottom Status Ticker Bar (Styfen Sagala Style)
+          React.createElement('div', { className: 'w-full z-20 border-t-2 border-b-2 border-black bg-white text-black font-mono text-xs md:text-sm uppercase tracking-wider' },
+            React.createElement('div', { className: 'max-w-7xl mx-auto grid grid-cols-2 md:grid-cols-4 divide-x-2 divide-black' },
+              
+              // Col 1
+              React.createElement('div', { className: 'p-4 flex items-center justify-center md:justify-start gap-3 hover:bg-black hover:text-white transition-colors cursor-default' },
+                React.createElement('span', { className: 'relative flex h-3 w-3' },
+                  React.createElement('span', { className: 'animate-ping absolute inline-flex h-full w-full rounded-full bg-green-400 opacity-75' }),
+                  React.createElement('span', { className: 'relative inline-flex rounded-full h-3 w-3 bg-green-500' })
+                ),
+                React.createElement('span', { className: 'font-bold' }, 'STATUS: ACTIVE')
+              ),
+
+              // Col 2
+              React.createElement('div', { className: 'p-4 flex items-center justify-center md:justify-start hover:bg-black hover:text-white transition-colors cursor-default' },
+                React.createElement('span', {}, 'ANGKATAN: 2026')
+              ),
+
+              // Col 3
+              React.createElement('div', { className: 'p-4 flex items-center justify-center md:justify-start hover:bg-black hover:text-white transition-colors cursor-default' },
+                React.createElement('span', { className: 'flex gap-2' },
+                  React.createElement('span', { className: 'font-bold' }, 'KETUA:'),
+                  React.createElement('span', {}, 'Radhitya Fauzana')
+                )
+              ),
+
+              // Col 4
+              React.createElement('a', {
+                href: '#about',
+                className: 'p-4 flex items-center justify-center gap-2 hover:bg-black hover:text-white transition-colors cursor-pointer animate-pulse font-bold'
+              },
+                React.createElement('span', {}, 'SCROLL DOWN'),
+                React.createElement('span', {}, '↓')
+              )
+
+            )
+          )
+        ),
+
+        // ==================== 3. ABOUT SECTION (BENTO GRID STYLE WITH ANIMATION) ====================
+        React.createElement('section', { id: 'about', className: 'w-full px-4 py-20 md:py-32 font-mono border-b-2 border-black bg-neutral-50/50' },
+          React.createElement('div', { className: 'max-w-6xl mx-auto' },
+            
+            // Header with Framer Motion reveal
+            React.createElement(motion.div, {
+              initial: { opacity: 0, y: 30 },
+                animate: { opacity: 1, y: 0 },
+                transition: { duration: 0.55 },
+              transition: { duration: 0.6 },
+              className: 'flex flex-col md:flex-row justify-between items-start md:items-end mb-12 border-b-2 border-black pb-6'
+            },
+              React.createElement('h2', { className: 'text-4xl md:text-7xl font-black uppercase tracking-tighter text-black' }, 'About Us'),
+              React.createElement('p', { className: 'text-neutral-600 text-sm md:text-base max-w-md mt-2 md:mt-0 font-medium' },
+                'Belajar mengenal satu sama lain, mengasah kemampuan problem solving, dan beradaptasi dalam dunia perkuliahan Informatika.'
+              )
+            ),
+
+            // Bento Grid Cards
+            React.createElement('div', { className: 'grid grid-cols-1 md:grid-cols-3 gap-6' },
+              
+              // Bento 1: Story (2-Col)
+              React.createElement(motion.div, {
+                initial: { opacity: 0, y: 40 },
+                whileInView: { opacity: 1, y: 0 },
+                viewport: { once: true },
+                whileHover: { y: -4 },
+                transition: { duration: 0.5 },
+                className: 'md:col-span-2 border-2 border-black rounded-[2rem] p-8 bg-white flex flex-col justify-between shadow-brutal-md hover:shadow-brutal-hover transition-all'
+              },
+                React.createElement('div', { className: 'space-y-4' },
+                  React.createElement('div', { className: 'w-12 h-12 bg-black text-white font-black text-2xl rounded-full flex items-center justify-center shadow-brutal-xs' }, '✦'),
+                  React.createElement('h3', { className: 'text-2xl md:text-4xl font-black uppercase tracking-tight text-black' },
+                    'We Are 12th PPKM Group.'
+                  ),
+                  React.createElement('p', { className: 'text-neutral-700 text-sm md:text-base leading-relaxed' },
+                    'Di bawah naungan Masa Bimbingan dan PPKM 2026 Jurusan Informatika, kami dibimbing untuk saling mengenal, berkolaborasi, dan mengasah keahlian teknis secara mandiri. Melalui website ini, kami membagikan profil seluruh anggota, galeri kegiatan nyata, papan komentar pengunjung, dan mini game buatan kelompok.'
+                  )
+                ),
+                React.createElement('div', { className: 'pt-6 flex flex-wrap gap-3 items-center' },
+                  React.createElement(motion.a, {
+                    whileHover: { scale: 1.04 },
+                    whileTap: { scale: 0.96 },
+                    href: '#anggota',
+                    className: 'inline-flex items-center gap-2 px-6 py-3 bg-black text-white font-black text-xs uppercase tracking-widest rounded-full shadow-brutal-xs hover:bg-neutral-800 transition-colors'
+                  }, 'Kenali Seluruh Anggota →'),
+                  React.createElement(motion.a, {
+                    whileHover: { scale: 1.04 },
+                    whileTap: { scale: 0.96 },
+                    href: 'anggota.html',
+                    className: 'inline-flex items-center gap-2 px-6 py-3 border-2 border-black bg-white text-black font-black text-xs uppercase tracking-widest rounded-full shadow-brutal-xs hover:bg-black hover:text-white transition-colors'
+                  }, 'Halaman Anggota 3D Flip')
+                )
+              ),
+
+              // Bento 2: Stats (1-Col)
+              React.createElement(motion.div, {
+                initial: { opacity: 0, y: 40 },
+                whileInView: { opacity: 1, y: 0 },
+                viewport: { once: true },
+                whileHover: { y: -4 },
+                transition: { duration: 0.5, delay: 0.1 },
+                className: 'md:col-span-1 border-2 border-black rounded-[2rem] p-8 bg-neutral-50 flex flex-col justify-between shadow-brutal-md hover:shadow-brutal-hover transition-all'
+              },
+                React.createElement('div', { className: 'flex justify-between items-start' },
+                  React.createElement('div', { className: 'p-3 bg-white border-2 border-black rounded-full text-xl shadow-brutal-xs' }, '👥'),
+                  React.createElement('span', { className: 'text-[10px] font-bold border-2 border-black px-3 py-1 rounded-full bg-black text-white uppercase tracking-wider' },
+                    'PPKM 2026'
+                  )
+                ),
+                React.createElement('div', { className: 'space-y-3 my-6' },
+                  React.createElement('h4', { className: 'text-xs text-neutral-500 uppercase tracking-widest font-bold' }, 'STATISTIK KELOMPOK'),
+                  React.createElement('div', { className: 'flex flex-wrap gap-2' },
+                    React.createElement('span', { className: 'px-2.5 py-1 bg-white border-2 border-black rounded text-xs font-bold text-black shadow-brutal-xs' }, '11 Mahasiswa Baru'),
+                    React.createElement('span', { className: 'px-2.5 py-1 bg-white border-2 border-black rounded text-xs font-bold text-black shadow-brutal-xs' }, '2 Kaka Asuh'),
+                    React.createElement('span', { className: 'px-2.5 py-1 bg-white border-2 border-black rounded text-xs font-bold text-black shadow-brutal-xs' }, '3 Retro Games'),
+                    React.createElement('span', { className: 'px-2.5 py-1 bg-white border-2 border-black rounded text-xs font-bold text-black shadow-brutal-xs' }, '100% Solidaritas')
+                  )
+                ),
+                React.createElement('div', { className: 'pt-4 border-t-2 border-black flex items-end gap-2' },
+                  React.createElement('span', { className: 'text-5xl font-black text-black' }, '13'),
+                  React.createElement('span', { className: 'text-xs uppercase text-neutral-600 pb-1 font-bold' }, 'Total Personel Kru')
+                )
+              ),
+
+              // Bento 3: Tech Stack (3-Col Full)
+              React.createElement(motion.div, {
+                initial: { opacity: 0, y: 40 },
+                whileInView: { opacity: 1, y: 0 },
+                viewport: { once: true },
+                whileHover: { y: -4 },
+                transition: { duration: 0.5, delay: 0.2 },
+                className: 'md:col-span-3 border-2 border-black rounded-[2rem] p-8 bg-white shadow-brutal-md hover:shadow-brutal-hover transition-all'
+              },
+                React.createElement('div', { className: 'flex items-center gap-3 mb-6 border-b-2 border-black pb-4' },
+                  React.createElement('span', { className: 'text-xl' }, '⚡'),
+                  React.createElement('h3', { className: 'text-xl font-black uppercase tracking-tight text-black' }, 'Teknologi Proyek Website')
+                ),
+                React.createElement('div', { className: 'grid sm:grid-cols-3 gap-6' },
+                  React.createElement('div', {},
+                    React.createElement('h4', { className: 'text-[11px] font-bold text-neutral-500 uppercase tracking-widest mb-3' }, 'CORE FRONTEND'),
+                    React.createElement('div', { className: 'flex flex-wrap gap-2' },
+                      ['HTML5', 'CSS3', 'JavaScript', 'React 18', 'Tailwind CSS'].map(t =>
+                        React.createElement('span', { key: t, className: 'px-3 py-1.5 bg-neutral-100 border-2 border-black rounded text-xs font-bold text-black shadow-brutal-xs hover:bg-black hover:text-white transition-colors' }, t)
+                      )
+                    )
+                  ),
+                  React.createElement('div', {},
+                    React.createElement('h4', { className: 'text-[11px] font-bold text-neutral-500 uppercase tracking-widest mb-3' }, 'DATA & DATABASE'),
+                    React.createElement('div', { className: 'flex flex-wrap gap-2' },
+                      ['Supabase Realtime', 'PostgreSQL Cloud', 'REST API', 'Local Storage'].map(t =>
+                        React.createElement('span', { key: t, className: 'px-3 py-1.5 bg-neutral-100 border-2 border-black rounded text-xs font-bold text-black shadow-brutal-xs hover:bg-black hover:text-white transition-colors' }, t)
+                      )
+                    )
+                  ),
+                  React.createElement('div', {},
+                    React.createElement('h4', { className: 'text-[11px] font-bold text-neutral-500 uppercase tracking-widest mb-3' }, 'GAME & INTERACTIVE'),
+                    React.createElement('div', { className: 'flex flex-wrap gap-2' },
+                      ['HTML5 2D Canvas', 'Framer Motion', 'Web Audio API', 'Physics Loop'].map(t =>
+                        React.createElement('span', { key: t, className: 'px-3 py-1.5 bg-neutral-100 border-2 border-black rounded text-xs font-bold text-black shadow-brutal-xs hover:bg-black hover:text-white transition-colors' }, t)
+                      )
+                    )
+                  )
+                )
+              )
+
+            )
+
+          )
+        ),
+
+        // ==================== 4. MENTOR SECTION ====================
+        React.createElement('section', { id: 'mentor', className: 'w-full px-4 py-20 md:py-32 font-mono border-b-2 border-black bg-white' },
+          React.createElement('div', { className: 'max-w-6xl mx-auto' },
+            React.createElement(motion.div, {
+              initial: { y: 30 },
+              animate: { y: 0 },
+              transition: { duration: 0.55 },
+              className: 'flex flex-col md:flex-row justify-between items-start md:items-end mb-10 border-b-2 border-black pb-6 gap-5'
+            },
+              React.createElement('div', {},
+                React.createElement('p', { className: 'text-xs font-bold uppercase tracking-widest text-neutral-600 mb-3' }, 'PENDAMPING KAMI / KAKA ASUH'),
+                React.createElement('h2', { className: 'text-4xl md:text-7xl font-black uppercase tracking-tighter text-black' }, 'Our Mentor'),
+                React.createElement('p', { className: 'text-neutral-600 text-sm md:text-base max-w-xl mt-3 font-medium' },
+                  'Dua sosok yang menemani langkah pertama kami mengenal dunia perkuliahan dan kehidupan kampus.'
+                )
+              ),
+              React.createElement('span', { className: 'px-4 py-2 bg-[#b8f34b] border-2 border-black text-xs font-black uppercase shadow-brutal-xs' }, '02 / MENTOR ASUH')
+            ),
+
+            React.createElement('div', { className: 'grid grid-cols-1 lg:grid-cols-2 gap-6 items-stretch' },
+              React.createElement(motion.div, {
+                initial: { x: -30 },
+                animate: { opacity: 1, x: 0 },
+                transition: { duration: 0.55 },
+                className: 'border-2 border-black rounded-[2rem] p-6 md:p-10 bg-white flex flex-col justify-between shadow-brutal-md'
+              },
+                React.createElement('div', { className: 'space-y-5' },
+                  React.createElement('div', { className: 'w-12 h-12 bg-[#b8f34b] border-2 border-black rounded-full flex items-center justify-center text-2xl shadow-brutal-xs' }, '👋'),
+                  React.createElement('h3', { className: 'text-2xl md:text-4xl font-black uppercase text-black' }, 'Selalu ada teman untuk bertanya.'),
+                  React.createElement('p', { className: 'text-sm md:text-base text-neutral-700 leading-relaxed' },
+                    'Kaka asuh kami berbagi pengalaman, memberi arahan, dan menjaga semangat kelompok selama masa bimbingan. Kehadiran mereka membuat proses adaptasi terasa lebih hangat dan menyenangkan.'
+                  ),
+                  React.createElement('p', { className: 'text-sm md:text-base text-neutral-700 leading-relaxed' },
+                    'Kenali Ghania dan Indah, dua mentor yang selalu siap mendampingi Kelompok 12.'
+                  )
+                ),
+                React.createElement('div', { className: 'mt-8 pt-5 border-t-2 border-black flex flex-wrap items-center justify-between gap-4' },
+                  React.createElement('span', { className: 'text-xs font-bold uppercase tracking-wider text-neutral-600' }, 'KAKA ASUH KELOMPOK 12'),
+                  React.createElement(motion.a, {
+                    whileHover: { x: 4 },
+                    href: 'anggota.html#mentor',
+                    className: 'inline-flex items-center gap-2 px-5 py-2.5 bg-black text-white font-bold text-xs uppercase shadow-brutal-xs'
+                  }, 'Profil Lengkap →')
+                )
+              ),
+
+              React.createElement('div', { className: 'grid grid-cols-2 gap-4' },
+                membersData.filter(m => m.category === 'mentor').map((m, idx) =>
+                  React.createElement(motion.article, {
+                    key: m.id,
+                    initial: { y: 35 },
+                    animate: { y: 0 },
+                    whileHover: { y: -5 },
+                    transition: { duration: 0.45, delay: idx * 0.12 },
+                    className: 'relative min-h-[300px] sm:min-h-[380px] overflow-hidden border-2 border-black rounded-[1.5rem] bg-neutral-100 shadow-brutal-md group'
+                  },
+                    React.createElement('img', {
+                      src: m.image,
+                      alt: m.name,
+                      loading: 'lazy',
+                      className: 'absolute inset-0 w-full h-full object-cover group-hover:scale-105 transition-transform duration-700'
+                    }),
+                    React.createElement('div', { className: 'absolute inset-0 bg-gradient-to-t from-black/90 via-black/10 to-transparent' }),
+                    React.createElement('span', { className: 'absolute top-3 left-3 px-2.5 py-1 bg-white border-2 border-black text-[9px] sm:text-[10px] font-black uppercase shadow-brutal-xs' }, `MENTOR / 0${idx + 1}`),
+                    React.createElement('div', { className: 'absolute inset-x-0 bottom-0 p-3 sm:p-5 text-white' },
+                      React.createElement('p', { className: 'text-[9px] sm:text-[10px] font-bold uppercase tracking-wider text-lime-300 mb-1' }, m.role),
+                      React.createElement('h3', { className: 'text-sm sm:text-xl font-black uppercase leading-tight text-white' }, m.name),
+                      React.createElement('a', {
+                        href: `https://instagram.com/${m.ig}`,
+                        target: '_blank',
+                        rel: 'noopener noreferrer',
+                        className: 'inline-block mt-2 text-[10px] sm:text-xs font-bold text-white/85 hover:text-lime-300'
+                      }, `@${m.ig} ↗`)
+                    )
+                  )
+                )
+              )
+            )
+          )
+        ),
+
+        // ==================== 5. ANGGOTA SECTION (OVERLAPPING STACKING SECTIONS) ====================
+        React.createElement('section', { id: 'anggota', className: 'w-full px-4 py-20 md:py-32 font-mono border-b-2 border-black bg-white' },
+          React.createElement('div', { className: 'max-w-6xl mx-auto' },
+            
+            // Header with animation
+            React.createElement('div', {
+              className: 'flex flex-col md:flex-row justify-between items-start md:items-end mb-12 border-b-2 border-black pb-6 gap-6'
+            },
+              React.createElement('div', {},
+                React.createElement('h2', { className: 'text-4xl md:text-7xl font-black uppercase tracking-tighter text-black' }, 'Profil Anggota'),
+                React.createElement('p', { className: 'text-neutral-600 text-sm md:text-base max-w-md mt-2 font-medium' },
+                  'Setiap anggota mendapat ruangnya sendiri; section akan saling menumpuk saat digulir.'
+                )
+              ),
+
+              // Filter Tabs
+              React.createElement('div', { className: 'flex flex-wrap gap-2' },
+                [
+                  { id: 'all', label: 'SEMUA (11)' },
+                  { id: 'leader', label: 'KETUA (1)' },
+                  { id: 'member', label: 'ANGGOTA (10)' }
+                ].map(f =>
+                  React.createElement('button', {
+                    key: f.id,
+                    onClick: () => setActiveFilter(f.id),
+                    className: `px-4 py-2 rounded-full border-2 border-black text-xs font-bold uppercase tracking-wider ${activeFilter === f.id ? 'bg-black text-white shadow-brutal-sm' : 'bg-white text-black hover:bg-neutral-100 shadow-brutal-xs'}`
+                  }, f.label)
+                )
+              )
+            ),
+
+            // Each member owns a sticky full-width section in the overlap sequence.
+            React.createElement('div', { className: 'member-overlap-list' },
+              filteredMembers.map((m, idx) =>
+                React.createElement('section', {
+                  key: m.id,
+                  id: `member-${m.id}`,
+                  'aria-labelledby': `member-name-${m.id}`,
+                  style: {
+                    zIndex: 10 + idx,
+                    backgroundColor: idx % 2 === 0 ? '#ffffff' : '#f4f5f1',
+                  },
+                  className: 'member-overlap-section w-full'
+                },
+                  React.createElement('div', { className: 'member-section-inner' },
+                    React.createElement('div', { className: 'member-section-meta' },
+                      React.createElement('span', { className: 'text-xs font-black uppercase tracking-widest text-black flex items-center gap-2' },
+                        React.createElement('span', { className: 'px-2 py-0.5 bg-black text-white text-[10px]' }, `NO. ${m.id}`),
+                        `✦ ${m.typeTag}`
+                      ),
+                      React.createElement('span', { className: 'text-xs font-bold text-neutral-600' },
+                        `NPM: ${m.npm}`
+                      )
+                    ),
+
+                    React.createElement('div', { className: 'member-section-body' },
+                      React.createElement('div', { className: 'member-section-portrait' },
+                      React.createElement('div', {
+                        className: 'w-full h-full group'
+                      },
+                        React.createElement('img', {
+                          src: m.image,
+                          alt: m.name,
+                          style: { objectPosition: m.imagePosition || 'center' },
+                          className: 'w-full h-full object-cover'
+                        }),
+                        React.createElement('div', {
+                          className: 'absolute bottom-4 left-4 px-3 py-1 bg-white text-black font-bold text-[10px] uppercase'
+                        }, m.role)
+                      )
+                    ),
+
+                    React.createElement('div', { className: 'member-section-content flex flex-col justify-between' },
+                      React.createElement('div', {},
+                        React.createElement('h3', { id: `member-name-${m.id}`, className: 'text-3xl sm:text-5xl font-black uppercase leading-[0.98] text-black mb-3' },
+                          m.name
+                        ),
+                        React.createElement('p', { className: 'text-xs font-bold text-neutral-600 uppercase tracking-widest mb-6' },
+                          m.role
+                        ),
+                        React.createElement('p', { className: 'text-neutral-800 text-sm sm:text-base leading-relaxed mb-6 font-medium' },
+                          m.bio
+                        ),
+                        m.quote ? React.createElement('blockquote', { className: 'border-l-2 border-black pl-4 py-1 text-xs italic text-neutral-700 mb-6 bg-neutral-50' },
+                          `"${m.quote}"`
+                        ) : null
+                      ),
+
+                      React.createElement('div', { className: 'grid grid-cols-3 gap-3 border-t border-b border-black/40 py-4 mb-6' },
+                        Object.entries(m.stats).map(([k, v]) =>
+                          React.createElement('div', { key: k },
+                            React.createElement('p', { className: 'text-[9px] uppercase tracking-wider text-neutral-500 font-bold' }, k),
+                            React.createElement('p', { className: 'text-sm font-black text-black' }, v)
+                          )
+                        )
+                      ),
+
+                      // Actions
+                      React.createElement('div', { className: 'flex flex-wrap gap-4 items-center' },
+                        React.createElement('a', {
+                          href: `https://instagram.com/${m.ig}`,
+                          target: '_blank',
+                          rel: 'noopener noreferrer',
+                          className: 'px-5 py-2.5 rounded-full bg-gradient-to-r from-[#833ab4] via-[#fd1d1d] to-[#fcb045] text-white font-black text-xs uppercase tracking-widest hover:opacity-90 transition-opacity shadow-brutal-xs flex items-center gap-2'
+                        },
+                          '📷 Instagram',
+                          React.createElement('span', { className: 'opacity-70' }, `@${m.ig}`)
+                        ),
+                        React.createElement('button', {
+                          onClick: () => setSelectedMember(m),
+                          className: 'px-5 py-2.5 rounded-full border-2 border-black hover:bg-black hover:text-white bg-white text-black font-bold text-xs uppercase tracking-widest shadow-brutal-xs'
+                        }, 'Lihat Detail Lengkap →')
+                      )
+                    )
+
+                  )
+                )
+              )
+            )
+
+          )
+        )),
+
+        // ==================== 5. GALERI SECTION (SELECTED WORKS WHITE AESTHETIC) ====================
+        React.createElement('section', { id: 'galeri', className: 'w-full px-4 py-20 md:py-32 font-mono bg-white' },
+          React.createElement('div', { className: 'max-w-6xl mx-auto' },
+            
+            // Header with animation
+            React.createElement(motion.div, {
+              initial: { opacity: 0, y: 30 },
+              whileInView: { opacity: 1, y: 0 },
+              viewport: { once: true },
+              className: 'flex flex-col md:flex-row justify-between items-start md:items-end mb-10 gap-5'
+            },
+              React.createElement('div', {},
+                React.createElement('h2', { className: 'text-4xl md:text-7xl font-black uppercase tracking-tighter text-black' }, 'Galeri Kegiatan'),
+                React.createElement('p', { className: 'text-neutral-600 text-sm md:text-base max-w-md mt-2 font-medium' },
+                  'Empat potret kebersamaan dari perjalanan MABIM dan sesi mentoring Kelompok 12.'
+                )
+              ),
+              React.createElement(motion.a, {
+                href: 'gallery.html',
+                className: 'mt-2 md:mt-0 inline-flex items-center gap-2 text-sm font-bold text-black group'
+              }, 'Semua dokumentasi', React.createElement('span', { className: 'transition-transform group-hover:translate-x-1' }, '→'))
+            ),
+
+            React.createElement('div', { className: 'gallery-marquee', 'aria-label': 'Galeri foto kegiatan' },
+              React.createElement('div', { className: 'gallery-track' },
+                [false, true].map((isDuplicate) =>
+                  React.createElement('div', {
+                    key: isDuplicate ? 'gallery-loop-copy' : 'gallery-original',
+                    className: 'gallery-group',
+                    role: 'group',
+                    'aria-label': isDuplicate ? undefined : 'Foto kegiatan MABIM dan mentoring',
+                    'aria-hidden': isDuplicate ? true : undefined
+                  },
+                    [
+                      {
+                        src: 'assets/MABIM/poto1.jpeg',
+                        tag: 'MABIM / 01',
+                        title: 'Awal Kebersamaan',
+                        desc: 'Potret kelompok setelah kegiatan di lingkungan kampus.'
+                      },
+                      {
+                        src: 'assets/MENTORING/MENTORING 1.jpeg',
+                        tag: 'MENTORING / 01',
+                        title: 'Sesi Bersama Kaka Asuh',
+                        desc: 'Diskusi dan berbagi pengalaman bersama mentor.'
+                      },
+                      {
+                        src: 'assets/MENTORING/WhatsApp Image 2026-10-06 at 17.28.05.jpeg',
+                        tag: 'MENTORING / 02',
+                        title: 'Cerita di Lapangan',
+                        desc: 'Momen santai dan kebersamaan selama rangkaian mentoring.'
+                      },
+                      {
+                        src: 'assets/MENTORING/WhatsApp Image 2026-10-08 at 10.49.47.jpeg',
+                        tag: 'MENTORING / 03',
+                        title: 'Satu Langkah Bersama',
+                        desc: 'Kenangan kelompok dalam perjalanan kegiatan kampus.'
+                      }
+                    ].map((item, i) =>
+                      React.createElement(motion.button, {
+                        key: `${isDuplicate ? 'copy' : 'photo'}-${item.src}`,
+                        type: 'button',
+                        'aria-label': `Buka foto: ${item.title}`,
+                        tabIndex: isDuplicate ? -1 : 0,
+                        initial: { opacity: 1, y: 0, rotateX: 0 },
+                        whileHover: { y: -10, rotateX: -5, rotateY: i % 2 === 0 ? 5 : -5, scale: 1.025 },
+                        whileTap: { scale: 0.985 },
+                        transition: { duration: 0.4 },
+                        onClick: () => setLightboxData(item),
+                        className: 'gallery-scene relative shrink-0 text-left cursor-pointer group focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-black',
+                        style: { transformStyle: 'preserve-3d' }
+                      },
+                        React.createElement('div', { className: 'gallery-photo absolute inset-0 overflow-hidden bg-neutral-100' },
+                          React.createElement('img', {
+                            src: item.src,
+                            alt: isDuplicate ? '' : item.title,
+                            loading: 'lazy',
+                            style: { objectPosition: 'center 35%', transform: 'translateZ(18px) scale(1.02)' },
+                            className: 'absolute inset-0 w-full h-full object-cover transition-transform duration-700 group-hover:scale-110'
+                          }),
+                          React.createElement('div', { className: 'absolute inset-0 bg-gradient-to-t from-black/85 via-black/5 to-black/15' }),
+                          React.createElement('span', { className: 'absolute top-4 left-4 text-[10px] font-bold uppercase tracking-wider text-white/90' }, item.tag),
+                          React.createElement('span', { className: 'absolute top-4 right-4 text-[10px] font-mono text-white/80' }, `0${i + 1} / 04`),
+                          React.createElement('div', { className: 'absolute inset-x-0 bottom-0 p-5 text-white', style: { transform: 'translateZ(32px)' } },
+                            React.createElement('h3', { className: 'text-lg md:text-xl font-bold uppercase leading-tight text-white' }, item.title),
+                            React.createElement('p', { className: 'mt-2 text-xs leading-relaxed text-white/80' }, item.desc)
+                          )
+                        )
+                      )
+                    )
+                  )
+                )
+              )
+            )
+
+          )
+        ),
+
+        // ==================== 6. BULLETIN BOARD (STYFEN GUESTBOOK WHITE STYLE) ====================
+        React.createElement('section', { id: 'bulletin', className: 'w-full px-4 py-20 md:py-32 font-mono border-b-2 border-black bg-white' },
+          React.createElement('div', { className: 'max-w-6xl mx-auto' },
+            
+            // Header with animation
+            React.createElement(motion.div, {
+              initial: { opacity: 0, y: 30 },
+              whileInView: { opacity: 1, y: 0 },
+              viewport: { once: true },
+              className: 'flex flex-col md:flex-row justify-between items-start md:items-end mb-12 border-b-2 border-black pb-6'
+            },
+              React.createElement('div', {},
+                React.createElement('h2', { className: 'text-4xl md:text-7xl font-black uppercase tracking-tighter text-black' }, 'Bulletin Board'),
+                React.createElement('p', { className: 'text-neutral-600 text-sm md:text-base max-w-md mt-2 font-medium' },
+                  'Papan pesan interaktif terhubung langsung ke database Supabase secara realtime.'
+                )
+              ),
+              React.createElement('div', { className: 'text-xs font-bold text-black border-2 border-black px-4 py-1.5 rounded-full bg-neutral-100 shadow-brutal-xs uppercase tracking-widest' },
+                `TERCATAT: ${commentCount} PESAN`
+              )
+            ),
+
+            React.createElement('div', { className: 'grid lg:grid-cols-12 gap-8' },
+              
+              // Form Input (Left - 5 Cols)
+              React.createElement(motion.div, {
+                initial: { opacity: 0, x: -30 },
+                whileInView: { opacity: 1, x: 0 },
+                viewport: { once: true },
+                className: 'lg:col-span-5 border-2 border-black rounded-[2rem] p-6 md:p-8 bg-neutral-50 shadow-brutal-md'
+              },
+                React.createElement('h3', { className: 'text-lg font-bold uppercase tracking-tight mb-4 flex items-center gap-2 text-black' },
+                  React.createElement('span', {}, '✍'),
+                  'Tulis Pesan Pengunjung'
+                ),
+                React.createElement('form', { onSubmit: handleCommentSubmit, className: 'space-y-4' },
+                  React.createElement('div', {},
+                    React.createElement('label', { className: 'block text-xs font-bold uppercase tracking-wider text-black mb-2' }, 'Nama / Identitas Anda'),
+                    React.createElement('input', {
+                      type: 'text',
+                      required: true,
+                      value: authorName,
+                      onChange: (e) => setAuthorName(e.target.value),
+                      placeholder: 'Misal: Budi Santoso / Teman Kuliah',
+                      className: 'w-full px-4 py-3 bg-white border-2 border-black rounded-xl text-black text-xs font-mono focus:outline-none shadow-brutal-xs'
+                    })
+                  ),
+                  React.createElement('div', {},
+                    React.createElement('label', { className: 'block text-xs font-bold uppercase tracking-wider text-black mb-2' }, 'Pesan / Kesan'),
+                    React.createElement('textarea', {
+                      rows: 4,
+                      required: true,
+                      value: commentBody,
+                      onChange: (e) => setCommentBody(e.target.value),
+                      placeholder: 'Tuliskan salam hangat atau pesan semangat untuk Kelompok 12...',
+                      className: 'w-full p-4 bg-white border-2 border-black rounded-xl text-black text-xs font-mono focus:outline-none shadow-brutal-xs resize-none'
+                    })
+                  ),
+
+                  submitStatus && React.createElement('div', {
+                    className: 'p-3 rounded-lg text-xs font-bold bg-white border-2 border-black text-black shadow-brutal-xs'
+                  }, submitStatus),
+
+                  React.createElement(motion.button, {
+                    whileHover: { scale: 1.02 },
+                    whileTap: { scale: 0.98 },
+                    type: 'submit',
+                    disabled: isSubmitting,
+                    className: 'w-full py-3.5 bg-black text-white font-black text-xs uppercase tracking-widest rounded-xl hover:bg-neutral-800 transition-all shadow-brutal-sm disabled:opacity-50'
+                  }, isSubmitting ? 'Mengirim Data...' : 'Kirim Komentar ✦')
+                ),
+                React.createElement('div', { className: 'mt-6 pt-4 border-t-2 border-black text-center' },
+                  React.createElement('a', { href: 'bulletin.html', className: 'text-xs text-black font-bold hover:underline' },
+                    'Buka Halaman Bulletin Khusus →'
+                  )
+                )
+              ),
+
+              // Live Comment List (Right - 7 Cols)
+              React.createElement(motion.div, {
+                initial: { opacity: 0, x: 30 },
+                whileInView: { opacity: 1, x: 0 },
+                viewport: { once: true },
+                className: 'lg:col-span-7 space-y-4'
+              },
+                React.createElement('div', { className: 'flex justify-between items-center px-1' },
+                  React.createElement('h4', { className: 'text-xs font-bold uppercase tracking-widest text-black' }, 'Komentar Terbaru'),
+                  React.createElement('button', { onClick: fetchComments, className: 'text-xs text-black font-bold hover:underline' }, 'Segarkan Sinyal ↻')
+                ),
+
+                comments.length === 0
+                  ? React.createElement('div', { className: 'border-2 border-dashed border-black rounded-2xl p-8 text-center text-neutral-600 text-xs font-bold' },
+                    'Belum ada komentar tersimpan. Jadilah orang pertama yang menulis!'
+                  )
+                  : comments.map((c, i) =>
+                    React.createElement(motion.div, {
+                      key: c.id || i,
+                      initial: { opacity: 0, y: 15 },
+                      animate: { opacity: 1, y: 0 },
+                      transition: { duration: 0.3, delay: i * 0.05 },
+                      className: 'border-2 border-black rounded-2xl p-5 bg-white shadow-brutal-sm hover:shadow-brutal-md transition-all'
+                    },
+                      React.createElement('div', { className: 'flex justify-between items-center mb-2' },
+                        React.createElement('div', { className: 'flex items-center gap-2' },
+                          React.createElement('div', { className: 'w-7 h-7 rounded-full bg-black text-white font-black text-xs flex items-center justify-center' },
+                            (c.name || 'A').charAt(0).toUpperCase()
+                          ),
+                          React.createElement('span', { className: 'font-bold text-sm text-black uppercase' }, c.name)
+                        ),
+                        React.createElement('span', { className: 'text-[11px] text-neutral-500 font-bold' },
+                          new Date(c.created_at).toLocaleDateString('id-ID', { day: 'numeric', month: 'short', year: 'numeric' })
+                        )
+                      ),
+                      React.createElement('p', { className: 'text-xs text-neutral-800 leading-relaxed pl-9 whitespace-pre-wrap font-medium' }, c.text)
+                    )
+                  )
+              )
+
+            )
+
+          )
+        ),
+
+        // ==================== 7. ARCADE MINI GAMES (WHITE RETRO BENTO) ====================
+        React.createElement('section', { id: 'game', className: 'w-full px-4 py-20 md:py-32 font-mono border-b-2 border-black bg-neutral-50/50' },
+          React.createElement('div', { className: 'max-w-6xl mx-auto' },
+            
+            // Header with animation
+            React.createElement(motion.div, {
+              initial: { opacity: 0, y: 30 },
+              whileInView: { opacity: 1, y: 0 },
+              viewport: { once: true },
+              className: 'flex flex-col md:flex-row justify-between items-start md:items-end mb-12 border-b-2 border-black pb-6'
+            },
+              React.createElement('div', {},
+                React.createElement('h2', { className: 'text-4xl md:text-7xl font-black uppercase tracking-tighter text-black' }, 'Mini Games'),
+                React.createElement('p', { className: 'text-neutral-600 text-sm md:text-base max-w-md mt-2 font-medium' },
+                  'Pilihan arcade browser retro buatan kelompok untuk rehat dan hiburan santai.'
+                )
+              ),
+              React.createElement(motion.a, {
+                whileHover: { scale: 1.05 },
+                whileTap: { scale: 0.95 },
+                href: 'game.html',
+                className: 'mt-4 md:mt-0 px-6 py-2.5 rounded-full border-2 border-black bg-black text-white font-black text-xs uppercase tracking-widest hover:bg-neutral-800 transition-colors shadow-brutal-sm'
+              }, 'Pilih Karakter Dulu 👾')
+            ),
+
+            React.createElement('div', { className: 'grid md:grid-cols-3 gap-6' },
+              [
+                {
+                  title: 'DINO RUNNER',
+                  category: '2D CANVAS',
+                  img: 'assets/game-character-01.png',
+                  desc: 'Lompat melewati rintangan kaktus dan raih rekor skor tertinggi kelompok!',
+                  link: 'dino.html'
+                },
+                {
+                  title: 'FLAPPY BIRD',
+                  category: 'GRAVITY PHYSICS',
+                  img: 'assets/game-character-05.png',
+                  desc: 'Kendalikan ketukan sayap karakter untuk melewati lorong pipa tanpa tabrakan!',
+                  link: 'flappy.html'
+                },
+                {
+                  title: 'SPACE DODGE',
+                  category: 'ARCADE RETRO',
+                  img: 'assets/game-character-08.png',
+                  desc: 'Manuver kapal menghindari hujan asteroid kosmik dan bertahan selama mungkin!',
+                  link: 'space-dodge.html'
+                }
+              ].map((g, i) =>
+                React.createElement(motion.div, {
+                  key: i,
+                  initial: { opacity: 0, y: 40 },
+                  whileInView: { opacity: 1, y: 0 },
+                  viewport: { once: true },
+                  whileHover: { y: -5 },
+                  transition: { duration: 0.5, delay: i * 0.15 },
+                  className: 'border-2 border-black rounded-[2rem] p-6 bg-white flex flex-col justify-between shadow-brutal-md hover:shadow-brutal-hover transition-all'
+                },
+                  React.createElement('div', {},
+                    React.createElement('div', { className: 'flex justify-between items-center mb-4' },
+                      React.createElement('span', { className: 'text-[10px] font-bold px-3 py-1 bg-neutral-100 border-2 border-black rounded-full uppercase text-black' }, g.category),
+                      React.createElement('span', { className: 'text-xs text-black font-black' }, 'PLAYABLE ✓')
+                    ),
+                    React.createElement('div', { className: 'h-28 rounded-2xl bg-neutral-50 border-2 border-black flex items-center justify-center mb-6 shadow-brutal-xs' },
+                      React.createElement('img', { src: g.img, alt: g.title, className: 'h-16 w-16 object-contain image-rendering-pixelated' })
+                    ),
+                    React.createElement('h3', { className: 'text-xl font-black uppercase mb-2 text-black' }, g.title),
+                    React.createElement('p', { className: 'text-xs text-neutral-600 leading-relaxed mb-6 font-medium' }, g.desc)
+                  ),
+                  React.createElement(motion.a, {
+                    whileHover: { scale: 1.02 },
+                    whileTap: { scale: 0.98 },
+                    href: g.link,
+                    className: 'w-full py-3 bg-black text-white font-black text-xs uppercase tracking-widest rounded-xl hover:bg-neutral-800 text-center transition-colors shadow-brutal-sm block'
+                  }, 'Mainkan Sekarang ▶')
+                )
+              )
+            )
+
+          )
+        ),
+
+        // ==================== 8. FOOTER (STYFEN TECHNICAL WHITE FOOTER) ====================
+        React.createElement('footer', { id: 'contact', className: 'w-full px-6 py-16 font-mono border-t-2 border-black bg-white' },
+          React.createElement('div', { className: 'max-w-6xl mx-auto' },
+            
+            React.createElement('div', { className: 'grid md:grid-cols-12 gap-10 pb-12 border-b-2 border-black' },
+              
+              // Col 1: Brand
+              React.createElement('div', { className: 'md:col-span-5 space-y-4' },
+                React.createElement('div', { className: 'flex items-center gap-3' },
+                  React.createElement('div', { className: 'w-9 h-9 rounded-xl bg-black text-white font-black flex items-center justify-center text-sm shadow-brutal-xs' }, '12'),
+                  React.createElement('span', { className: 'font-black uppercase tracking-tight text-lg text-black' }, 'KELOMPOK 12 • PPKM 2026')
+                ),
+                React.createElement('p', { className: 'text-xs text-neutral-600 leading-relaxed max-w-sm font-medium' },
+                  'Website resmi pengenalan anggota, dokumentasi kegiatan, dan proyek belajar kolaboratif mahasiswa baru Jurusan Informatika.'
+                ),
+                React.createElement('a', {
+                  href: 'mailto:raditgamingwokwok@gmail.com',
+                  className: 'inline-flex items-center gap-2 text-xs font-bold text-black border-2 border-black px-3.5 py-1.5 rounded-full hover:bg-black hover:text-white transition-colors shadow-brutal-xs'
+                }, '✉ raditgamingwokwok@gmail.com')
+              ),
+
+              // Col 2: Navigation
+              React.createElement('div', { className: 'md:col-span-3 space-y-2 text-xs' },
+                React.createElement('h4', { className: 'font-bold uppercase tracking-widest text-black mb-3 border-b-2 border-black pb-1' }, 'NAVIGASI'),
+                ['HOME', 'ABOUT', 'ANGGOTA', 'GALERI', 'BULLETIN', 'GAME'].map(n =>
+                  React.createElement('a', { key: n, href: `#${n.toLowerCase()}`, className: 'block text-neutral-600 hover:text-black font-bold transition-colors' }, `• ${n}`)
+                )
+              ),
+
+              // Col 3: Contributor Credits
+              React.createElement('div', { className: 'md:col-span-4 space-y-2 text-xs text-neutral-700 leading-relaxed' },
+                React.createElement('h4', { className: 'font-bold uppercase tracking-widest text-black mb-3 border-b-2 border-black pb-1' }, 'KONTRIBUSI KELOMPOK'),
+                React.createElement('p', {}, '• ', React.createElement('strong', { className: 'text-black' }, 'Pengembangan Web:'), ' Farrel & Awak Tim 12'),
+                React.createElement('p', {}, '• ', React.createElement('strong', { className: 'text-black' }, 'Animasi & Interaksi:'), ' Aditya'),
+                React.createElement('p', {}, '• ', React.createElement('strong', { className: 'text-black' }, 'Konsep & Ketua:'), ' Radhitya'),
+                React.createElement('p', {}, '• ', React.createElement('strong', { className: 'text-black' }, 'Mini Games:'), ' Ihsan, Alief, Daris, Nanda'),
+                React.createElement('p', {}, '• ', React.createElement('strong', { className: 'text-black' }, 'Kaka Asuh:'), ' Kak Ghania & Kak Indah')
+              )
+
+            ),
+
+            // Bottom Bar
+            React.createElement('div', { className: 'pt-8 flex flex-col sm:flex-row justify-between items-center gap-4 text-xs font-bold text-neutral-600' },
+              React.createElement('p', {}, '© 2026 KELOMPOK 12 PPKM INFORMATIKA. ALL RIGHTS RESERVED.'),
+              React.createElement('a', { href: '#home', className: 'text-black hover:underline uppercase' }, 'KEMBALI KE ATAS ↑')
+            )
+
+          )
+        ),
+
+        // ==================== 9. MEMBER DETAIL MODAL ====================
+        selectedMember && React.createElement(AnimatePresence, {},
+          React.createElement('div', {
+            onClick: () => setSelectedMember(null),
+            className: 'fixed inset-0 z-50 bg-black/60 backdrop-blur-sm flex items-center justify-center p-4 font-mono'
+          },
+            React.createElement(motion.div, {
+              initial: { opacity: 0, scale: 0.95 },
+              animate: { opacity: 1, scale: 1 },
+              exit: { opacity: 0, scale: 0.95 },
+              onClick: (e) => e.stopPropagation(),
+              className: 'border-2 border-black bg-white max-w-lg w-full rounded-[2rem] p-8 shadow-brutal-xl relative text-left'
+            },
+              React.createElement('button', {
+                onClick: () => setSelectedMember(null),
+                className: 'absolute top-6 right-6 w-9 h-9 rounded-full border-2 border-black bg-white text-black font-bold flex items-center justify-center hover:bg-black hover:text-white transition-colors shadow-brutal-xs'
+              }, '✕'),
+
+              React.createElement('div', { className: 'w-24 h-24 rounded-2xl overflow-hidden border-2 border-black mb-4 shadow-brutal-sm' },
+                React.createElement('img', { src: selectedMember.image, alt: selectedMember.name, className: 'w-full h-full object-cover' })
+              ),
+
+              React.createElement('span', { className: 'text-[10px] font-bold px-3 py-1 bg-neutral-100 border-2 border-black rounded-full uppercase text-black' },
+                selectedMember.typeTag
+              ),
+              React.createElement('h3', { className: 'text-2xl font-black uppercase tracking-tight text-black mt-2 mb-1' }, selectedMember.name),
+              React.createElement('p', { className: 'text-xs text-neutral-600 font-bold mb-4' }, `NPM: ${selectedMember.npm}`),
+
+              React.createElement('p', { className: 'text-xs text-neutral-800 leading-relaxed mb-6 border-t-2 border-b-2 border-black py-3 font-medium' },
+                selectedMember.bio
+              ),
+
+              React.createElement('div', { className: 'flex flex-col gap-2' },
+                React.createElement('a', {
+                  href: `https://instagram.com/${selectedMember.ig}`,
+                  target: '_blank',
+                  rel: 'noopener noreferrer',
+                  className: 'w-full py-3 bg-gradient-to-r from-[#833ab4] via-[#fd1d1d] to-[#fcb045] text-white font-black text-xs uppercase tracking-widest text-center rounded-xl hover:opacity-90 transition-opacity shadow-brutal-sm'
+                }, `Kunjungi Instagram @${selectedMember.ig} ↗`),
+                React.createElement('button', {
+                  onClick: () => setSelectedMember(null),
+                  className: 'w-full py-2.5 bg-neutral-100 border-2 border-black text-black text-xs font-bold uppercase rounded-xl hover:bg-black hover:text-white transition-colors shadow-brutal-xs'
+                }, 'Tutup')
+              )
+            )
+          )
+        ),
+
+        // ==================== 10. GALLERY LIGHTBOX MODAL ====================
+        lightboxData && React.createElement(AnimatePresence, {},
+          React.createElement('div', {
+            onClick: () => setLightboxData(null),
+            className: 'fixed inset-0 z-50 bg-black/70 backdrop-blur-md flex items-center justify-center p-4 font-mono'
+          },
+            React.createElement(motion.div, {
+              initial: { opacity: 0, scale: 0.95 },
+              animate: { opacity: 1, scale: 1 },
+              exit: { opacity: 0, scale: 0.95 },
+              onClick: (e) => e.stopPropagation(),
+              className: 'max-w-4xl w-full bg-white rounded-[1.5rem] overflow-hidden p-3 shadow-2xl'
+            },
+              React.createElement('div', { className: 'relative max-h-[75vh] flex items-center justify-center rounded-xl overflow-hidden bg-neutral-100' },
+                React.createElement('img', { src: lightboxData.src, alt: lightboxData.title, className: 'max-h-[75vh] w-auto max-w-full object-contain' }),
+                React.createElement('button', {
+                  onClick: () => setLightboxData(null),
+                  className: 'absolute top-4 right-4 w-9 h-9 rounded-full bg-white border-2 border-black text-black font-bold flex items-center justify-center hover:bg-black hover:text-white transition-colors shadow-brutal-xs'
+                }, '✕')
+              ),
+              React.createElement('div', { className: 'p-4' },
+                React.createElement('span', { className: 'text-[10px] font-bold px-3 py-1 bg-neutral-100 border-2 border-black rounded-full uppercase' }, lightboxData.tag),
+                React.createElement('h3', { className: 'text-lg font-black uppercase text-black mt-2' }, lightboxData.title),
+                React.createElement('p', { className: 'text-xs text-neutral-600 mt-1 font-medium' }, lightboxData.desc)
+              )
+            )
+          )
+        ),
+
+        // Hidden HTML5 Audio Element
+        React.createElement('audio', {
+          ref: audioRef,
+          src: tracks[currentTrackIdx].src,
+          loop: true,
+          preload: 'auto'
+        })
+
+      );
     }
 
-    restoreSavedMusicState();
-
-    audio.addEventListener('timeupdate', () => {
-      updateProgressBar();
-      saveMusicState();
-    });
-    audio.addEventListener('loadedmetadata', updateProgressBar);
-    audio.addEventListener('play', () => saveMusicState());
-    audio.addEventListener('pause', () => saveMusicState());
-    window.addEventListener('beforeunload', saveMusicState);
-    const heroSlides = document.querySelectorAll('.hero-slide');
-    let heroIndex = 0;
-
-    function showHeroSlide(nextIndex) {
-      heroSlides.forEach((slide, index) => {
-        slide.classList.toggle('active', index === nextIndex);
+    const root = ReactDOM.createRoot(document.getElementById('root'));
+    root.render(React.createElement(App));
+    if (window.Lenis) {
+      window.lenis = new window.Lenis({
+        anchors: true,
+        autoRaf: true,
+        duration: 1.1,
+        smoothWheel: true,
+        respectReducedMotion: true
       });
-      heroIndex = nextIndex;
     }
-
-    if (heroSlides.length > 1) {
-      setInterval(() => {
-        const nextIndex = (heroIndex + 1) % heroSlides.length;
-        showHeroSlide(nextIndex);
-      }, 5000);
-    }
-
-    document.addEventListener("DOMContentLoaded", function () {
-      lucide.createIcons();
-      renderLatestComments().catch(() => {});
-
-      document.getElementById("about-button")?.addEventListener("click", function () {
-        document.getElementById("about").scrollIntoView({ behavior: "smooth", block: "start" });
-      });
-
-      document.getElementById("back-to-top")?.addEventListener("click", function () {
-        document.getElementById("top").scrollIntoView({ behavior: "smooth", block: "start" });
-      });
-    });
   </script>
- 
-</body></html>
+  <script src="assets/site.js" defer></script>
+</body>
+</html>
